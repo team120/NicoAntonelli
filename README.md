@@ -1,5 +1,8 @@
-# University-projects-manager
-This web application will be used by professors in charge of university research projects, to manage and organize the information and the people who participate in this project, as well as to more easily reach students. In turn, students and graduates will be able to use the web application to find out which projects are currently active at their university, news, and send a request to participate in one, among other things, always in favor of facilitating scientific dissemination.
+# University Projects Manager
+This project was thought in order to facility the creation, management and formalization of university research projects. Both students and teachers will be able to organize their project, which will be visible to other students who may want to join the research team.
+It mainly consists of a web application, the main page will contain all the projects in order to make them known for everyone, and they will be accepting requests for those who want to get in. 
+
+#### Our main purpose is to facilitate and promote scientific dissemination.
 
 # Under Development...
 Currently: `Research State`
