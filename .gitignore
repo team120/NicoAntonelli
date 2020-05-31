@@ -113,3 +113,6 @@ Thumbs.db
 # Editors
 .idea
 *.iml
+
+# VS Code configs
+.vscode

@@ -1,11 +1,12 @@
 import { createLogger, transports, format } from "winston";
 
-const consoleOptions: transports.ConsoleTransportOptions = {
-  handleExceptions: true,
-  format: format.json(),
-};
-
 export const logger = createLogger({
-  transports: [new transports.Console(consoleOptions)],
+  format: format.combine(
+    format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+    format.errors({ stack: true }),
+    format.splat(),
+    format.json(),
+  ),
+  transports: [new transports.Console()],
   exitOnError: false,
 });
