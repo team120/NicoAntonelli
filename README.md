@@ -4,12 +4,25 @@ It mainly consists of a web application, the main page will contain all the proj
 
 #### Our main purpose is to facilitate and promote scientific dissemination.
 
-# Under Development...
-Currently: `Research State`
+## Project Setup
+```
+npm install
+```
 
-Development Starting Date: `May-June 2020`
+## Usage
+```
+npm run dev
+npm run migration:run
+```
 
-> The next "Tech Stack" is not complete...
+## Test
+```
+npm run test
+```
+## Lint
+```
+npm run lint
+```
 
 # Tech Stack
 ### Common
