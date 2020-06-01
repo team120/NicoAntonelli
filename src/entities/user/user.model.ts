@@ -8,19 +8,19 @@ export class User {
   @Column()
   mail: string;
   @Column()
-  dni: string;
+  dni?: string;
   @Column()
-  password: string;
+  password?: string;
   @Column()
-  name: string;
+  name?: string;
   @Column()
-  lastName: string;
+  lastName?: string;
   @Column()
-  studentId: number;
+  studentId?: number;
   @Column()
-  professorId: number;
+  professorId?: number;
   @Column()
-  professorCategory: string;
+  professorCategory?: string;
 
   @ManyToOne(() => University, (university) => university.users)
   university: University;
