@@ -22,6 +22,6 @@ export class User {
   @Column({nullable: true})
   professorCategory: string;
 
-  @ManyToOne(type => University, university => university.users)
+  @ManyToOne(type => University, university => university.users, {nullable: false, cascade: ["insert", "update"], onUpdate: "CASCADE"})
   university: University;
 }

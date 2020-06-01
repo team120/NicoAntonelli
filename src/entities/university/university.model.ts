@@ -8,6 +8,6 @@ export class University {
   @Column()
   name: string;
 
-  @OneToMany(type => User, user => user.university, {nullable: true})
+  @OneToMany(type => User, user => user.university, {nullable: true, cascade: ["insert", "update"], onUpdate: "CASCADE"})
   users: User[];
 }
