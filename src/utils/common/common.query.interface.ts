@@ -1,6 +1,6 @@
 export type getQueryFunc = <T>(
   type: { new (...args: any[]): T },
-  include: string[],
+  include?: string[],
 ) => Promise<T[]>;
 
 export type getOneQueryFunc = <T>(

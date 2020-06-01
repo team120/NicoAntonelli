@@ -6,7 +6,7 @@ export const getFromRepoQuery: queryTypes.getQueryFunc = <T>(
   type: {
     new (...args: any[]): T;
   },
-  include: string[],
+  include?: string[],
 ): Promise<T[]> =>
   getRepository(type)
     .find({ relations: include })
