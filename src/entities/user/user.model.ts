@@ -9,19 +9,23 @@ export class User {
   mail: string;
   @Column()
   password: string;
-  @Column({nullable: true})
+  @Column({ nullable: true })
   dni: string;
-  @Column({nullable: true})
+  @Column({ nullable: true })
   name: string;
-  @Column({nullable: true})
+  @Column({ nullable: true })
   lastName: string;
-  @Column({nullable: true})
+  @Column({ nullable: true })
   studentId: number;
-  @Column({nullable: true})
+  @Column({ nullable: true })
   professorId: number;
-  @Column({nullable: true})
+  @Column({ nullable: true })
   professorCategory: string;
 
-  @ManyToOne(type => University, university => university.users, {nullable: false, cascade: ["insert", "update"], onUpdate: "CASCADE"})
+  @ManyToOne((type) => University, (university) => university.users, {
+    nullable: false,
+    cascade: ["insert", "update"],
+    onUpdate: "CASCADE",
+  })
   university: University;
 }

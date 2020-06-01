@@ -12,7 +12,7 @@ export class SeedDb1590967789743 implements MigrationInterface {
       universityRepo.create({ name: "UNR" }),
     ];
 
-    universityRepo.save(universities);
+    await universityRepo.save(universities);
 
     const users: User[] = [
       usersRepo.create({
@@ -35,7 +35,7 @@ export class SeedDb1590967789743 implements MigrationInterface {
       }),
     ];
 
-    usersRepo.save(users);
+    await usersRepo.save(users);
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {
@@ -50,12 +50,12 @@ export class SeedDb1590967789743 implements MigrationInterface {
       ],
     });
 
-    usersRepo.remove(usersToRemove);
+    await usersRepo.remove(usersToRemove);
 
     const universitiesToRemove = await universityRepo.find({
       where: [{ name: "UTN" }, { name: "UNR" }],
     });
 
-    universityRepo.remove(universitiesToRemove);
+    await universityRepo.remove(universitiesToRemove);
   }
 }
