@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, getRepository } from "typeorm";
-import { University } from "src/entities/university/university.model";
-import { User } from "src/entities/user/user.model";
+import { University } from "../entities/university/university.model";
+import { User } from "../entities/user/user.model";
 
 export class SeedDb1590967789743 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {

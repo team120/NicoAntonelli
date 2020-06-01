@@ -1,4 +1,6 @@
-import { getUsersLogicFactory } from "./user.logic";
-import { getFromRepoQuery } from "../../utils/common/common.query";
+import * as userLogicFactories from "./user.logic";
+import * as queries from "../../utils/common/common.query";
 
-export const getUsers = getUsersLogicFactory(getFromRepoQuery);
+export const getUsers = userLogicFactories.getUsersLogicFactory(
+  queries.getFromRepoQuery,
+);
