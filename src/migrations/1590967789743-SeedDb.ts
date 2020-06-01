@@ -3,9 +3,9 @@ import { University } from "../entities/university/university.model";
 import { User } from "../entities/user/user.model";
 
 export class SeedDb1590967789743 implements MigrationInterface {
-  public async up(queryRunner: QueryRunner): Promise<void> {
-    const universityRepo = getRepository(University);
+  public async up(queryRunner: QueryRunner): Promise<any> {
     const usersRepo = getRepository(User);
+    const universityRepo = getRepository(University);
 
     const universities: University[] = [
       universityRepo.create({ name: "UTN" }),
@@ -23,5 +23,20 @@ export class SeedDb1590967789743 implements MigrationInterface {
     usersRepo.save(users);
   }
 
-  public async down(queryRunner: QueryRunner): Promise<void> {}
+  public async down(queryRunner: QueryRunner): Promise<any> {
+    const usersRepo = getRepository(User);
+    const universityRepo = getRepository(University);
+
+    const usersToRemove = await usersRepo.find({
+      where: [{ name: "Pedro" }, { name: "Yael" }, { name: "Agustin" }],
+    });
+
+    usersRepo.remove(usersToRemove);
+
+    const universitiesToRemove = await universityRepo.find({
+      where: [{ name: "UTN" }, { name: "UNR" }],
+    });
+
+    universityRepo.remove(universitiesToRemove);
+  }
 }

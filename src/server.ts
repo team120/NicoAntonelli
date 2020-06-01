@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from "express";
+import express from "express";
 import bodyParser from "body-parser";
 import { errorHandlingMiddleware } from "./middlewares/error.middleware";
 import { logger } from "./logger";
