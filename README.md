@@ -1,5 +1,5 @@
 # University Projects Manager
-This project was thought in order to facility the creation, management and formalization of university research projects. Both students and teachers will be able to organize their project, which will be visible to other students who may want to join the research team.
+This project was thought in order to facilitate the creation, management and formalization of university research projects. Both students and teachers will be able to organize their projects, which will be visible to other students who may want to join the research team.
 It mainly consists of a web application, the main page will contain all the projects in order to make them known for everyone, and they will be accepting requests for those who want to get in. 
 
 #### Our main purpose is to facilitate and promote scientific dissemination.
@@ -26,23 +26,29 @@ npm run lint
 
 # Tech Stack
 ### Common
-* JavaScript / TypeScript
+|Tool|
+|:-|
+|JavaScript / TypeScript|
 
 ### Backend
-* Node.JS
-* Express
-* TypeORM
-* PostgreSQL
+|Tool|
+|:-|
+|Node.JS|
+|Express|
+|TypeORM|
+|PostgreSQL|
 
 ### Frontend
-* Angular 8
-* HTML5/CSS3
-* SASS
-* Bootstrap 4
+|Tool|
+|:-|
+|Angular 8|
+|Angular Material|
+|HTML5 / CSS3|
+|SASS|
 
 # Authors
-Alejandro Recalde - :octocat: https://github.com/alereca
-
-Joshua Acciarri - :octocat: https://github.com/JAcciarri
-
-Nicolás Antonelli - :octocat: https://github.com/NicoAntonelli
+|Name|GitHub Account|
+|:-|:-|
+|Acciarri, Joshua|:octocat: https://github.com/alereca|
+|Antonelli, Nicolás|:octocat: https://github.com/JAcciarri|
+|Recalde, Alejandro|:octocat: https://github.com/NicoAntonelli|
