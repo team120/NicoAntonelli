@@ -8,6 +8,6 @@ export class University {
   @Column()
   name: string;
 
-  @OneToMany(() => User, (user) => user.university)
+  @OneToMany(type => User, user => user.university, {nullable: true})
   users: User[];
 }

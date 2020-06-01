@@ -22,6 +22,6 @@ export class User {
   @Column()
   professorCategory?: string;
 
-  @ManyToOne(() => University, (university) => university.users)
+  @ManyToOne(type => University, university => university.users)
   university: University;
 }
