@@ -13,3 +13,7 @@ export const getAllUsers = (
     })
     .catch((err) => next(err));
 };
+
+export const getOneUser = (req: Request, res:Response, next: NextFunction): void => {
+  res.status(200).json({name:"js", id:2});
+}

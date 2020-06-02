@@ -23,3 +23,16 @@ describe("get users", () => {
       });
   });
 });
+
+describe("get one user", () => {
+  it("should return the user with the specified id", async () => {
+    const id = 2;
+    await request(app)
+      .get(`/users/${id}`)
+      .then((res) => {
+        expect(res.status).toEqual(200);
+        expect(res.body.name).toEqual("js");
+        expect(res.body).not.toHaveProperty("password")
+      });
+  });
+});
