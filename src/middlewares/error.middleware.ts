@@ -13,5 +13,7 @@ export const errorHandlingMiddleware = (logger: Logger) => (
     stack: err.stack,
   });
 
-  res.status(err.status).json({ message: err.displayMessage });
+  const statusCode = err.status || 500;
+  const displayMessage = err.displayMessage || "Ha surgido un error inesperado";
+  res.status(statusCode).json({ message: displayMessage });
 };

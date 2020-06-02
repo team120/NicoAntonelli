@@ -1,8 +1,8 @@
-import express, { Request, Response, NextFunction } from "express";
+import express from "express";
 import bodyParser from "body-parser";
 import { errorHandlingMiddleware } from "./middlewares/error.middleware";
 import { logger } from "./logger";
-import demoRoutes from "./api/demo/demo.route";
+import userRoutes from "./api/user/user.route";
 
 const app = express();
 
@@ -10,7 +10,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(demoRoutes);
+app.use(userRoutes);
 
 app.use(errorHandlingMiddleware(logger));
 
