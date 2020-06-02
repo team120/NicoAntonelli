@@ -31,7 +31,7 @@ describe("get one user", () => {
       .get(`/users/${id}`)
       .then((res) => {
         expect(res.status).toEqual(200);
-        expect(res.body.name).toEqual("js");
+        expect(res.body.name).toEqual("user2");
         expect(res.body).not.toHaveProperty("password")
       });
   });
