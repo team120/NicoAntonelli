@@ -35,4 +35,14 @@ describe("get one user", () => {
         expect(res.body).not.toHaveProperty("password")
       });
   });
+  it("should return ID not found if it does not match any id on DB", async() => {
+    const id = 100;
+    await request(app)
+    .get(`/users/${id}`)
+    .then((res) => {
+      expect(res.body.message).toEqual(`Item ${id} not found`);
+      expect(res.status).toEqual(404);
+    })
+  })
+
 });
