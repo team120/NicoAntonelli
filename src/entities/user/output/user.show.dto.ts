@@ -1,5 +1,5 @@
-import { Exclude, Expose } from "class-transformer";
-import { University } from "src/entities/university/university.model";
+import { Exclude, Expose, Type } from "class-transformer";
+import { UniversityShowDto } from "../../university/output/university.show.dto";
 
 @Exclude()
 export class UserShowDto {
@@ -9,7 +9,7 @@ export class UserShowDto {
   lastName: string;
   @Expose()
   mail: string;
-  //UniversityShowDTO needed in order to expose it
-  //@Expose()
-  //university: University;
+  @Expose()
+  @Type(() => UniversityShowDto)
+  university: UniversityShowDto;
 }

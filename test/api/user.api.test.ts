@@ -32,17 +32,16 @@ describe("get one user", () => {
       .then((res) => {
         expect(res.status).toEqual(200);
         expect(res.body.name).toEqual("user2");
-        expect(res.body).not.toHaveProperty("password")
+        expect(res.body).not.toHaveProperty("password");
       });
   });
-  it("should return ID not found if it does not match any id on DB", async() => {
+  it("should return ID not found if it does not match any id on DB", async () => {
     const id = 100;
     await request(app)
-    .get(`/users/${id}`)
-    .then((res) => {
-      expect(res.body.message).toEqual(`Item ${id} not found`);
-      expect(res.status).toEqual(404);
-    })
-  })
-
+      .get(`/users/${id}`)
+      .then((res) => {
+        expect(res.body.message).toEqual(`Item ${id} not found`);
+        expect(res.status).toEqual(404);
+      });
+  });
 });

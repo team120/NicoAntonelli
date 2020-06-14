@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import { errorHandlingMiddleware } from "./middlewares/error.middleware";
 import { logger } from "./logger";
 import userRoutes from "./api/user/user.route";
+import "reflect-metadata";
 
 const app = express();
 
