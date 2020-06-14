@@ -3,7 +3,7 @@ import * as userActions from "./user.controller";
 
 const router = Router();
 
-router.get("/users", userActions.getAllUsers);
-router.get("/users/:id", userActions.getOneUser);
+router.get("", userActions.getAllUsers);
+router.get("/:id", userActions.getOneUser);
 
 export default router;
