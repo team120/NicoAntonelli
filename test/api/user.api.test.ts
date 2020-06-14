@@ -23,3 +23,25 @@ describe("get users", () => {
       });
   });
 });
+
+describe("get one user", () => {
+  it("should return the user with the specified id", async () => {
+    const id = 2;
+    await request(app)
+      .get(`/users/${id}`)
+      .then((res) => {
+        expect(res.status).toEqual(200);
+        expect(res.body.name).toEqual("user2");
+        expect(res.body).not.toHaveProperty("password");
+      });
+  });
+  it("should return ID not found if it does not match any id on DB", async () => {
+    const id = 100;
+    await request(app)
+      .get(`/users/${id}`)
+      .then((res) => {
+        expect(res.body.message).toEqual(`Item ${id} not found`);
+        expect(res.status).toEqual(404);
+      });
+  });
+});

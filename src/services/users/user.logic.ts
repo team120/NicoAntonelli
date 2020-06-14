@@ -9,3 +9,10 @@ export const getUsersLogicFactory = (
   getQuery(User, ["university"]).then((users) =>
     users.map((user) => plainToClass(UserShowDto, user)),
   );
+
+export const getOneUserLogicFactory = (
+  getOneQuery: queryTypes.getOneQueryFunc,
+) => (id: number): Promise<UserShowDto> =>
+  getOneQuery(User, ["university"], id).then((user) =>
+    plainToClass(UserShowDto, user),
+  );
