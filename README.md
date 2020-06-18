@@ -49,6 +49,6 @@ npm run lint
 # Authors
 |Name|GitHub Account|
 |:-|:-|
-|Acciarri, Joshua|:octocat: https://github.com/alereca|
-|Antonelli, Nicolás|:octocat: https://github.com/JAcciarri|
-|Recalde, Alejandro|:octocat: https://github.com/NicoAntonelli|
+|Recalde, Alejandro|:octocat: https://github.com/alereca|
+|Acciarri, Joshua|:octocat: https://github.com/JAcciarri|
+|Antonelli, Nicolás|:octocat: https://github.com/NicoAntonelli|
