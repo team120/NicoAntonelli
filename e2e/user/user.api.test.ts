@@ -1,10 +1,13 @@
-import { getConnection } from "typeorm";
-import { createDb } from "../database/startup/startup.test.db";
+import { getConnection, createConnection, getConnectionOptions } from "typeorm";
 import app from "../../src/server";
 import request from "supertest";
 
 beforeEach(async () => {
-  const connection = await createDb();
+  const connectionOptions = await getConnectionOptions("test");
+  const connection = await createConnection({
+    ...connectionOptions,
+    name: "default",
+  });
   await connection.runMigrations();
 });
 

@@ -1,14 +1,33 @@
-{
-   "type": "sqlite",
-   "database": "database.sqlite",
-   "synchronize": true,
-   "logging": false,
-   "entities": ["dist/entities/**/*.js"],
-   "migrations": ["dist/migrations/**/*.js"],
-   "subscribers": ["dist/subscribers/**/*.js"],
-   "cli": {
+[
+  {
+    "name": "development",
+    "type": "sqlite",
+    "database": "database.sqlite",
+    "synchronize": true,
+    "logging": false,
+    "entities": ["dist/entities/**/*.js"],
+    "migrations": ["dist/migrations/**/*.js"],
+    "subscribers": ["dist/subscribers/**/*.js"],
+    "cli": {
       "entitiesDir": "src/entities",
       "migrationsDir": "src/migrations",
       "subscribersDir": "src/subscribers"
-   }
-}
+    }
+  },
+  {
+    "name": "test",
+    "type": "sqlite",
+    "database": ":memory:",
+    "dropSchema": true,
+    "synchronize": true,
+    "logging": false,
+    "entities": ["src/entities/**/*.ts"],
+    "migrations": ["e2e/database/migrations/**/*.ts"],
+    "subscribers": ["src/subscribers/**/*.ts"],
+    "cli": {
+      "entitiesDir": "src/entities",
+      "migrationsDir": "src/migrations",
+      "subscribersDir": "src/subscribers"
+    }
+  }
+]

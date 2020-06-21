@@ -3,7 +3,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import { errorHandlingMiddleware } from "./middlewares/error.middleware";
 import { logger } from "./logger";
-import userRoutes from "./api/user/user.route";
+import routes from "./api/index";
 
 const app = express();
 
@@ -11,7 +11,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(userRoutes);
+app.use(routes);
 
 app.use(errorHandlingMiddleware(logger));
 
