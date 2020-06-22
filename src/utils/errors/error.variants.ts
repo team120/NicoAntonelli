@@ -1,42 +1,4 @@
-enum ErrorType {
-  DbError = "DbError",
-  NotFoundError = "NotFoundError",
-  MailAlreadyTaken = "MailAlreadyTaken",
-}
-
-enum LogLevel {
-  emerg = "emerg",
-  alert = "alert",
-  crit = "crit",
-  error = "error",
-  warning = "warning",
-  notice = "notice",
-  info = "info",
-  debug = "debug",
-}
-
-export class AppError extends Error {
-  status: number;
-  displayMessage: string;
-  logLevel: LogLevel;
-
-  constructor(params: {
-    status: number;
-    message: string;
-    displayMessage: string;
-    type: ErrorType;
-    logLevel: LogLevel;
-    stack?: string;
-  }) {
-    super(params.message);
-    this.name = params.type;
-    this.message = params.message;
-    this.status = params.status;
-    this.displayMessage = params.displayMessage;
-    this.logLevel = params.logLevel;
-    this.stack = params.stack;
-  }
-}
+import { AppError, ErrorType, LogLevel } from "./error";
 
 const displayFatalError = (code: number): string =>
   `Something went wrong. Error code: ${code}. Please contact support`;
@@ -68,5 +30,23 @@ export const MailAlreadyTaken = (mail: string): AppError =>
     type: ErrorType.MailAlreadyTaken,
     displayMessage: `${mail} is already taken. Please use another one`,
     logLevel: LogLevel.info,
-    message: `${mail} is already taken.`,
+    message: `A user tried to register with already taken ${mail}`,
+  });
+
+export const NotFoundUser = (mail: string): AppError =>
+  new AppError({
+    status: 400,
+    type: ErrorType.NonExistentUser,
+    displayMessage: `Invalid credentials`,
+    logLevel: LogLevel.info,
+    message: `User not found with mail ${mail}`,
+  });
+
+export const IncorrectPassword = (): AppError =>
+  new AppError({
+    status: 400,
+    type: ErrorType.IncorrectPassword,
+    displayMessage: `Invalid credentials`,
+    logLevel: LogLevel.info,
+    message: `Password didn't match`,
   });
