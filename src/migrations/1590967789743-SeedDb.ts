@@ -16,21 +16,21 @@ export class SeedDb1590967789743 implements MigrationInterface {
 
     const users: User[] = [
       usersRepo.create({
-        mail: "user1@example",
+        mail: "user1@example.com",
         password: "password1",
         name: "user1",
         university: universities[0],
       }),
       usersRepo.create({
-        mail: "user2@example",
+        mail: "user2@example.com",
         password: "password2",
         name: "user2",
         university: universities[0],
       }),
       usersRepo.create({
-        mail: "user2@example",
+        mail: "user3@example.com",
         password: "password3",
-        name: "user2",
+        name: "user3",
         university: universities[0],
       }),
     ];
@@ -44,9 +44,9 @@ export class SeedDb1590967789743 implements MigrationInterface {
 
     const usersToRemove = await usersRepo.find({
       where: [
-        { mail: "user1@example" },
-        { mail: "user2@example" },
-        { mail: "user3@example" },
+        { mail: "user1@example.com" },
+        { mail: "user2@example.com" },
+        { mail: "user3@example.com" },
       ],
     });
 
