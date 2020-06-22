@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { AppError } from "../../src/utils/errors/errors";
+import { AppError } from "../utils/errors/error";
 import { Logger } from "winston";
 
 export const errorHandlingMiddleware = (logger: Logger) => (
