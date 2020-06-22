@@ -4,18 +4,7 @@ import { setupCreateAndTeardownTestDb } from "../common/setup.util";
 import { RegisterInputDto } from "../../src/entities/auth/input/register.input.dto";
 import { getConnection, getConnectionOptions, createConnection } from "typeorm";
 
-beforeEach(async () => {
-  const connectionOptions = await getConnectionOptions("test");
-  const connection = await createConnection({
-    ...connectionOptions,
-    name: "default",
-  });
-  await connection.runMigrations();
-});
-
-afterEach(async () => {
-  await getConnection().close();
-});
+setupCreateAndTeardownTestDb();
 
 describe("Auth actions", () => {
   describe("SignUp", () => {

@@ -7,6 +7,8 @@ export class User {
   id: number;
   @Column({ unique: true })
   mail: string;
+  @Column({ default: false })
+  isMailVerified: boolean;
   @Column()
   password: string;
   @Column({ nullable: true })
