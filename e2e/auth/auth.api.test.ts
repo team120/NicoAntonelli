@@ -2,7 +2,6 @@ import app from "../../src/server";
 import request from "supertest";
 import { setupCreateAndTeardownTestDb } from "../common/setup.util";
 import { RegisterInputDto } from "../../src/entities/auth/input/register.input.dto";
-import { getConnection, getConnectionOptions, createConnection } from "typeorm";
 
 setupCreateAndTeardownTestDb();
 
