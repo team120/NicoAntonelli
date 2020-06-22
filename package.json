@@ -5,6 +5,7 @@
   "main": ".eslintrc.js",
   "dependencies": {
     "@neuralegion/class-sanitizer": "^0.3.2",
+    "argon2": "^0.26.2",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.1",
     "dotenv": "^8.2.0",
