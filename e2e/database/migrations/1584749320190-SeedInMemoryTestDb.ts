@@ -1,6 +1,7 @@
 import { MigrationInterface, QueryRunner, getRepository } from "typeorm";
 import { University } from "../../../src/entities/university/university.model";
 import { User } from "../../../src/entities/user/user.model";
+import { hashPassword } from "../../../src/utils/auth/auth.utils";
 
 export class SeedDb1590967789743 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
@@ -18,21 +19,21 @@ export class SeedDb1590967789743 implements MigrationInterface {
       usersRepo.create({
         mail: "user1@example.com",
         isMailVerified: true,
-        password: "password1",
+        password: await hashPassword("password1"),
         name: "user1",
         university: universities[0],
       }),
       usersRepo.create({
         mail: "user2@example.com",
         isMailVerified: true,
-        password: "password2",
+        password: await hashPassword("password2"),
         name: "user2",
         university: universities[0],
       }),
       usersRepo.create({
         mail: "user3@example.com",
         isMailVerified: true,
-        password: "password2",
+        password: await hashPassword("password2"),
         name: "user3",
         university: universities[0],
       }),
