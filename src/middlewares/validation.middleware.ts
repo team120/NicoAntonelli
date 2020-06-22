@@ -12,7 +12,6 @@ export const validateWith = <T>(
       next();
     } else {
       res.status(400).json({
-        status: "failed",
         error: {
           original: value,
           details: err.map((val) => ({ [val.property]: val.constraints })),
