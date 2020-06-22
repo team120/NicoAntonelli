@@ -10,3 +10,5 @@ export type checkPasswordFunc = (
   password: string,
   storedPassword: string,
 ) => Promise<boolean>;
+
+export type generateJwtTokenFunc = (user: User) => string;

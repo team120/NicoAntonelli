@@ -1,14 +1,12 @@
 import { getRepository } from "typeorm";
 import { User } from "../../entities/user/user.model";
 import * as Err from "../errors/error.variants";
-import {
-  checkIsEmailTakenFunc,
-  findUserFunc,
-  checkPasswordFunc,
-} from "./auth.utils.interface";
+import * as authFuncs from "./auth.utils.interface";
 import * as argon2 from "argon2";
+import * as jwt from "jsonwebtoken";
+import { env } from "../../config";
 
-export const checkIsEmailTaken: checkIsEmailTakenFunc = (
+export const checkIsEmailTaken: authFuncs.checkIsEmailTakenFunc = (
   mail: string,
 ): Promise<void> =>
   getRepository(User)
@@ -19,7 +17,7 @@ export const checkIsEmailTaken: checkIsEmailTakenFunc = (
       }
     });
 
-export const findUser: findUserFunc = (mail: string) =>
+export const findUser: authFuncs.findUserFunc = (mail: string) =>
   getRepository(User)
     .findOne({ mail: mail })
     .catch((err) => {
@@ -36,7 +34,7 @@ export const findUser: findUserFunc = (mail: string) =>
 export const hashPassword = (password: string): Promise<string> =>
   argon2.hash(password);
 
-export const checkPassword: checkPasswordFunc = (
+export const checkPassword: authFuncs.checkPasswordFunc = (
   password: string,
   storedPassword: string,
 ): Promise<boolean> =>
@@ -46,3 +44,20 @@ export const checkPassword: checkPasswordFunc = (
     }
     return result;
   });
+
+export const generateJwtToken: authFuncs.generateJwtTokenFunc = (
+  user: User,
+): string => {
+  if (env.jwtSecret === undefined) {
+    throw Err.EnvError("Jwt secret not defined");
+  }
+
+  const signature = env.jwtSecret;
+  return jwt.sign(
+    { id: user.id, name: user.name, mail: user.mail },
+    signature,
+    {
+      expiresIn: "1h",
+    },
+  );
+};
