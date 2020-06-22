@@ -17,18 +17,21 @@ export class SeedDb1590967789743 implements MigrationInterface {
     const users: User[] = [
       usersRepo.create({
         mail: "user1@example.com",
+        isMailVerified: true,
         password: "password1",
         name: "user1",
         university: universities[0],
       }),
       usersRepo.create({
         mail: "user2@example.com",
+        isMailVerified: true,
         password: "password2",
         name: "user2",
         university: universities[0],
       }),
       usersRepo.create({
         mail: "user3@example.com",
+        isMailVerified: true,
         password: "password2",
         name: "user3",
         university: universities[0],
