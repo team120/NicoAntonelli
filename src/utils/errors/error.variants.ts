@@ -13,6 +13,15 @@ export const DbError = (message: string, stack?: string): AppError =>
     stack: stack,
   });
 
+export const EnvError = (message: string): AppError =>
+  new AppError({
+    status: 500,
+    type: ErrorType.EnvError,
+    displayMessage: displayFatalError(9555),
+    logLevel: LogLevel.error,
+    message: message,
+  });
+
 const notFoundMessage = (id: number): string => `Item ${id} not found`;
 
 export const NotFoundError = (itemId: number): AppError =>
@@ -35,7 +44,7 @@ export const MailAlreadyTaken = (mail: string): AppError =>
 
 export const NotFoundUser = (mail: string): AppError =>
   new AppError({
-    status: 400,
+    status: 401,
     type: ErrorType.NonExistentUser,
     displayMessage: `Invalid credentials`,
     logLevel: LogLevel.info,
@@ -44,7 +53,7 @@ export const NotFoundUser = (mail: string): AppError =>
 
 export const IncorrectPassword = (): AppError =>
   new AppError({
-    status: 400,
+    status: 401,
     type: ErrorType.IncorrectPassword,
     displayMessage: `Invalid credentials`,
     logLevel: LogLevel.info,
