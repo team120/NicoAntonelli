@@ -15,3 +15,14 @@ export const register = (
     })
     .catch((err) => next(err));
 };
+
+export const login = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): void => {
+  res.status(200).json({
+    mail: "user1@example.com",
+    name: "uier1",
+  });
+};
