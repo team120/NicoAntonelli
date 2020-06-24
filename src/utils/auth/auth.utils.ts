@@ -6,8 +6,8 @@ import * as argon2 from "argon2";
 import * as jwt from "jsonwebtoken";
 import { env } from "../../config";
 import { LoggedUserDto } from "src/entities/auth/output/login.output.dto";
-import { NextFunction, Request, Response } from "express";
-import { nextTick } from "process";
+import { plainToClass } from "class-transformer";
+import userRouter from "src/api/user/user.route";
 
 export const checkIsEmailTaken: authFuncs.checkIsEmailTakenFunc = (
   mail: string,
@@ -71,15 +71,27 @@ export const generateJwtToken: authFuncs.generateJwtFunc = (
 
 export const checkValidJwt: authFuncs.checkValidJwtFunc = (
   givenToken: string,
-): void => {
+): string => {
   const secret = env.jwtSecret;
+  let decodedToken;
   if (secret === undefined) {
     throw Err.EnvError("Jwt secret not defined");
   }
   try {
-    jwt.verify(givenToken, secret);
+    decodedToken = <string>jwt.verify(givenToken, secret);
   } catch (error) {
     //If token is not valid, respond with 401 (unauthorized)
     throw Err.Unauthorized();
   }
+  console.log("Valid Token!! You can access this endpoint");
+  return decodedToken;
+};
+
+export const attachUser: authFuncs.attachUserFunc = (
+  userToken: string,
+): Promise<User> => {
+  const mail = JSON.parse(
+    JSON.stringify(<string>userToken))
+    ['mail'];
+  return findUser(mail);
 };

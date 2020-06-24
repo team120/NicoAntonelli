@@ -15,6 +15,6 @@ export type checkPasswordFunc = (
 
 export type generateJwtFunc = (user: User) => string;
 
-export type checkValidJwtFunc = (givenToken: string) => void;
+export type checkValidJwtFunc = (givenToken: string) => string;
 
-export type AttachUser = (userLogged: LoggedUserDto) => void;
+export type attachUserFunc = (userToken: string) => Promise<User>;
