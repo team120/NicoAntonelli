@@ -22,7 +22,7 @@ export const registerLogicFactory = (
 export const loginLogicFactory = (
   findUser: authFuncs.findUserFunc,
   checkPassword: authFuncs.checkPasswordFunc,
-  generateJwt: authFuncs.generateJwtTokenFunc,
+  generateJwt: authFuncs.generateJwtFunc,
 ) => (loginDto: LoginInputDto): Promise<LoggedUserDto> =>
   findUser(loginDto.mail).then((user) =>
     checkPassword(loginDto.password, user.password).then(() =>

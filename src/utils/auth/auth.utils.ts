@@ -5,6 +5,8 @@ import * as authFuncs from "./auth.utils.interface";
 import * as argon2 from "argon2";
 import * as jwt from "jsonwebtoken";
 import { env } from "../../config";
+import { LoggedUserDto } from "src/entities/auth/output/login.output.dto";
+import { NextFunction, Request, Response } from "express";
 
 export const checkIsEmailTaken: authFuncs.checkIsEmailTakenFunc = (
   mail: string,
@@ -45,7 +47,7 @@ export const checkPassword: authFuncs.checkPasswordFunc = (
     return result;
   });
 
-export const generateJwtToken: authFuncs.generateJwtTokenFunc = (
+export const generateJwtToken: authFuncs.generateJwtFunc = (
   user: User,
 ): string => {
   if (env.jwtSecret === undefined) {
@@ -54,10 +56,31 @@ export const generateJwtToken: authFuncs.generateJwtTokenFunc = (
 
   const signature = env.jwtSecret;
   return jwt.sign(
-    { id: user.id, name: user.name, mail: user.mail },
+    {
+      id: user.id,
+      name: user.name,
+      mail: user.mail,
+    },
     signature,
     {
       expiresIn: "1h",
     },
   );
+};
+
+export const checkValidJwt: authFuncs.checkValidJwtFunc = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): void => {
+  if (env.jwtSecret === undefined) {
+    throw Err.EnvError("Jwt secret not defined");
+  }
+  try {
+    const token = <string>req.headers["auth"];
+    jwt.verify(token, env.jwtSecret);
+  } catch (error) {
+    //If token is not valid, respond with 401 (unauthorized)
+    throw Err.Unauthorized();
+  }
 };
