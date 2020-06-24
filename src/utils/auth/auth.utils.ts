@@ -7,6 +7,7 @@ import * as jwt from "jsonwebtoken";
 import { env } from "../../config";
 import { LoggedUserDto } from "src/entities/auth/output/login.output.dto";
 import { NextFunction, Request, Response } from "express";
+import { nextTick } from "process";
 
 export const checkIsEmailTaken: authFuncs.checkIsEmailTakenFunc = (
   mail: string,
@@ -69,16 +70,14 @@ export const generateJwtToken: authFuncs.generateJwtFunc = (
 };
 
 export const checkValidJwt: authFuncs.checkValidJwtFunc = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
+  givenToken: string,
 ): void => {
-  if (env.jwtSecret === undefined) {
+  const secret = env.jwtSecret;
+  if (secret === undefined) {
     throw Err.EnvError("Jwt secret not defined");
   }
   try {
-    const token = <string>req.headers["auth"];
-    jwt.verify(token, env.jwtSecret);
+    jwt.verify(givenToken, secret);
   } catch (error) {
     //If token is not valid, respond with 401 (unauthorized)
     throw Err.Unauthorized();
