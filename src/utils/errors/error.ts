@@ -4,7 +4,8 @@ export enum ErrorType {
   MailAlreadyTaken = "MailAlreadyTaken",
   NonExistentUser = "NonExistentUser",
   IncorrectPassword = "IncorrectPassword",
-  EnvError = "EnvError"
+  EnvError = "EnvError",
+  Unauthorized = "Unauthorized"
 }
 
 export enum LogLevel {
