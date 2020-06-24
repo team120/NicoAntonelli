@@ -5,9 +5,6 @@ import * as authFuncs from "./auth.utils.interface";
 import * as argon2 from "argon2";
 import * as jwt from "jsonwebtoken";
 import { env } from "../../config";
-import { LoggedUserDto } from "src/entities/auth/output/login.output.dto";
-import { plainToClass } from "class-transformer";
-import userRouter from "src/api/user/user.route";
 
 export const checkIsEmailTaken: authFuncs.checkIsEmailTakenFunc = (
   mail: string,
@@ -73,7 +70,7 @@ export const checkValidJwt: authFuncs.checkValidJwtFunc = (
   givenToken: string,
 ): string => {
   const secret = env.jwtSecret;
-  let decodedToken;
+  let decodedToken:string;
   if (secret === undefined) {
     throw Err.EnvError("Jwt secret not defined");
   }

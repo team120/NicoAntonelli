@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import { checkValidJwt, attachUser } from ".././utils/auth/auth.utils";
-import { User } from "../entities/user/user.model";
 import { LoggedUserDto } from "../entities/auth/output/login.output.dto";
 import { plainToClass } from "class-transformer";
+import { isAuthLogic } from "../services/auth/auth.logic.setup";
 
 export const isAuthMiddleware = (
   req: Request,
@@ -10,15 +9,11 @@ export const isAuthMiddleware = (
   next: NextFunction,
 ): void => {
   const token = <string>req.headers["auth"];
-  const decodedToken = checkValidJwt(token);
-  attachUser(decodedToken)
-  .then(
-    (user) => {
-      const userLogged = plainToClass(LoggedUserDto, {...user, token: decodedToken});
+  isAuthLogic(token)
+    .then((user) => {
+      const userLogged = plainToClass(LoggedUserDto, { ...user, token: token });
       req.userLogged = userLogged;
+      next();
     })
-    .catch((err) => 
-       console.log(err));
-  next();
-  };
-
+    .catch((err) => next(err));
+};

@@ -6,7 +6,6 @@ import { plainToClass } from "class-transformer";
 import { RegisteredUserDto } from "../../entities/auth/output/register.output.dto";
 import { LoginInputDto } from "../../entities/auth/input/login.input.dto";
 import { LoggedUserDto } from "../../entities/auth/output/login.output.dto";
-import { checkValidJwt } from "src/utils/auth/auth.utils";
 
 export const registerLogicFactory = (
   checkIsEmailTaken: authFuncs.checkIsEmailTakenFunc,
@@ -30,3 +29,11 @@ export const loginLogicFactory = (
       plainToClass(LoggedUserDto, { ...user, token: generateJwt(user) }),
     ),
   );
+
+export const isAuthLogicFactory = (
+  checkValidJwt: authFuncs.checkValidJwtFunc,
+  attachUser: authFuncs.attachUserFunc,
+) => (userToken: string): Promise<User> => {
+  const decodedToken = checkValidJwt(userToken);
+  return attachUser(decodedToken);
+}
