@@ -32,7 +32,7 @@ export const loginLogicFactory = (
 
 export const isAuthLogicFactory = (
   checkValidJwt: authFuncs.checkValidJwtFunc,
-  getUserFromToken: authFuncs.attachUserFunc,
+  getUserFromToken: authFuncs.getUserFromTokenFunc,
 ) => (userToken: string): Promise<User> => {
   const decodedToken = checkValidJwt(userToken);
   return getUserFromToken(decodedToken);

@@ -5,6 +5,9 @@ import * as authFuncs from "./auth.utils.interface";
 import * as argon2 from "argon2";
 import * as jwt from "jsonwebtoken";
 import { env } from "../../config";
+import { TokenPayload } from "../../entities/token/token.payload";
+import { plainToClass } from "class-transformer";
+import { TokenDecoded } from "../../entities/token/token.decoded";
 
 export const checkIsEmailTaken: authFuncs.checkIsEmailTakenFunc = (
   mail: string,
@@ -53,40 +56,34 @@ export const generateJwtToken: authFuncs.generateJwtFunc = (
   }
 
   const signature = env.jwtSecret;
-  return jwt.sign(
-    {
-      id: user.id,
-      name: user.name,
-      mail: user.mail,
-    },
-    signature,
-    {
-      expiresIn: "1h",
-    },
-  );
+  const tokenPayload: TokenPayload = {
+    id: user.id,
+    name: user.name,
+    mail: user.mail,
+  };
+  const options: jwt.SignOptions = {
+    expiresIn: "1h",
+  };
+  return jwt.sign(tokenPayload, signature, options);
 };
 
 export const checkValidJwt: authFuncs.checkValidJwtFunc = (
   givenToken: string,
-): string => {
+): TokenDecoded => {
   const secret = env.jwtSecret;
-  let decodedToken: string;
   if (secret === undefined) {
     throw Err.EnvError("Jwt secret not defined");
   }
   try {
-    decodedToken = <string>jwt.verify(givenToken, secret);
+    return plainToClass(TokenDecoded, jwt.verify(givenToken, secret));
   } catch (error) {
     //If token is not valid, respond with 401 (unauthorized)
     throw Err.Unauthorized();
   }
-  console.log("Valid Token!! You can access this endpoint");
-  return decodedToken;
 };
 
-export const getUserFromToken: authFuncs.attachUserFunc = (
-  userToken: string,
+export const getUserFromToken: authFuncs.getUserFromTokenFunc = (
+  userTokenDecoded: TokenDecoded,
 ): Promise<User> => {
-  const mail = JSON.parse(JSON.stringify(<string>userToken))["mail"];
-  return findUser(mail);
+  return findUser(userTokenDecoded.mail);
 };

@@ -1,6 +1,5 @@
 import { User } from "src/entities/user/user.model";
-import { Request, NextFunction, Response } from "express";
-import { LoggedUserDto } from "src/entities/auth/output/login.output.dto";
+import { TokenDecoded } from "src/entities/token/token.decoded";
 
 export type checkIsEmailTakenFunc = (mail: string) => Promise<void>;
 
@@ -15,6 +14,6 @@ export type checkPasswordFunc = (
 
 export type generateJwtFunc = (user: User) => string;
 
-export type checkValidJwtFunc = (givenToken: string) => string;
+export type checkValidJwtFunc = (givenToken: string) => TokenDecoded;
 
-export type attachUserFunc = (userToken: string) => Promise<User>;
+export type getUserFromTokenFunc = (userToken: TokenDecoded) => Promise<User>;
