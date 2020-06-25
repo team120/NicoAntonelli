@@ -84,7 +84,7 @@ export const checkValidJwt: authFuncs.checkValidJwtFunc = (
   return decodedToken;
 };
 
-export const attachUser: authFuncs.attachUserFunc = (
+export const getUserFromToken: authFuncs.attachUserFunc = (
   userToken: string,
 ): Promise<User> => {
   const mail = JSON.parse(JSON.stringify(<string>userToken))["mail"];

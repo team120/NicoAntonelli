@@ -7,7 +7,7 @@ import {
   checkPassword,
   generateJwtToken,
   checkValidJwt,
-  attachUser,
+  getUserFromToken,
 } from "../../utils/auth/auth.utils";
 
 export const registerLogic = authLogicFactories.registerLogicFactory(
@@ -24,5 +24,5 @@ export const loginLogic = authLogicFactories.loginLogicFactory(
 
 export const isAuthLogic = authLogicFactories.isAuthLogicFactory(
   checkValidJwt,
-  attachUser,
+  getUserFromToken,
 );
