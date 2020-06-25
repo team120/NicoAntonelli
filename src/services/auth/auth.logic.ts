@@ -36,4 +36,4 @@ export const isAuthLogicFactory = (
 ) => (userToken: string): Promise<User> => {
   const decodedToken = checkValidJwt(userToken);
   return attachUser(decodedToken);
-}
+};

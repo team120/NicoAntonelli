@@ -24,5 +24,5 @@ export const loginLogic = authLogicFactories.loginLogicFactory(
 
 export const isAuthLogic = authLogicFactories.isAuthLogicFactory(
   checkValidJwt,
-  attachUser
+  attachUser,
 );

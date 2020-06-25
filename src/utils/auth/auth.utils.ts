@@ -70,7 +70,7 @@ export const checkValidJwt: authFuncs.checkValidJwtFunc = (
   givenToken: string,
 ): string => {
   const secret = env.jwtSecret;
-  let decodedToken:string;
+  let decodedToken: string;
   if (secret === undefined) {
     throw Err.EnvError("Jwt secret not defined");
   }
@@ -87,8 +87,6 @@ export const checkValidJwt: authFuncs.checkValidJwtFunc = (
 export const attachUser: authFuncs.attachUserFunc = (
   userToken: string,
 ): Promise<User> => {
-  const mail = JSON.parse(
-    JSON.stringify(<string>userToken))
-    ['mail'];
+  const mail = JSON.parse(JSON.stringify(<string>userToken))["mail"];
   return findUser(mail);
 };

@@ -5,7 +5,7 @@ export enum ErrorType {
   NonExistentUser = "NonExistentUser",
   IncorrectPassword = "IncorrectPassword",
   EnvError = "EnvError",
-  Unauthorized = "Unauthorized"
+  Unauthorized = "Unauthorized",
 }
 
 export enum LogLevel {
