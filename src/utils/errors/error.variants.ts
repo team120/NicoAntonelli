@@ -65,6 +65,6 @@ export const Unauthorized = (): AppError =>
     status: 401,
     type: ErrorType.Unauthorized,
     displayMessage: `Unauthorized`,
-    logLevel: LogLevel.warning,
+    logLevel: LogLevel.warn,
     message: `A user made an unauthorized action`,
   });

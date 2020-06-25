@@ -13,8 +13,7 @@ export enum LogLevel {
   alert = "alert",
   crit = "crit",
   error = "error",
-  warning = "warning",
-  notice = "notice",
+  warn = "warn",
   info = "info",
   debug = "debug",
 }
