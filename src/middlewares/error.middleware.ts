@@ -8,12 +8,12 @@ export const errorHandlingMiddleware = (logger: Logger) => (
   res: Response,
   next: NextFunction,
 ): void => {
-  logger.log(err.logLevel, err.message, {
+  logger.log(err.logLevel ?? "error", err.message, {
     type: err.name,
     stack: err.stack,
   });
 
-  const statusCode = err.status || 500;
-  const displayMessage = err.displayMessage || "Ha surgido un error inesperado";
+  const statusCode = err.status ?? 500;
+  const displayMessage = err.displayMessage ?? "Ha surgido un error inesperado";
   res.status(statusCode).json({ message: displayMessage });
 };

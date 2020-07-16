@@ -1,6 +1,7 @@
 import { MigrationInterface, QueryRunner, getRepository } from "typeorm";
 import { University } from "../entities/university/university.model";
 import { User } from "../entities/user/user.model";
+import { hashPassword } from "../utils/auth/auth.utils";
 
 export class SeedDb1590967789743 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
@@ -16,21 +17,24 @@ export class SeedDb1590967789743 implements MigrationInterface {
 
     const users: User[] = [
       usersRepo.create({
-        mail: "user1@example",
-        password: "password1",
+        mail: "user1@example.com",
+        isMailVerified: true,
+        password: await hashPassword("password1"),
         name: "user1",
         university: universities[0],
       }),
       usersRepo.create({
-        mail: "user2@example",
-        password: "password2",
+        mail: "user2@example.com",
+        isMailVerified: true,
+        password: await hashPassword("password2"),
         name: "user2",
         university: universities[0],
       }),
       usersRepo.create({
-        mail: "user2@example",
-        password: "password3",
-        name: "user2",
+        mail: "user3@example.com",
+        isMailVerified: true,
+        password: await hashPassword("password3"),
+        name: "user3",
         university: universities[0],
       }),
     ];
@@ -44,9 +48,9 @@ export class SeedDb1590967789743 implements MigrationInterface {
 
     const usersToRemove = await usersRepo.find({
       where: [
-        { mail: "user1@example" },
-        { mail: "user2@example" },
-        { mail: "user3@example" },
+        { mail: "user1@example.com" },
+        { mail: "user2@example.com" },
+        { mail: "user3@example.com" },
       ],
     });
 

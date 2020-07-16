@@ -1,9 +1,9 @@
 import { Router } from "express";
 import * as userActions from "./user.controller";
 
-const router = Router();
+const userRouter = Router();
 
-router.get("", userActions.getAllUsers);
-router.get("/:id", userActions.getOneUser);
+userRouter.get("", userActions.getAllUsers);
+userRouter.get("/:id", userActions.getOneUser);
 
-export default router;
+export default userRouter;

@@ -1,6 +1,7 @@
 enum ErrorType {
   DbError = "DbError",
   NotFoundError = "NotFoundError",
+  MailAlreadyTaken = "MailAlreadyTaken",
 }
 
 enum LogLevel {
@@ -50,13 +51,22 @@ export const DbError = (message: string, stack?: string): AppError =>
     stack: stack,
   });
 
-const message = (id: number): string => `Item ${id} not found`;
+const notFoundMessage = (id: number): string => `Item ${id} not found`;
 
 export const NotFoundError = (itemId: number): AppError =>
   new AppError({
     status: 404,
     type: ErrorType.NotFoundError,
-    displayMessage: message(itemId),
+    displayMessage: notFoundMessage(itemId),
     logLevel: LogLevel.info,
-    message: message(itemId),
+    message: notFoundMessage(itemId),
+  });
+
+export const MailAlreadyTaken = (mail: string): AppError =>
+  new AppError({
+    status: 400,
+    type: ErrorType.MailAlreadyTaken,
+    displayMessage: `${mail} is already taken. Please use another one`,
+    logLevel: LogLevel.info,
+    message: `${mail} is already taken.`,
   });

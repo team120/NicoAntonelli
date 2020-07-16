@@ -5,8 +5,10 @@ import { University } from "../university/university.model";
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column()
+  @Column({ unique: true })
   mail: string;
+  @Column({ default: false })
+  isMailVerified: boolean;
   @Column()
   password: string;
   @Column({ nullable: true })
