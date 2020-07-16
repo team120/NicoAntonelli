@@ -60,11 +60,11 @@ export const IncorrectPassword = (): AppError =>
     message: `Password didn't match`,
   });
 
-export const Unauthorized = (): AppError =>
+export const Unauthorized = (message: string): AppError =>
   new AppError({
     status: 401,
     type: ErrorType.Unauthorized,
     displayMessage: `Unauthorized`,
     logLevel: LogLevel.warn,
-    message: `A user made an unauthorized action`,
+    message: message,
   });

@@ -25,7 +25,9 @@ export const login = (
   authServices
     .loginLogic(plainToClass(LoginInputDto, req.body))
     .then((loggedUser) => {
-      res.status(200).json(loggedUser);
+      res
+        .status(200)
+        .json({ ...loggedUser, token: `Bearer ${loggedUser.token}` });
     })
     .catch((err) => next(err));
 };

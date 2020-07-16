@@ -26,14 +26,17 @@ export const loginLogicFactory = (
 ) => (loginDto: LoginInputDto): Promise<LoggedUserDto> =>
   findUser(loginDto.mail).then((user) =>
     checkPassword(loginDto.password, user.password).then(() =>
-      plainToClass(LoggedUserDto, { ...user, token: generateJwt(user) }),
+      plainToClass(LoggedUserDto, {
+        ...user,
+        token: generateJwt(user),
+      }),
     ),
   );
 
 export const isAuthLogicFactory = (
   checkValidJwt: authFuncs.checkValidJwtFunc,
   getUserFromToken: authFuncs.getUserFromTokenFunc,
-) => (userToken: string): Promise<User> => {
+) => (userToken: string | undefined): Promise<User> => {
   const decodedToken = checkValidJwt(userToken);
   return getUserFromToken(decodedToken);
 };

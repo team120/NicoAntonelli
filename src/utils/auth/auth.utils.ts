@@ -68,8 +68,12 @@ export const generateJwtToken: authFuncs.generateJwtFunc = (
 };
 
 export const checkValidJwt: authFuncs.checkValidJwtFunc = (
-  givenToken: string,
+  givenToken: string | undefined,
 ): TokenDecoded => {
+  if (!givenToken) {
+    throw Err.Unauthorized("Token not provided");
+  }
+
   const secret = env.jwtSecret;
   if (secret === undefined) {
     throw Err.EnvError("Jwt secret not defined");
@@ -78,7 +82,7 @@ export const checkValidJwt: authFuncs.checkValidJwtFunc = (
     return plainToClass(TokenDecoded, jwt.verify(givenToken, secret));
   } catch (error) {
     //If token is not valid, respond with 401 (unauthorized)
-    throw Err.Unauthorized();
+    throw Err.Unauthorized("Token is not valid");
   }
 };
 

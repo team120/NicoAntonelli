@@ -8,7 +8,9 @@ export const isAuthMiddleware = (
   res: Response,
   next: NextFunction,
 ): void => {
-  const token = <string>req.headers["auth"];
+  const token: string | undefined = req
+    .get("Authorization")
+    ?.replace("Bearer ", "");
   isAuthLogic(token)
     .then((user) => {
       const userLogged = plainToClass(LoggedUserDto, { ...user, token: token });
