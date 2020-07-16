@@ -1,6 +1,6 @@
 import * as queryTypes from "./common.query.interface";
 import { getRepository } from "typeorm";
-import * as Er from "../errors/errors";
+import * as Er from "../errors/error.variants";
 
 export const getFromRepoQuery: queryTypes.getQueryFunc = <T>(
   type: {

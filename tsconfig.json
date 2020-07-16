@@ -8,7 +8,7 @@
     ],
     "allowJs": true,
     "outDir": "dist",
-    "typeRoots": ["node_modules/@types"],
+    "typeRoots": ["/src/types", "node_modules/@types"],
     "baseUrl": ".",
     "strict": true,
     "noImplicitAny": true,

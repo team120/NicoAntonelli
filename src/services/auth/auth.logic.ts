@@ -4,6 +4,8 @@ import { RegisterInputDto } from "../../entities/auth/input/register.input.dto";
 import { User } from "../../entities/user/user.model";
 import { plainToClass } from "class-transformer";
 import { RegisteredUserDto } from "../../entities/auth/output/register.output.dto";
+import { LoginInputDto } from "../../entities/auth/input/login.input.dto";
+import { LoggedUserDto } from "../../entities/auth/output/login.output.dto";
 
 export const registerLogicFactory = (
   checkIsEmailTaken: authFuncs.checkIsEmailTakenFunc,
@@ -16,3 +18,25 @@ export const registerLogicFactory = (
       save(User, { ...registerDto, password: hashedPassword }),
     )
     .then((savedUser) => plainToClass(RegisteredUserDto, savedUser));
+
+export const loginLogicFactory = (
+  findUser: authFuncs.findUserFunc,
+  checkPassword: authFuncs.checkPasswordFunc,
+  generateJwt: authFuncs.generateJwtFunc,
+) => (loginDto: LoginInputDto): Promise<LoggedUserDto> =>
+  findUser(loginDto.mail).then((user) =>
+    checkPassword(loginDto.password, user.password).then(() =>
+      plainToClass(LoggedUserDto, {
+        ...user,
+        token: generateJwt(user),
+      }),
+    ),
+  );
+
+export const isAuthLogicFactory = (
+  checkValidJwt: authFuncs.checkValidJwtFunc,
+  getUserFromToken: authFuncs.getUserFromTokenFunc,
+) => (userToken: string | undefined): Promise<User> => {
+  const decodedToken = checkValidJwt(userToken);
+  return getUserFromToken(decodedToken);
+};
