@@ -16,8 +16,8 @@ export const getFromRepoQuery: queryTypes.getQueryFunc = <T>(
 
 export const getOneFromRepoQuery: queryTypes.getOneQueryFunc = <T>(
   type: { new (...args: any[]): T },
-  include: string[],
   id: number,
+  include?: string[],
 ): Promise<T> =>
   getRepository(type)
     .findOne(id, { relations: include })

@@ -13,6 +13,6 @@ export const getUsersLogicFactory = (
 export const getOneUserLogicFactory = (
   getOneQuery: queryTypes.getOneQueryFunc,
 ) => (id: number): Promise<UserShowDto> =>
-  getOneQuery(User, ["university"], id).then((user) =>
+  getOneQuery(User, id, ["university"]).then((user) =>
     plainToClass(UserShowDto, user),
   );
