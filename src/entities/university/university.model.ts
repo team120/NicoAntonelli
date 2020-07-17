@@ -1,5 +1,6 @@
 import { PrimaryGeneratedColumn, Column, OneToMany, Entity } from "typeorm";
 import { User } from "../user/user.model";
+import { Department } from "../department/department.model";
 
 @Entity()
 export class University {
@@ -14,4 +15,11 @@ export class University {
     onUpdate: "CASCADE",
   })
   users: User[];
+
+  @OneToMany((type) => Department, (department) => department.university, {
+    nullable: true,
+    cascade: ["insert", "update"],
+    onUpdate: "CASCADE",
+  })
+  departments: Department[];
 }
