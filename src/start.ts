@@ -13,7 +13,7 @@ getConnectionOptions("development").then((connOptions) =>
   createConnection({ ...connOptions, name: "default" })
     .then(async () => {
       app.listen(port, () => {
-        console.info("server is listening");
+        console.info(`Server listening on port ${port} - http://localhost:${port}/`);
       });
     })
     .catch((error) => console.error(error)),
