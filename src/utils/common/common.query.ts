@@ -31,7 +31,7 @@ export const getOneFromRepoQuery: queryTypes.getOneQueryFunc = <T>(
       return entity;
     });
 
-export const saveQuery: queryTypes.saveQueryFunc = <R, T>(
+export const saveFromRepoQuery: queryTypes.saveQueryFunc = <R, T>(
   type: {
     new (...args: any[]): T;
   },

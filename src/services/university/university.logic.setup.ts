@@ -8,3 +8,11 @@ export const getUniversities = universityLogicFactories.getUniversitiesLogicFact
 export const getOneUniversity = universityLogicFactories.getOneUniversityLogicFactory(
   queries.getOneFromRepoQuery,
 );
+
+export const deleteUniversity = universityLogicFactories.deleteUniversityLogicFactory(
+  queries.deleteFromRepoQuery,
+);
+
+export const saveUniversity = universityLogicFactories.saveUniversityLogicFactory(
+  queries.saveFromRepoQuery,
+);
