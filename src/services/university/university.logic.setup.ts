@@ -1,7 +1,7 @@
 import * as universityLogicFactories from "./university.logic";
 import * as queries from "../../utils/common/common.query";
 
-export const getUniversity = universityLogicFactories.getUniversitiesLogicFactory(
+export const getUniversities = universityLogicFactories.getUniversitiesLogicFactory(
   queries.getFromRepoQuery,
 );
 
