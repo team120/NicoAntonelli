@@ -16,3 +16,7 @@ export const getOneUniversityLogicFactory = (
   getOneQuery(University, id).then((university) =>
     plainToClass(UniversityShowDto, university),
   ); // Add Departments...
+
+export const deleteUniversityLogicFactory = (
+  deleteQuery: queryTypes.deleteQueryFunc,
+) => (id: number) => deleteQuery(University, id);

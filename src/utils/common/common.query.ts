@@ -1,5 +1,5 @@
 import * as queryTypes from "./common.query.interface";
-import { getRepository } from "typeorm";
+import { getRepository, DeleteResult } from "typeorm";
 import * as Er from "../errors/error.variants";
 
 export const getFromRepoQuery: queryTypes.getQueryFunc = <T>(
@@ -24,11 +24,11 @@ export const getOneFromRepoQuery: queryTypes.getOneQueryFunc = <T>(
     .catch((err) => {
       throw Er.DbError(err.message, err.stack);
     })
-    .then((post) => {
-      if (post === undefined) {
+    .then((entity) => {
+      if (entity === undefined) {
         throw Er.NotFoundError(id);
       }
-      return post;
+      return entity;
     });
 
 export const saveQuery: queryTypes.saveQueryFunc = <R, T>(
@@ -42,3 +42,13 @@ export const saveQuery: queryTypes.saveQueryFunc = <R, T>(
     .catch((err: Error) => {
       throw Er.DbError(err.message, err.stack);
     });
+
+  export const deleteFromRepoQuery: queryTypes.deleteQueryFunc = <T>(
+      type: { new (...args: any[]): T },
+      id: number,
+    ): Promise<DeleteResult> =>
+      getRepository(type)
+      .delete(id)
+        .catch((err) => {
+          throw Er.DbError(err.message, err.stack);
+        });
