@@ -9,7 +9,7 @@ export const getFromRepoQuery: queryTypes.getQueryFunc = <T>(
   include?: string[],
 ): Promise<T[]> =>
   getRepository(type)
-    .find({ relations: include })
+    .find({ relations: include ?? [] })
     .catch((err: Error) => {
       throw Er.DbError(err.message, err.stack);
     });
@@ -20,7 +20,7 @@ export const getOneFromRepoQuery: queryTypes.getOneQueryFunc = <T>(
   include?: string[],
 ): Promise<T> =>
   getRepository(type)
-    .findOne(id, { relations: include })
+    .findOne(id, { relations: include ?? [] })
     .catch((err) => {
       throw Er.DbError(err.message, err.stack);
     })
@@ -43,12 +43,12 @@ export const saveQuery: queryTypes.saveQueryFunc = <R, T>(
       throw Er.DbError(err.message, err.stack);
     });
 
-  export const deleteFromRepoQuery: queryTypes.deleteQueryFunc = <T>(
-      type: { new (...args: any[]): T },
-      id: number,
-    ): Promise<DeleteResult> =>
-      getRepository(type)
-      .delete(id)
-        .catch((err) => {
-          throw Er.DbError(err.message, err.stack);
-        });
+export const deleteFromRepoQuery: queryTypes.deleteQueryFunc = <T>(
+  type: { new (...args: any[]): T },
+  id: number,
+): Promise<DeleteResult> =>
+  getRepository(type)
+    .delete(id)
+    .catch((err) => {
+      throw Er.DbError(err.message, err.stack);
+    });
