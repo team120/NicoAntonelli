@@ -10,7 +10,7 @@ import { LoggedUserDto } from "../../entities/auth/output/login.output.dto";
 export const registerLogicFactory = (
   checkIsEmailTaken: authFuncs.checkIsEmailTakenFunc,
   hashPassword: authFuncs.hashPasswordFunc,
-  save: queryFuncs.saveQueryFunc,
+  save: queryFuncs.createQueryFunc,
 ) => (registerDto: RegisterInputDto): Promise<RegisteredUserDto> =>
   checkIsEmailTaken(registerDto.mail)
     .then(() => hashPassword(registerDto.password))

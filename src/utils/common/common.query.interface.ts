@@ -11,7 +11,7 @@ export type getOneQueryFunc = <T>(
   include?: string[],
 ) => Promise<T>;
 
-export type saveQueryFunc = <R, T>(
+export type createQueryFunc = <R, T>(
   type: { new (...args: any[]): T },
   value: R,
 ) => Promise<T>;

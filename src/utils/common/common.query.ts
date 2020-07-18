@@ -4,7 +4,7 @@ import * as Er from "../errors/error.variants";
 
 export const getFromRepoQuery: queryTypes.getQueryFunc = <T>(
   type: {
-    new (...args: any[]): T;
+    new(...args: any[]): T;
   },
   include?: string[],
 ): Promise<T[]> =>
@@ -15,7 +15,7 @@ export const getFromRepoQuery: queryTypes.getQueryFunc = <T>(
     });
 
 export const getOneFromRepoQuery: queryTypes.getOneQueryFunc = <T>(
-  type: { new (...args: any[]): T },
+  type: { new(...args: any[]): T },
   id: number,
   include?: string[],
 ): Promise<T> =>
@@ -31,9 +31,9 @@ export const getOneFromRepoQuery: queryTypes.getOneQueryFunc = <T>(
       return entity;
     });
 
-export const saveFromRepoQuery: queryTypes.saveQueryFunc = <R, T>(
+export const createFromRepoQuery: queryTypes.createQueryFunc = <R, T>(
   type: {
-    new (...args: any[]): T;
+    new(...args: any[]): T;
   },
   value: R,
 ): Promise<T> =>
@@ -44,7 +44,7 @@ export const saveFromRepoQuery: queryTypes.saveQueryFunc = <R, T>(
     });
 
 export const deleteFromRepoQuery: queryTypes.deleteQueryFunc = <T>(
-  type: { new (...args: any[]): T },
+  type: { new(...args: any[]): T },
   id: number,
 ): Promise<DeleteResult> =>
   getRepository(type)

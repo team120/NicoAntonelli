@@ -17,9 +17,9 @@ export const getOneUniversityLogicFactory = (
       plainToClass(UniversityShowDto, university),
     );
 
-export const saveUniversityLogicFactory = (
-  getSaveQuery: queryTypes.saveQueryFunc,
-) => (university: University) => getSaveQuery(University, university)
+export const createUniversityLogicFactory = (
+  getCreateQuery: queryTypes.createQueryFunc,
+) => (university: University) => getCreateQuery(University, university)
   .then((university) =>
     plainToClass(UniversityShowDto, university),
   );

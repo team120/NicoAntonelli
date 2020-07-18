@@ -13,6 +13,6 @@ export const deleteUniversity = universityLogicFactories.deleteUniversityLogicFa
   queries.deleteFromRepoQuery,
 );
 
-export const saveUniversity = universityLogicFactories.saveUniversityLogicFactory(
-  queries.saveFromRepoQuery,
+export const createUniversity = universityLogicFactories.createUniversityLogicFactory(
+  queries.createFromRepoQuery,
 );
