@@ -6,7 +6,7 @@ import { plainToClass } from "class-transformer";
 import { RegisteredUserDto } from "../../entities/auth/output/register.output.dto";
 import { LoginInputDto } from "../../entities/auth/input/login.input.dto";
 import { LoggedUserDto } from "../../entities/auth/output/login.output.dto";
-import { GoogleProfile } from "../../entities/auth/googleProfile";
+import { GoogleProfile } from "../../entities/auth/googleProfile.model";
 import { profile } from "winston";
 import { SocialLoginDto } from "src/entities/auth/input/socialLogin.input.dto";
 

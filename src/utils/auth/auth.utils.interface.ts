@@ -1,6 +1,6 @@
 import { User } from "src/entities/user/user.model";
 import { TokenDecoded } from "src/entities/token/token.decoded";
-import { GoogleProfile } from "src/entities/auth/googleProfile";
+import { GoogleProfile } from "src/entities/auth/googleProfile.model";
 
 export type checkIsEmailTakenFunc = (mail: string) => Promise<void>;
 

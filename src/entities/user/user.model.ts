@@ -6,7 +6,7 @@ import {
   OneToOne,
 } from "typeorm";
 import { University } from "../university/university.model";
-import { GoogleProfile } from "../auth/googleProfile";
+import { GoogleProfile } from "../auth/googleProfile.model";
 
 @Entity()
 export class User {
