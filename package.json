@@ -5,6 +5,7 @@
   "main": ".eslintrc.js",
   "dependencies": {
     "@neuralegion/class-sanitizer": "^0.3.2",
+    "@types/passport-google-oauth20": "^2.0.3",
     "argon2": "^0.26.2",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.1",
