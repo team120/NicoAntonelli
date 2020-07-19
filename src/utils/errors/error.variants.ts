@@ -22,9 +22,9 @@ export const EnvError = (message: string): AppError =>
     message: message,
   });
 
-const notFoundMessage = (id: number): string => `Item ${id} not found`;
+const notFoundMessage = (id: string): string => `Item ${id} not found`;
 
-export const NotFoundError = (itemId: number): AppError =>
+export const NotFoundError = (itemId: string): AppError =>
   new AppError({
     status: 404,
     type: ErrorType.NotFoundError,
