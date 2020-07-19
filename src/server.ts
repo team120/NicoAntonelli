@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import { errorHandlingMiddleware } from "./middlewares/error.middleware";
 import { logger } from "./logger";
 import routes from "./api/index";
+import { initilizePassport } from "./config/passport";
 
 const app = express();
 
@@ -14,5 +15,7 @@ app.use(bodyParser.json());
 app.use(routes);
 
 app.use(errorHandlingMiddleware(logger));
+
+initilizePassport();
 
 export default app;
