@@ -4,7 +4,7 @@ import * as Er from "../errors/error.variants";
 
 export const getFromRepoQuery: queryTypes.getQueryFunc = <T>(
   type: {
-    new(...args: any[]): T;
+    new (...args: any[]): T;
   },
   include?: string[],
 ): Promise<T[]> =>
@@ -15,8 +15,8 @@ export const getFromRepoQuery: queryTypes.getQueryFunc = <T>(
     });
 
 export const getOneFromRepoQuery: queryTypes.getOneQueryFunc = <T>(
-  type: { new(...args: any[]): T },
-  id: number,
+  type: { new (...args: any[]): T },
+  id: number | string,
   include?: string[],
 ): Promise<T> =>
   getRepository(type)
@@ -26,14 +26,14 @@ export const getOneFromRepoQuery: queryTypes.getOneQueryFunc = <T>(
     })
     .then((entity) => {
       if (entity === undefined) {
-        throw Er.NotFoundError(id);
+        throw Er.NotFoundError(id.toString());
       }
       return entity;
     });
 
 export const createFromRepoQuery: queryTypes.createQueryFunc = <R, T>(
   type: {
-    new(...args: any[]): T;
+    new (...args: any[]): T;
   },
   value: R,
 ): Promise<T> =>
@@ -45,7 +45,7 @@ export const createFromRepoQuery: queryTypes.createQueryFunc = <R, T>(
 
 export const updateFromRepoQuery: queryTypes.updateQueryFunc = <R, T>(
   type: {
-    new(...args: any[]): T;
+    new (...args: any[]): T;
   },
   value_current: T,
   value_updated: R,
@@ -57,7 +57,7 @@ export const updateFromRepoQuery: queryTypes.updateQueryFunc = <R, T>(
     });
 
 export const deleteFromRepoQuery: queryTypes.deleteQueryFunc = <T>(
-  type: { new(...args: any[]): T },
+  type: { new (...args: any[]): T },
   id: number,
 ): Promise<DeleteResult> =>
   getRepository(type)
