@@ -30,6 +30,10 @@ export class User {
   professorId: number;
   @Column({ nullable: true })
   professorCategory: string;
+  @Column({ nullable: true })
+  gender: string;
+  @Column({ nullable: true })
+  picture: string;
 
   @OneToOne((type) => GoogleProfile, (profile) => profile.user, {
     nullable: true,

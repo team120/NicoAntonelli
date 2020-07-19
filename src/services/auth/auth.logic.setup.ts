@@ -1,28 +1,26 @@
 import * as authLogicFactories from "./auth.logic";
-import { createFromRepoQuery } from "../../utils/common/common.query";
-import {
-  checkIsEmailTaken,
-  hashPassword,
-  findUser,
-  checkPassword,
-  generateJwtToken,
-  checkValidJwt,
-  getUserFromToken,
-} from "../../utils/auth/auth.utils";
+import * as queries from "../../utils/common/common.query";
+import * as authUtils from "../../utils/auth/auth.utils";
+import { query } from "express";
 
 export const registerLogic = authLogicFactories.registerLogicFactory(
-  checkIsEmailTaken,
-  hashPassword,
-  createFromRepoQuery,
+  authUtils.checkIsEmailTaken,
+  authUtils.hashPassword,
+  queries.createFromRepoQuery,
 );
 
 export const loginLogic = authLogicFactories.loginLogicFactory(
-  findUser,
-  checkPassword,
-  generateJwtToken,
+  authUtils.findUser,
+  authUtils.checkPassword,
+  authUtils.generateJwtToken,
 );
 
 export const isAuthLogic = authLogicFactories.isAuthLogicFactory(
-  checkValidJwt,
-  getUserFromToken,
+  authUtils.checkValidJwt,
+  authUtils.getUserFromToken,
+);
+
+export const socialLoginLogic = authLogicFactories.socialLoginLogicFactory(
+  authUtils.findUserFromProfile,
+  queries.createFromRepoQuery,
 );

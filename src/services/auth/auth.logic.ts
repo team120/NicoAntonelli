@@ -6,6 +6,9 @@ import { plainToClass } from "class-transformer";
 import { RegisteredUserDto } from "../../entities/auth/output/register.output.dto";
 import { LoginInputDto } from "../../entities/auth/input/login.input.dto";
 import { LoggedUserDto } from "../../entities/auth/output/login.output.dto";
+import { GoogleProfile } from "../../entities/auth/googleProfile";
+import { profile } from "winston";
+import { SocialLoginDto } from "src/entities/auth/input/socialLogin.input.dto";
 
 export const registerLogicFactory = (
   checkIsEmailTaken: authFuncs.checkIsEmailTakenFunc,
@@ -39,4 +42,18 @@ export const isAuthLogicFactory = (
 ) => (userToken: string | undefined): Promise<User> => {
   const decodedToken = checkValidJwt(userToken);
   return getUserFromToken(decodedToken);
+};
+
+export const socialLoginLogicFactory = (
+  findUserFromProfile: authFuncs.findUserFromProfile,
+  save: queryFuncs.createQueryFunc,
+) => async (socialLoginParams: SocialLoginDto): Promise<User> => {
+  const user = await findUserFromProfile(socialLoginParams.googleProfile.id);
+
+  if (user === undefined) {
+    const newUser = save(User, plainToClass(User, socialLoginParams));
+    return newUser;
+  }
+
+  return user;
 };
