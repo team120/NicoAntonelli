@@ -24,6 +24,15 @@ export const createUniversityLogicFactory = (
     plainToClass(UniversityShowDto, university),
   );
 
+export const updateUniversityLogicFactory = (
+  getUpdateQuery: queryTypes.updateQueryFunc,
+  getOneQuery: queryTypes.getOneQueryFunc,
+) => (id: number, changes: any) =>
+    getOneQuery(University, id)
+      .then((university) => getUpdateQuery(University, university, changes)
+        .then((university) => plainToClass(UniversityShowDto, university),
+      ));
+
 export const deleteUniversityLogicFactory = (
   deleteQuery: queryTypes.deleteQueryFunc,
 ) => (id: number) => deleteQuery(University, id);

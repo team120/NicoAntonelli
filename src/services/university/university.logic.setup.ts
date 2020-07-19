@@ -9,10 +9,14 @@ export const getOneUniversity = universityLogicFactories.getOneUniversityLogicFa
   queries.getOneFromRepoQuery,
 );
 
-export const deleteUniversity = universityLogicFactories.deleteUniversityLogicFactory(
-  queries.deleteFromRepoQuery,
-);
-
 export const createUniversity = universityLogicFactories.createUniversityLogicFactory(
   queries.createFromRepoQuery,
+);
+
+export const updateUniversity = universityLogicFactories.updateUniversityLogicFactory(
+  queries.updateFromRepoQuery, queries.getOneFromRepoQuery
+);
+
+export const deleteUniversity = universityLogicFactories.deleteUniversityLogicFactory(
+  queries.deleteFromRepoQuery,
 );

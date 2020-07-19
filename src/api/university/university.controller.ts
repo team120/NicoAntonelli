@@ -1,7 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 import * as universityServices from "../../services/university/university.logic.setup";
-import { getRepository } from "typeorm";
-import { University } from "src/entities/university/university.model";
 
 // Get All
 export const getAllUniversities = (
@@ -31,37 +29,31 @@ export const getOneUniversity = (
     .catch((err) => next(err));
 };
 
-// // Create --> To Fix
-// export const createUniversity = (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction): void => {
-//     universityServices
-//     .saveUniversity(getRepository(University).create(req.body as University))
-//     .then((university) => {
-//       res.status(200).json(university);
-//     })
-//     .catch((err) => next(err));
-// };
+// Create 
+export const createUniversity = (
+  req: Request,
+  res: Response,
+  next: NextFunction): void => {
+    universityServices
+    .createUniversity(req.body)
+    .then((university) => {
+      res.status(200).json(university);
+    })
+    .catch((err) => next(err));
+};
 
-// Update --> To Fix
-// export const updateUniversity = (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction): void => {
-//     const university = await getRepository(University).findOne(Number(req.params.id))
-//     .then((university) => {
-//       if (university !=== undefined) {
-//         universityServices
-//         .saveUniversity(university)
-//         .then((university) => {
-//           res.status(200).json(university);
-//         })
-//         .catch((err) => next(err));
-//       }
-//       .catch((err) => next(err));
-//     })
-// };
+// Update
+export const updateUniversity = (
+  req: Request,
+  res: Response,
+  next: NextFunction): void => {
+    universityServices
+    .updateUniversity(Number(req.params.id), req.body)
+    .then((university) => {
+      res.status(200).json(university);
+    })
+    .catch((err) => next(err));
+};
 
 // Delete
 export const deleteUniversity = (
