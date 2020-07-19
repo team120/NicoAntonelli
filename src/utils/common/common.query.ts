@@ -43,6 +43,19 @@ export const createFromRepoQuery: queryTypes.createQueryFunc = <R, T>(
       throw Er.DbError(err.message, err.stack);
     });
 
+export const updateFromRepoQuery: queryTypes.updateQueryFunc = <R, T>(
+  type: {
+    new(...args: any[]): T;
+  },
+  value_current: T,
+  value_updated: R,
+): Promise<T> =>
+  getRepository(type)
+    .save(getRepository(type).merge(value_current, value_updated))
+    .catch((err: Error) => {
+      throw Er.DbError(err.message, err.stack);
+    });
+
 export const deleteFromRepoQuery: queryTypes.deleteQueryFunc = <T>(
   type: { new(...args: any[]): T },
   id: number,
