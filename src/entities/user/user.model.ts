@@ -1,5 +1,12 @@
-import { PrimaryGeneratedColumn, Column, ManyToOne, Entity } from "typeorm";
+import {
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  Entity,
+  OneToOne,
+} from "typeorm";
 import { University } from "../university/university.model";
+import { GoogleProfile } from "../auth/googleProfile";
 
 @Entity()
 export class User {
@@ -23,6 +30,11 @@ export class User {
   professorId: number;
   @Column({ nullable: true })
   professorCategory: string;
+
+  @OneToOne((type) => GoogleProfile, (profile) => profile.user, {
+    nullable: true,
+  })
+  googleProfile: GoogleProfile;
 
   @ManyToOne((type) => University, (university) => university.users, {
     nullable: false,
