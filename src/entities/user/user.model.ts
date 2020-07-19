@@ -4,6 +4,7 @@ import {
   ManyToOne,
   Entity,
   OneToOne,
+  JoinColumn,
 } from "typeorm";
 import { University } from "../university/university.model";
 import { GoogleProfile } from "../auth/googleProfile.model";
@@ -38,6 +39,7 @@ export class User {
   @OneToOne((type) => GoogleProfile, (profile) => profile.user, {
     nullable: true,
   })
+  @JoinColumn()
   googleProfile: GoogleProfile;
 
   @ManyToOne((type) => University, (university) => university.users, {
