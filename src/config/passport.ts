@@ -29,10 +29,8 @@ export const initilizePassport = (): void => {
         clientID: env.googleAuth.clientId,
         clientSecret: env.googleAuth.clientSecret,
         callbackURL: "http://localhost:3000/auth/google/callback",
-        passReqToCallback: true,
       },
       async (
-        req: Request,
         accessToken: string,
         refreshToken: string,
         profile: GoogleAuth.Profile,
@@ -51,7 +49,7 @@ export const initilizePassport = (): void => {
         };
         try {
           const user = await socialLoginLogic(socialLoginParams);
-          done(undefined, user);
+          done(undefined, { ...user, accessToken: accessToken });
         } catch (error) {
           done(error);
         }

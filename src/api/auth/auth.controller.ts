@@ -31,3 +31,11 @@ export const login = (
     })
     .catch((err) => next(err));
 };
+
+export const socialLogin = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): void => {
+  res.status(200).json(req.user);
+};

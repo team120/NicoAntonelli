@@ -31,6 +31,7 @@ authRouter.get(
 authRouter.get(
   "/google/callback",
   passport.authenticate("google", { failureMessage: "google failed" }),
+  authActions.socialLogin,
 );
 
 export default authRouter;
