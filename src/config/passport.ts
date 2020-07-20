@@ -6,7 +6,7 @@ import { socialLoginLogic } from "../services/auth/auth.logic.setup";
 import { SocialLoginDto } from "../entities/auth/input/socialLogin.input.dto";
 import { Request } from "express";
 import { User } from "../entities/user/user.model";
-import { getOneFromRepoQuery } from "../utils/common/common.query";
+import { getOneUser } from "../services/users/user.logic.setup";
 
 export const initilizePassport = (): void => {
   passport.serializeUser((user: User, done) => {
@@ -14,7 +14,7 @@ export const initilizePassport = (): void => {
   });
 
   passport.deserializeUser((id: number, done) => {
-    getOneFromRepoQuery(User, id, ["university", "googleProfile"])
+    getOneUser(id)
       .then((user) => done(undefined, user))
       .catch((error) => done(error));
   });
