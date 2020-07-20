@@ -25,12 +25,16 @@ authRouter.get(
   passport.authenticate("google", {
     scope: ["profile", "email"],
     accessType: "offline",
+    prompt: "consent",
+    session: false,
   }),
 );
 
 authRouter.get(
   "/google/callback",
-  passport.authenticate("google", { failureMessage: "google failed" }),
+  passport.authenticate("google", {
+    failureMessage: "google account linking failed",
+  }),
   authActions.socialLogin,
 );
 
