@@ -33,8 +33,8 @@ describe("University actions", () => {
       await request(app)
         .get(`/universities/${id}`)
         .then((res) => {
-          expect(res.body.message).toEqual(`Item ${id} not found`);
           expect(res.status).toEqual(404);
+          expect(res.body.message).toEqual(`Item ${id} not found`);
         });
     });
   });
@@ -81,8 +81,9 @@ describe("University actions", () => {
 
   describe("update one university", () => {
     it("should return status 200 OK and the updated university", async () => {
+      const id = 2;
       await request(app)
-        .put("/universities/2")
+        .put(`/universities/${id}`)
         .send({ "name": "UBA" })
         .set("Accept", "application/json")
         .then((res) => {
@@ -92,8 +93,9 @@ describe("University actions", () => {
         });
     });
     it("should update the new university without the incorrect properties", async () => {
+      const id = 2;
       await request(app)
-        .post("/universities")
+        .put(`/universities/${id}`)
         .send({ "name": "UNC", "incorrectProperty": "incorrectValue" })
         .set("Accept", "application/json")
         .then((res) => {
@@ -104,8 +106,9 @@ describe("University actions", () => {
         });
     });
     it("should return a list of universities where the updated one is correct", async () => {
+      const id = 2;
       await request(app)
-        .put("/universities/1")
+        .put(`/universities/${id}`)
         .send({ "name": "UBA" })
         .set("Accept", "application/json")
       await request(app)
@@ -113,8 +116,38 @@ describe("University actions", () => {
         .then((res) => {
           expect(res.status).toEqual(200);
           expect(res.body).toHaveLength(2);
-          expect(res.body[0]).toEqual({ "name": "UBA" });
-          expect(res.body[0]).not.toHaveProperty("id");
+          expect(res.body[id - 1]).toEqual({ "name": "UBA" });
+          expect(res.body[id - 1]).not.toHaveProperty("id");
+        });
+    });
+  });
+
+  describe("delete one university", () => {
+    it("should return status 200 OK and delete message", async () => {
+      const id = 2;
+      await request(app)
+        .delete(`/universities/${id}`)
+        .set("Accept", "application/json")
+        .then((res) => {
+          expect(res.status).toEqual(200);
+          expect(res.body.message).toEqual(`Item ${id} deleted successfully`);
+        });
+    });
+    it("should return ID not found if it does not match any id on DB", async () => {
+      const id = 100;
+      await request(app)
+        .delete(`/universities/${id}`)
+        .then((res) => {
+          expect(res.status).toEqual(404);
+          expect(res.body.message).toEqual(`Item ${id} not found`);
+        });
+    });
+    it("should return a DB error if the deletion does not comply with the restriction", async () => {
+      const id = 1;
+      await request(app)
+        .delete(`/universities/${id}`)
+        .then((res) => {
+          expect(res.status).toEqual(500);
         });
     });
   });
