@@ -51,7 +51,10 @@ export const socialLoginLogicFactory = (
 
   if (user === undefined) {
     await save(GoogleProfile, socialLoginParams.googleProfile);
-    const newUser = await save(User, socialLoginParams);
+    const newUser = await save(User, {
+      ...socialLoginParams,
+      isMailVerified: true,
+    });
     return plainToClass(LoggedUserDto, {
       ...newUser,
       refreshToken: newUser.googleProfile.refreshToken,
