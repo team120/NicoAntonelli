@@ -25,4 +25,4 @@ export type updateQueryFunc = <R, T>(
 export type deleteQueryFunc = <T>(
   type: { new(...args: any[]): T },
   id: number,
-) => Promise<DeleteResult>;
+) => Promise<DeleteResult | void>;

@@ -59,10 +59,19 @@ export const updateFromRepoQuery: queryTypes.updateQueryFunc = <R, T>(
 export const deleteFromRepoQuery: queryTypes.deleteQueryFunc = <T>(
   type: { new(...args: any[]): T },
   id: number,
-): Promise<DeleteResult> =>
+): Promise<DeleteResult | void> =>
   getRepository(type)
-    .delete(id)
-    .catch((err: Error) => {
+    .findOne(id)
+    .catch((err) => {
       throw Er.DbError(err.message, err.stack);
+    })
+    .then((entity) => {
+      if (entity === undefined) {
+        throw Er.NotFoundError(id);
+      }
+      getRepository(type)
+        .delete(id)
+        .catch((err: Error) => {
+          throw Er.DbError(err.message, err.stack);
+        });
     });
- 
