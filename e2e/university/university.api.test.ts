@@ -38,4 +38,84 @@ describe("University actions", () => {
         });
     });
   });
+
+  describe("create one university", () => {
+    it("should return status 200 OK and the new university", async () => {
+      await request(app)
+        .post("/universities")
+        .send({ "name": "UNC" })
+        .set("Accept", "application/json")
+        .then((res) => {
+          expect(res.status).toEqual(200);
+          expect(res.body).toEqual({ "name": "UNC" });
+          expect(res.body).not.toHaveProperty("id");
+        });
+    });
+    it("should create the new university without the incorrect properties", async () => {
+      await request(app)
+        .post("/universities")
+        .send({ "name": "UNC", "incorrectProperty": "incorrectValue" })
+        .set("Accept", "application/json")
+        .then((res) => {
+          expect(res.status).toEqual(200);
+          expect(res.body).toEqual({ "name": "UNC" });
+          expect(res.body).not.toHaveProperty("incorrectProperty");
+          expect(res.body).not.toHaveProperty("id");
+        });
+    });
+    it("should return a list of universities with the new one included", async () => {
+      await request(app)
+        .post("/universities")
+        .send({ "name": "UNC" })
+        .set("Accept", "application/json")
+      await request(app)
+        .get("/universities")
+        .then((res) => {
+          expect(res.status).toEqual(200);
+          expect(res.body).toHaveLength(3);
+          expect(res.body[2]).toEqual({ "name": "UNC" });
+          expect(res.body[2]).not.toHaveProperty("id");
+        });
+    });
+  });
+
+  describe("update one university", () => {
+    it("should return status 200 OK and the updated university", async () => {
+      await request(app)
+        .put("/universities/2")
+        .send({ "name": "UBA" })
+        .set("Accept", "application/json")
+        .then((res) => {
+          expect(res.status).toEqual(200);
+          expect(res.body).toEqual({ "name": "UBA" });
+          expect(res.body).not.toHaveProperty("id");
+        });
+    });
+    it("should update the new university without the incorrect properties", async () => {
+      await request(app)
+        .post("/universities")
+        .send({ "name": "UNC", "incorrectProperty": "incorrectValue" })
+        .set("Accept", "application/json")
+        .then((res) => {
+          expect(res.status).toEqual(200);
+          expect(res.body).toEqual({ "name": "UNC" });
+          expect(res.body).not.toHaveProperty("incorrectProperty");
+          expect(res.body).not.toHaveProperty("id");
+        });
+    });
+    it("should return a list of universities where the updated one is correct", async () => {
+      await request(app)
+        .put("/universities/1")
+        .send({ "name": "UBA" })
+        .set("Accept", "application/json")
+      await request(app)
+        .get("/universities")
+        .then((res) => {
+          expect(res.status).toEqual(200);
+          expect(res.body).toHaveLength(2);
+          expect(res.body[0]).toEqual({ "name": "UBA" });
+          expect(res.body[0]).not.toHaveProperty("id");
+        });
+    });
+  });
 });
