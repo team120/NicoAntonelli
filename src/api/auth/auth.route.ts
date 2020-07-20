@@ -22,7 +22,10 @@ authRouter.post(
 
 authRouter.get(
   "/google",
-  passport.authenticate("google", { scope: ["profile", "email"] }),
+  passport.authenticate("google", {
+    scope: ["profile", "email"],
+    accessType: "offline",
+  }),
 );
 
 authRouter.get(

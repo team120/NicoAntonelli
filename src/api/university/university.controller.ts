@@ -29,12 +29,13 @@ export const getOneUniversity = (
     .catch((err) => next(err));
 };
 
-// Create 
+// Create
 export const createUniversity = (
   req: Request,
   res: Response,
-  next: NextFunction): void => {
-    universityServices
+  next: NextFunction,
+): void => {
+  universityServices
     .createUniversity(req.body)
     .then((university) => {
       res.status(200).json(university);
@@ -46,8 +47,9 @@ export const createUniversity = (
 export const updateUniversity = (
   req: Request,
   res: Response,
-  next: NextFunction): void => {
-    universityServices
+  next: NextFunction,
+): void => {
+  universityServices
     .updateUniversity(Number(req.params.id), req.body)
     .then((university) => {
       res.status(200).json(university);
@@ -59,8 +61,10 @@ export const updateUniversity = (
 export const deleteUniversity = (
   req: Request,
   res: Response,
-  next: NextFunction): void => {
-    universityServices.deleteUniversity(Number(req.params.id))
+  next: NextFunction,
+): void => {
+  universityServices
+    .deleteUniversity(Number(req.params.id))
     .then(() => {
       res.status(200);
     })
