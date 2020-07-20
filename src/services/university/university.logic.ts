@@ -35,4 +35,6 @@ export const updateUniversityLogicFactory = (
 
 export const deleteUniversityLogicFactory = (
   deleteQuery: queryTypes.deleteQueryFunc,
-) => (id: number) => deleteQuery(University, id);
+  getOneQuery: queryTypes.getOneQueryFunc,
+) => (id: number) => getOneQuery(University, id)
+  .then(() => deleteQuery(University, id));

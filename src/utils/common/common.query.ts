@@ -21,7 +21,7 @@ export const getOneFromRepoQuery: queryTypes.getOneQueryFunc = <T>(
 ): Promise<T> =>
   getRepository(type)
     .findOne(id, { relations: include ?? [] })
-    .catch((err) => {
+    .catch((err: Error) => {
       throw Er.DbError(err.message, err.stack);
     })
     .then((entity) => {
@@ -59,19 +59,9 @@ export const updateFromRepoQuery: queryTypes.updateQueryFunc = <R, T>(
 export const deleteFromRepoQuery: queryTypes.deleteQueryFunc = <T>(
   type: { new(...args: any[]): T },
   id: number,
-): Promise<DeleteResult | void> =>
+): Promise<DeleteResult> =>
   getRepository(type)
-    .findOne(id)
-    .catch((err) => {
+    .delete(id)
+    .catch((err: Error) => {
       throw Er.DbError(err.message, err.stack);
     })
-    .then((entity) => {
-      if (entity === undefined) {
-        throw Er.NotFoundError(id);
-      }
-      getRepository(type)
-        .delete(id)
-        .catch((err: Error) => {
-          throw Er.DbError(err.message, err.stack);
-        });
-    });
