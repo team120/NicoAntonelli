@@ -25,9 +25,10 @@ export const login = (
   authServices
     .loginLogic(plainToClass(LoginInputDto, req.body))
     .then((loggedUser) => {
-      res
-        .status(200)
-        .json({ ...loggedUser, token: `Bearer ${loggedUser.token}` });
+      res.status(200).json({
+        ...loggedUser,
+        accessToken: `Bearer ${loggedUser.accessToken}`,
+      });
     })
     .catch((err) => next(err));
 };
@@ -37,5 +38,5 @@ export const socialLogin = (
   res: Response,
   next: NextFunction,
 ): void => {
-  res.status(200).json(req.user);
+  res.status(200).json(req.userLogged);
 };
