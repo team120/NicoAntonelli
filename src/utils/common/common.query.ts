@@ -62,6 +62,7 @@ export const deleteFromRepoQuery: queryTypes.deleteQueryFunc = <T>(
 ): Promise<DeleteResult> =>
   getRepository(type)
     .delete(id)
-    .catch((err) => {
+    .catch((err: Error) => {
       throw Er.DbError(err.message, err.stack);
     });
+ 

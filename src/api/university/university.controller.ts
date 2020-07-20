@@ -62,7 +62,7 @@ export const deleteUniversity = (
   next: NextFunction): void => {
     universityServices.deleteUniversity(Number(req.params.id))
     .then(() => {
-      res.status(200);
+      res.status(200).end();
     })
     .catch((err) => next(err));
 };
