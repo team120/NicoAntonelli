@@ -17,7 +17,7 @@ export class User {
   mail: string;
   @Column({ default: false })
   isMailVerified: boolean;
-  @Column()
+  @Column({ nullable: true })
   password: string;
   @Column({ nullable: true })
   dni: string;
