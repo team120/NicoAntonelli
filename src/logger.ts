@@ -1,19 +1,29 @@
-import { createLogger, transports, format } from "winston";
-import { info } from "console";
+import winston, { createLogger } from "winston"
 
+// Define the custom settings for each transport (file, console)
+const options = {
+  file: {
+    level: "info",
+    filename: "/logs/app.log",
+    handleExceptions: true,
+    json: true,
+    maxsize: 5242880, // 5MB
+    maxFiles: 5,
+    colorize: false,
+  },
+  console: {
+    level: 'debug',
+    handleExceptions: true,
+    json: false,
+    colorize: true,
+  },
+};
+
+// Instantiate a new Winston Logger with the settings defined above
 export const logger = createLogger({
-  format: format.combine(
-    format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
-    format.errors({ stack: true }),
-    format.colorize(),
-    format.align(),
-    format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`)
-  ),
   transports: [
-    new (transports.Console)({
-      handleExceptions: true,
-      level: "info"
-    })
+    new winston.transports.File(options.file),
+    new winston.transports.Console(options.console)
   ],
-  exitOnError: false,
+  exitOnError: false, // Do not exit on handled exceptions
 });
