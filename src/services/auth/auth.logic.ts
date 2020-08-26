@@ -30,7 +30,7 @@ export const loginLogicFactory = (
     checkPassword(loginDto.password, user.password).then(() =>
       plainToClass(LoggedUserDto, {
         ...user,
-        accessToken: generateJwt(user),
+        accessToken: `Bearer ${generateJwt(user)}`,
       }),
     ),
   );
@@ -45,6 +45,7 @@ export const isAuthLogicFactory = (
 
 export const socialLoginLogicFactory = (
   findUserFromProfile: authFuncs.findUserFromProfile,
+  generateJwt: authFuncs.generateJwtFunc,
   save: queryFuncs.createQueryFunc,
 ) => async (socialLoginParams: SocialLoginDto): Promise<LoggedUserDto> => {
   const user = await findUserFromProfile(socialLoginParams.googleProfile.id);
@@ -57,12 +58,12 @@ export const socialLoginLogicFactory = (
     });
     return plainToClass(LoggedUserDto, {
       ...newUser,
-      refreshToken: newUser.googleProfile.refreshToken,
+      accessToken: `Bearer ${generateJwt(newUser)}`,
     });
   }
 
   return plainToClass(LoggedUserDto, {
     ...user,
-    refreshToken: user.googleProfile.refreshToken,
+    accessToken: `Bearer ${generateJwt(user)}`,
   });
 };

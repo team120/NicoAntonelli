@@ -52,10 +52,9 @@ export const initilizePassport = (): void => {
         };
         try {
           const user = await socialLoginLogic(socialLoginParams);
-          const loggedUser = { ...user, accessToken: accessToken };
-          req.userLogged = loggedUser;
+          req.userLogged = user;
 
-          done(undefined, loggedUser);
+          done(undefined, user);
         } catch (error) {
           done(error);
         }

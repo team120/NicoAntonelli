@@ -25,10 +25,7 @@ export const login = (
   authServices
     .loginLogic(plainToClass(LoginInputDto, req.body))
     .then((loggedUser) => {
-      res.status(200).json({
-        ...loggedUser,
-        accessToken: `Bearer ${loggedUser.accessToken}`,
-      });
+      res.status(200).json(loggedUser);
     })
     .catch((err) => next(err));
 };

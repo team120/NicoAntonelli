@@ -1,7 +1,6 @@
 import * as authLogicFactories from "./auth.logic";
 import * as queries from "../../utils/common/common.query";
 import * as authUtils from "../../utils/auth/auth.utils";
-import { query } from "express";
 
 export const registerLogic = authLogicFactories.registerLogicFactory(
   authUtils.checkIsEmailTaken,
@@ -22,5 +21,6 @@ export const isAuthLogic = authLogicFactories.isAuthLogicFactory(
 
 export const socialLoginLogic = authLogicFactories.socialLoginLogicFactory(
   authUtils.findUserFromProfile,
+  authUtils.generateJwtToken,
   queries.createFromRepoQuery,
 );
