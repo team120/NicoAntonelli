@@ -1,5 +1,5 @@
 import * as authLogicFactories from "./auth.logic";
-import { saveQuery } from "../../utils/common/common.query";
+import { createFromRepoQuery } from "../../utils/common/common.query";
 import {
   checkIsEmailTaken,
   hashPassword,
@@ -13,7 +13,7 @@ import {
 export const registerLogic = authLogicFactories.registerLogicFactory(
   checkIsEmailTaken,
   hashPassword,
-  saveQuery,
+  createFromRepoQuery,
 );
 
 export const loginLogic = authLogicFactories.loginLogicFactory(
