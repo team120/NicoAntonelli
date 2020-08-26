@@ -12,8 +12,8 @@ npm install
 ## Usage
 ```
 npm run dev
-npm run migration:run
 ```
+>```npm run migration:run``` is no longer necessary, since migrations are executed by default when the app is bootstrapping
 
 ## Test
 ```
