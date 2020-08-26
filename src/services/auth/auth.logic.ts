@@ -6,6 +6,8 @@ import { plainToClass } from "class-transformer";
 import { RegisteredUserDto } from "../../entities/auth/output/register.output.dto";
 import { LoginInputDto } from "../../entities/auth/input/login.input.dto";
 import { LoggedUserDto } from "../../entities/auth/output/login.output.dto";
+import { SocialLoginDto } from "../../entities/auth/input/socialLogin.input.dto";
+import { GoogleProfile } from "../../entities/auth/googleProfile.model";
 
 export const registerLogicFactory = (
   checkIsEmailTaken: authFuncs.checkIsEmailTakenFunc,
@@ -28,7 +30,7 @@ export const loginLogicFactory = (
     checkPassword(loginDto.password, user.password).then(() =>
       plainToClass(LoggedUserDto, {
         ...user,
-        token: generateJwt(user),
+        accessToken: `Bearer ${generateJwt(user)}`,
       }),
     ),
   );
@@ -39,4 +41,29 @@ export const isAuthLogicFactory = (
 ) => (userToken: string | undefined): Promise<User> => {
   const decodedToken = checkValidJwt(userToken);
   return getUserFromToken(decodedToken);
+};
+
+export const socialLoginLogicFactory = (
+  findUserFromProfile: authFuncs.findUserFromProfile,
+  generateJwt: authFuncs.generateJwtFunc,
+  save: queryFuncs.createQueryFunc,
+) => async (socialLoginParams: SocialLoginDto): Promise<LoggedUserDto> => {
+  const user = await findUserFromProfile(socialLoginParams.googleProfile.id);
+
+  if (user === undefined) {
+    await save(GoogleProfile, socialLoginParams.googleProfile);
+    const newUser = await save(User, {
+      ...socialLoginParams,
+      isMailVerified: true,
+    });
+    return plainToClass(LoggedUserDto, {
+      ...newUser,
+      accessToken: `Bearer ${generateJwt(newUser)}`,
+    });
+  }
+
+  return plainToClass(LoggedUserDto, {
+    ...user,
+    accessToken: `Bearer ${generateJwt(user)}`,
+  });
 };

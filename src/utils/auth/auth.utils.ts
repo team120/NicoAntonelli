@@ -4,7 +4,7 @@ import * as Err from "../errors/error.variants";
 import * as authFuncs from "./auth.utils.interface";
 import * as argon2 from "argon2";
 import * as jwt from "jsonwebtoken";
-import { env } from "../../config";
+import { env } from "../../config/config";
 import { TokenPayload } from "../../entities/token/token.payload";
 import { plainToClass } from "class-transformer";
 import { TokenDecoded } from "../../entities/token/token.decoded";
@@ -91,3 +91,22 @@ export const getUserFromToken: authFuncs.getUserFromTokenFunc = (
 ): Promise<User> => {
   return findUser(userTokenDecoded.mail);
 };
+
+export const findUserFromProfile = (
+  profileId: string,
+): Promise<User | undefined> =>
+  getRepository(User)
+    .findOne({
+      relations: ["googleProfile"],
+      where: {
+        googleProfile: {
+          id: profileId,
+        },
+      },
+    })
+    .catch((err) => {
+      throw Err.DbError(err.message, err.stack);
+    })
+    .then((entity) => {
+      return entity;
+    });

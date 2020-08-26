@@ -1,6 +1,6 @@
 import app from "./server";
 import { createConnection, getConnectionOptions } from "typeorm";
-import { env } from "./config";
+import { env } from "./config/config";
 import * as Err from "./utils/errors/error.variants";
 
 const port = env.port;
