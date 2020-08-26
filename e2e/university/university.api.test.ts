@@ -43,22 +43,22 @@ describe("University actions", () => {
     it("should return status 200 OK and the new university", async () => {
       await request(app)
         .post("/universities")
-        .send({ "name": "UNC" })
+        .send({ name: "UNC" })
         .set("Accept", "application/json")
         .then((res) => {
           expect(res.status).toEqual(200);
-          expect(res.body).toEqual({ "name": "UNC" });
+          expect(res.body).toEqual({ name: "UNC" });
           expect(res.body).not.toHaveProperty("id");
         });
     });
     it("should create the new university without the incorrect properties", async () => {
       await request(app)
         .post("/universities")
-        .send({ "name": "UNC", "incorrectProperty": "incorrectValue" })
+        .send({ name: "UNC", incorrectProperty: "incorrectValue" })
         .set("Accept", "application/json")
         .then((res) => {
           expect(res.status).toEqual(200);
-          expect(res.body).toEqual({ "name": "UNC" });
+          expect(res.body).toEqual({ name: "UNC" });
           expect(res.body).not.toHaveProperty("incorrectProperty");
           expect(res.body).not.toHaveProperty("id");
         });
@@ -66,14 +66,14 @@ describe("University actions", () => {
     it("should return a list of universities with the new one included", async () => {
       await request(app)
         .post("/universities")
-        .send({ "name": "UNC" })
-        .set("Accept", "application/json")
+        .send({ name: "UNC" })
+        .set("Accept", "application/json");
       await request(app)
         .get("/universities")
         .then((res) => {
           expect(res.status).toEqual(200);
           expect(res.body).toHaveLength(3);
-          expect(res.body[2]).toEqual({ "name": "UNC" });
+          expect(res.body[2]).toEqual({ name: "UNC" });
           expect(res.body[2]).not.toHaveProperty("id");
         });
     });
@@ -84,11 +84,11 @@ describe("University actions", () => {
       const id = 2;
       await request(app)
         .put(`/universities/${id}`)
-        .send({ "name": "UBA" })
+        .send({ name: "UBA" })
         .set("Accept", "application/json")
         .then((res) => {
           expect(res.status).toEqual(200);
-          expect(res.body).toEqual({ "name": "UBA" });
+          expect(res.body).toEqual({ name: "UBA" });
           expect(res.body).not.toHaveProperty("id");
         });
     });
@@ -96,11 +96,11 @@ describe("University actions", () => {
       const id = 2;
       await request(app)
         .put(`/universities/${id}`)
-        .send({ "name": "UNC", "incorrectProperty": "incorrectValue" })
+        .send({ name: "UNC", incorrectProperty: "incorrectValue" })
         .set("Accept", "application/json")
         .then((res) => {
           expect(res.status).toEqual(200);
-          expect(res.body).toEqual({ "name": "UNC" });
+          expect(res.body).toEqual({ name: "UNC" });
           expect(res.body).not.toHaveProperty("incorrectProperty");
           expect(res.body).not.toHaveProperty("id");
         });
@@ -109,14 +109,14 @@ describe("University actions", () => {
       const id = 2;
       await request(app)
         .put(`/universities/${id}`)
-        .send({ "name": "UBA" })
-        .set("Accept", "application/json")
+        .send({ name: "UBA" })
+        .set("Accept", "application/json");
       await request(app)
         .get("/universities")
         .then((res) => {
           expect(res.status).toEqual(200);
           expect(res.body).toHaveLength(2);
-          expect(res.body[id - 1]).toEqual({ "name": "UBA" });
+          expect(res.body[id - 1]).toEqual({ name: "UBA" });
           expect(res.body[id - 1]).not.toHaveProperty("id");
         });
     });

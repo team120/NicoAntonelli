@@ -14,9 +14,11 @@ export const createUniversity = universityLogicFactories.createUniversityLogicFa
 );
 
 export const updateUniversity = universityLogicFactories.updateUniversityLogicFactory(
-  queries.updateFromRepoQuery, queries.getOneFromRepoQuery,
+  queries.updateFromRepoQuery,
+  queries.getOneFromRepoQuery,
 );
 
 export const deleteUniversity = universityLogicFactories.deleteUniversityLogicFactory(
-  queries.deleteFromRepoQuery, queries.getOneFromRepoQuery,
+  queries.deleteFromRepoQuery,
+  queries.getOneFromRepoQuery,
 );

@@ -18,8 +18,8 @@ export type createQueryFunc = <R, T>(
 
 export type updateQueryFunc = <R, T>(
   type: { new (...args: any[]): T },
-  value_current: T,
-  value_updated: R,
+  valueCurrent: T,
+  valueUpdated: R,
 ) => Promise<T>;
 
 export type deleteQueryFunc = <T>(

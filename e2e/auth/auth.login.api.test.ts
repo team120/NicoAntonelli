@@ -15,7 +15,7 @@ describe("Auth actions", () => {
           expect(res.body.mail).toEqual("user1@example.com");
           expect(res.body.name).toEqual("user1");
           expect(res.body.password).not.toBeDefined();
-          expect(res.body.token).toBeDefined();
+          expect(res.body.accessToken).toBeDefined();
         });
     });
 
