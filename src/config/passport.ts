@@ -8,7 +8,7 @@ import { Request } from "express";
 import { User } from "../entities/user/user.model";
 import { getOneUser } from "../services/users/user.logic.setup";
 
-export const initilizePassport = (): void => {
+export const initializePassport = (): void => {
   passport.serializeUser((user: User, done) => {
     done(undefined, user.id);
   });
