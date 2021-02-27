@@ -28,27 +28,27 @@ npm run lint
 ### Common
 |Tool|
 |:-|
-|JavaScript / TypeScript|
+|:ballot_box_with_check: JavaScript / TypeScript|
 
 ### Backend
 |Tool|
 |:-|
-|Node.JS|
-|Express|
-|TypeORM|
-|PostgreSQL|
+|:ballot_box_with_check: Node.JS|
+|:ballot_box_with_check: Express|
+|:ballot_box_with_check: TypeORM|
+|:ballot_box_with_check: PostgreSQL|
 
 ### Frontend
 |Tool|
 |:-|
-|Angular 8|
-|Angular Material|
-|HTML5 / CSS3|
-|SASS|
+|:ballot_box_with_check: Angular 11|
+|:ballot_box_with_check: Angular Material|
+|:ballot_box_with_check: Angular Flex Layout|
+|:ballot_box_with_check: HTML5 / CSS3 / SASS|
 
 # Authors
 |Name|GitHub Account|
 |:-|:-|
 |Recalde, Alejandro|:octocat: https://github.com/alereca|
-|Acciarri, Joshua|:octocat: https://github.com/JAcciarri|
 |Antonelli, Nicolás|:octocat: https://github.com/NicoAntonelli|
+|Acciarri, Joshua|:octocat: https://github.com/JAcciarri|
