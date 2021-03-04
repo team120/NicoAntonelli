@@ -35,6 +35,8 @@ export class User {
   gender: string;
   @Column({ nullable: true })
   picture: string;
+  @Column({default: false})
+  requestPosition: boolean;
 
   @OneToOne((type) => GoogleProfile, (profile) => profile.user, {
     nullable: true,
