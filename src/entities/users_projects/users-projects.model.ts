@@ -1,9 +1,4 @@
-import {
-  Entity,
-  ManyToOne,
-  PrimaryColumn,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import { Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Project } from "../project/project.model";
 import { User } from "../user/user.model";
 
