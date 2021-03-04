@@ -13,5 +13,5 @@ export class UserShowDto {
   @Type(() => UniversityShowDto)
   university: UniversityShowDto;
   @Expose()
-  requestCargo: Boolean;
+  requestPosition: Boolean;
 }

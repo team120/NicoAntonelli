@@ -36,7 +36,7 @@ export class User {
   @Column({ nullable: true })
   picture: string;
   @Column({default: false})
-  requestCargo: boolean;
+  requestPosition: boolean;
 
   @OneToOne((type) => GoogleProfile, (profile) => profile.user, {
     nullable: true,

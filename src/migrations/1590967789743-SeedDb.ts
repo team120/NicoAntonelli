@@ -22,7 +22,7 @@ export class SeedDb1590967789743 implements MigrationInterface {
         password: await hashPassword("password1"),
         name: "user1",
         university: universities[0],
-        requestCargo: true
+        requestPosition: true
       }),
       usersRepo.create({
         mail: "user2@example.com",
@@ -37,7 +37,7 @@ export class SeedDb1590967789743 implements MigrationInterface {
         password: await hashPassword("password3"),
         name: "user3",
         university: universities[0],
-        requestCargo: true
+        requestPosition: true
       }),
     ];
 
