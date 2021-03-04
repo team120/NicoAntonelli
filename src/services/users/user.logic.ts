@@ -7,12 +7,12 @@ export const getUsersLogicFactory = (
   getQuery: queryTypes.getQueryFunc,
 ) => (): Promise<UserShowDto[]> =>
   getQuery(User, ["university"]).then((users) =>
-    users.map((user) => plainToClass(UserShowDto, user)),
+    users.map((user) => plainToClass(UserShowDto, user, { groups: ["admin"] })),
   );
 
 export const getOneUserLogicFactory = (
   getOneQuery: queryTypes.getOneQueryFunc,
 ) => (id: number): Promise<UserShowDto> =>
   getOneQuery(User, id, ["university"]).then((user) =>
-    plainToClass(UserShowDto, user),
+    plainToClass(UserShowDto, user, { groups: ["admin"] }),
   );

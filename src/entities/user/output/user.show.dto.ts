@@ -9,9 +9,11 @@ export class UserShowDto {
   lastName: string;
   @Expose()
   mail: string;
+  //  @Expose()
+  //  professorId: number;
   @Expose()
   @Type(() => UniversityShowDto)
   university: UniversityShowDto;
-  @Expose()
+  @Expose({ groups: ["admin"] })
   requestPosition: boolean;
 }
