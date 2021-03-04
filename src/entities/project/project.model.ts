@@ -24,6 +24,10 @@ export class Project {
   type: ProjectType;
   @Column({ default: false })
   isDown: boolean;
-  @OneToMany((type) => UserToProjects, (userToProject) => userToProject.project)
+  @OneToMany(
+    (type) => UserToProjects,
+    (userToProject) => userToProject.project,
+    { nullable: false, cascade: ["insert", "update"], onUpdate: "CASCADE" },
+  )
   userToProjects: UserToProjects[];
 }
