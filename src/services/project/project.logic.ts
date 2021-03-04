@@ -9,6 +9,7 @@ export const getProjects = (getQuery: queryTypes.getQueryFunc) => (): Promise<
   getQuery(Project, [
     "userToProjects",
     "userToProjects.user",
+    "userToProjects.user.university",
   ]).then((projects) =>
     projects.map((project) => plainToClass(ProjectShowDto, project)),
   );
