@@ -20,11 +20,20 @@ describe("Project actions", () => {
             users: [
               {
                 mail: "user1@example.com",
+                lastName: null,
                 name: "user1",
-                professorId: 11444,
-                university: "UTN",
+                university: {
+                  name: "UTN",
+                },
               },
-              { mail: "user2@example.com", name: "user2", university: "UTN" },
+              {
+                mail: "user2@example.com",
+                name: "user2",
+                lastName: null,
+                university: {
+                  name: "UTN",
+                },
+              },
             ],
           });
           expect(res.body[0].users[0].password).not.toBeDefined();
