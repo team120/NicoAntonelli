@@ -16,6 +16,7 @@ describe("Project actions", () => {
             name:
               "Desarrollo de un sistema para identificar geoposicionamiento en entorno de Internet de la Cosas (IoT)",
             type: 2,
+            isDown: false,
             users: [
               {
                 mail: "user1@example.com",

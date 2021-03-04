@@ -86,6 +86,7 @@ export class SeedDb1590967789743 implements MigrationInterface {
   public async down(queryRunner: QueryRunner): Promise<any> {
     const usersRepo = getRepository(User);
     const universityRepo = getRepository(University);
+    const projectRepo = getRepository(Project);
 
     const usersToRemove = await usersRepo.find({
       where: [
@@ -102,5 +103,17 @@ export class SeedDb1590967789743 implements MigrationInterface {
     });
 
     await universityRepo.remove(universitiesToRemove);
+
+    const projectsToRemove = await projectRepo.find({
+      where: [
+        {
+          name:
+            "Desarrollo de un sistema para identificar geoposicionamiento en entorno de Internet de la Cosas (IoT)",
+        },
+        { name: "University Project Manager" },
+      ],
+    });
+
+    await projectRepo.remove(projectsToRemove);
   }
 }
