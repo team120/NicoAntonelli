@@ -1,4 +1,11 @@
-import { PrimaryGeneratedColumn, Column, ManyToOne, Entity } from "typeorm";
+import {
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  Entity,
+  OneToMany,
+} from "typeorm";
+import { Project } from "../project/project.model";
 import { University } from "../university/university.model";
 
 @Entity()
@@ -14,4 +21,7 @@ export class Department {
     onUpdate: "CASCADE",
   })
   university: University;
+
+  @OneToMany(() => Project, (project) => project.department)
+  projects: Project[];
 }

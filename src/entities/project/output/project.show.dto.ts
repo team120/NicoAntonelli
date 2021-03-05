@@ -1,4 +1,11 @@
-import { Exclude, Expose, plainToClass, Transform } from "class-transformer";
+import {
+  Exclude,
+  Expose,
+  plainToClass,
+  Transform,
+  Type,
+} from "class-transformer";
+import { DepartmentShowDto } from "../../../entities/department/output/department.show.dto";
 import { UserShowDto } from "../../../entities/user/output/user.show.dto";
 import { ProjectType } from "../project.model";
 
@@ -10,6 +17,9 @@ export class ProjectShowDto {
   type: ProjectType;
   @Expose()
   isDown: boolean;
+  @Expose()
+  @Type(() => DepartmentShowDto)
+  department: DepartmentShowDto;
   @Expose({ name: "userToProjects" })
   @Transform(({ value }) =>
     value.map((e: any) => plainToClass(UserShowDto, e.user)),

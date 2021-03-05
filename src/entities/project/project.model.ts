@@ -1,4 +1,11 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { Department } from "../department/department.model";
 import { UserToProjects } from "../users_projects/users-projects.model";
 
 export enum ProjectType {
@@ -18,6 +25,11 @@ export class Project {
   type: ProjectType;
   @Column({ default: false })
   isDown: boolean;
+  @ManyToOne(() => Department, (department) => department.projects, {
+    cascade: ["insert", "update"],
+    onUpdate: "CASCADE",
+  })
+  department: Department;
   @OneToMany(
     (type) => UserToProjects,
     (userToProject) => userToProject.project,
