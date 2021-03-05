@@ -1,4 +1,5 @@
 import { MigrationInterface, QueryRunner, getRepository } from "typeorm";
+import { Department } from "../../../src/entities/department/department.model";
 import {
   Project,
   ProjectType,
@@ -14,6 +15,7 @@ export class SeedDb1590967789743 implements MigrationInterface {
     const universityRepo = getRepository(University);
     const projectRepo = getRepository(Project);
     const userToProjectsRepo = getRepository(UserToProjects);
+    const departmentRepo = getRepository(Department);
 
     const universities: University[] = [
       universityRepo.create({ name: "UTN" }),
@@ -22,11 +24,25 @@ export class SeedDb1590967789743 implements MigrationInterface {
 
     await universityRepo.save(universities);
 
+    const departments: Department[] = [
+      departmentRepo.create({
+        name: "Ingenieria en Sistemas",
+        university: universities[0],
+      }),
+      departmentRepo.create({
+        name: "Ingenieria Civil",
+        university: universities[1],
+      }),
+    ];
+
+    await departmentRepo.save(departments);
+
     const projects: Project[] = [
       projectRepo.create({
         name:
           "Desarrollo de un sistema para identificar geoposicionamiento en entorno de Internet de la Cosas (IoT)",
         type: ProjectType.Formal,
+        department: departments[0],
       }),
       projectRepo.create({
         name: "University Project Manager",
@@ -34,7 +50,7 @@ export class SeedDb1590967789743 implements MigrationInterface {
       }),
     ];
 
-    projectRepo.save(projects);
+    await projectRepo.save(projects);
 
     const users: User[] = [
       usersRepo.create({
