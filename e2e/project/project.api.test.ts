@@ -15,7 +15,7 @@ describe("Project actions", () => {
           expect(res.body[0]).toEqual({
             name:
               "Desarrollo de un sistema para identificar geoposicionamiento en entorno de Internet de la Cosas (IoT)",
-            type: 2,
+            type: "Formal",
             isDown: false,
             users: [
               {
