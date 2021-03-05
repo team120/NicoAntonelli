@@ -7,6 +7,7 @@ export const getProjects = (getQuery: queryTypes.getQueryFunc) => (): Promise<
   ProjectShowDto[]
 > =>
   getQuery(Project, [
+    "department",
     "userToProjects",
     "userToProjects.user",
     "userToProjects.user.university",
