@@ -1,10 +1,4 @@
-import {
-  Exclude,
-  Expose,
-  plainToClass,
-  Transform,
-  Type,
-} from "class-transformer";
+import { Exclude, Expose, plainToClass, Transform } from "class-transformer";
 import { UserShowDto } from "../../../entities/user/output/user.show.dto";
 import { ProjectType } from "../project.model";
 

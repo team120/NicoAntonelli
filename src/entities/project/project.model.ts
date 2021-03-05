@@ -1,15 +1,9 @@
-import {
-  Column,
-  Entity,
-  OneToMany,
-  PrimaryColumn,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { UserToProjects } from "../users_projects/users-projects.model";
 
 export enum ProjectType {
-  Informal = 1,
-  Formal = 2,
+  Informal = "Informal",
+  Formal = "Formal",
 }
 
 @Entity()
