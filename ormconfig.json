@@ -4,6 +4,7 @@
     "type": "sqlite",
     "database": "database.sqlite",
     "synchronize": true,
+    "dropSchema": true,
     "logging": false,
     "migrationsRun": true,
     "entities": ["dist/entities/**/*.js"],

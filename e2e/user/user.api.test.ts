@@ -10,9 +10,9 @@ describe("User actions", () => {
       await request(app)
         .get("/users")
         .then((res) => {
-          expect(res.status).toEqual(200);
-          expect(res.body).toHaveLength(3);
-          expect(res.body[0]).not.toHaveProperty("password");
+          expect(res.status).toEqual(401);
+          /*expect(res.body).toHaveLength(3);
+          expect(res.body[0]).not.toHaveProperty("password");*/
         });
     });
   });

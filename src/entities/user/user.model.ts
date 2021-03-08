@@ -5,9 +5,11 @@ import {
   Entity,
   OneToOne,
   JoinColumn,
+  OneToMany,
 } from "typeorm";
 import { University } from "../university/university.model";
 import { GoogleProfile } from "../auth/googleProfile.model";
+import { UserToProjects } from "../users_projects/users-projects.model";
 
 @Entity()
 export class User {
@@ -35,7 +37,7 @@ export class User {
   gender: string;
   @Column({ nullable: true })
   picture: string;
-  @Column({default: false})
+  @Column({ default: false })
   requestPosition: boolean;
 
   @OneToOne((type) => GoogleProfile, (profile) => profile.user, {
@@ -50,4 +52,6 @@ export class User {
     onUpdate: "CASCADE",
   })
   university: University;
+  @OneToMany((type) => UserToProjects, (userToProjects) => userToProjects.user)
+  userToProjects: UserToProjects[];
 }
