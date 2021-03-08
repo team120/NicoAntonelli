@@ -1,9 +1,6 @@
 import { MigrationInterface, QueryRunner, getRepository } from "typeorm";
 import { Department } from "../../../src/entities/department/department.model";
-import {
-  Project,
-  ProjectType,
-} from "../../../src/entities/project/project.model";
+import { Project, ProjectType } from "../../../src/entities/project/project.model";
 import { University } from "../../../src/entities/university/university.model";
 import { User } from "../../../src/entities/user/user.model";
 import { UserToProjects } from "../../../src/entities/users_projects/users-projects.model";
@@ -57,7 +54,8 @@ export class SeedDb1590967789743 implements MigrationInterface {
         mail: "user1@example.com",
         isMailVerified: true,
         password: await hashPassword("password1"),
-        name: "user1",
+        name: "John",
+        lastName: "Doe",
         university: universities[0],
         professorId: 11444,
       }),
@@ -65,14 +63,16 @@ export class SeedDb1590967789743 implements MigrationInterface {
         mail: "user2@example.com",
         isMailVerified: true,
         password: await hashPassword("password2"),
-        name: "user2",
+        name: "Afak",
+        lastName: "Ename",
         university: universities[0],
       }),
       usersRepo.create({
         mail: "user3@example.com",
         isMailVerified: true,
         password: await hashPassword("password3"),
-        name: "user3",
+        name: "Nom",
+        lastName: "Eaning",
         university: universities[0],
         requestPosition: true,
       }),
