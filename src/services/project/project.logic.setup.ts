@@ -1,4 +1,4 @@
-import { getFromRepoQuery } from "../../utils/common/common.query";
+import { findProjects } from "../../utils/project/project.utils";
 import * as projectLogic from "./project.logic";
 
-export const getProjects = projectLogic.getProjects(getFromRepoQuery);
+export const getProjects = projectLogic.getProjects(findProjects);
