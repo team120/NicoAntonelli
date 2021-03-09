@@ -6,7 +6,7 @@ import * as queryTypes from "../../utils/common/common.query.interface";
 export const getDepartmentsLogicFactory = (
   getQuery: queryTypes.getQueryFunc,
 ) => (): Promise<DepartmentShowDto[]> =>
-  getQuery(Department).then((departments) =>
+  getQuery(Department, ["university"]).then((departments) =>
     departments.map((department) =>
       plainToClass(DepartmentShowDto, department),
     ),
