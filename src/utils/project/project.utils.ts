@@ -1,39 +1,59 @@
 import { ProjectFindDto } from "../../entities/project/input/project.find.dto";
 import { Project } from "../../entities/project/project.model";
-import { getRepository, ILike, WhereExpression } from "typeorm";
-import projectRouter from "src/api/project/project.route";
+import { getRepository, ILike, In, WhereExpression } from "typeorm";
 
 export type IFindProjects = (
   relationsToInclude: string[],
   whereValues: ProjectFindDto,
 ) => Promise<Project[]>;
 
-const getWhereOptions = (whereValues: ProjectFindDto): any => {
-  const whereOptions: any = {
-    name: whereValues.name ? ILike(`%${whereValues.name}%`) : undefined,
-    userToProjects: {
-      user: {
-        name: whereValues.user ? ILike(`%${whereValues.user}%`) : undefined,
-      },
-    },
-  };
-  Object.keys(whereOptions).forEach(
-    (key) => whereOptions[key] === undefined && delete whereOptions["name"],
-  );
-  return whereOptions;
-};
-
-export const findProjects: IFindProjects = (
-  relationsToInclude: string[],
+const getMatchingProjects = (
   whereValues: ProjectFindDto,
 ): Promise<Project[]> => {
   const query = getRepository(Project)
     .createQueryBuilder("project")
     .innerJoinAndSelect("project.userToProjects", "user_projects")
-    .innerJoinAndSelect("user_projects.user", "user");
+    .innerJoinAndSelect("user_projects.user", "user")
+    .leftJoinAndSelect("project.department", "department")
+    .leftJoinAndSelect("user.university", "university");
+
+  if (whereValues.name !== undefined) {
+    query.andWhere("project.name like :name", {
+      name: `%${whereValues.name}%`,
+    });
+  }
+  if (whereValues.type !== undefined) {
+    query.andWhere("project.type like :type", {
+      name: `%${whereValues.type}%`,
+    });
+  }
+  if (whereValues.isDown !== undefined) {
+    query.andWhere("project.isDown = :idDown", { isDown: whereValues.isDown });
+  }
   if (whereValues.user !== undefined) {
-    query.where("user.name = :name", { name: whereValues.user });
+    query.andWhere("user.name like :username", {
+      username: `%${whereValues.user}%`,
+    });
   }
 
-  return query.getMany();
+  return query.select("project.id").getMany();
 };
+
+export const findProjects: IFindProjects = (
+  relationsToInclude: string[],
+  whereValues: ProjectFindDto,
+): Promise<Project[]> =>
+  getMatchingProjects(whereValues).then((selectedProjects) => {
+    const projectsMappedString = selectedProjects
+      .map((project) => project.id)
+      .join(", ");
+
+    return getRepository(Project)
+      .createQueryBuilder("project")
+      .innerJoinAndSelect("project.userToProjects", "user_projects")
+      .innerJoinAndSelect("user_projects.user", "user")
+      .leftJoinAndSelect("project.department", "department")
+      .leftJoinAndSelect("user.university", "university")
+      .where(`project.id IN (${projectsMappedString})`)
+      .getMany();
+  });
