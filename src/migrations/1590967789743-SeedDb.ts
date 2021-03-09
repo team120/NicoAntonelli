@@ -27,7 +27,19 @@ export class SeedDb1590967789743 implements MigrationInterface {
         university: universities[0],
       }),
       departmentRepo.create({
-        name: "Ingenieria Civil",
+        name: "Legajo y Actas",
+        university: universities[0],
+      }),
+      departmentRepo.create({
+        name: "Alumnos",
+        university: universities[0],
+      }),
+      departmentRepo.create({
+        name: "Alumnos",
+        university: universities[1],
+      }),
+      departmentRepo.create({
+        name: "Ingenieria Electronica",
         university: universities[1],
       }),
     ];
