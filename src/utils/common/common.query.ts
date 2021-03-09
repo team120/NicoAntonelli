@@ -31,17 +31,21 @@ export const getOneFromRepoQuery: queryTypes.getOneQueryFunc = <T>(
       return entity;
     });
 
-export const createFromRepoQuery: queryTypes.createQueryFunc = <R, T>(
+export const createFromRepoQuery: queryTypes.createQueryFunc = async <R, T>(
   type: {
     new (...args: any[]): T;
   },
   value: R,
-): Promise<T> =>
-  getRepository(type)
+  include?: string[],
+): Promise<T> => {
+  const entity = await getRepository(type)
     .save(getRepository(type).create(value))
     .catch((err: Error) => {
       throw Er.DbError(err.message, err.stack);
     });
+    
+  return getOneFromRepoQuery(type, (entity as any).id, include);
+};
 
 export const updateFromRepoQuery: queryTypes.updateQueryFunc = <R, T>(
   type: {

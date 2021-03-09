@@ -6,8 +6,7 @@ import * as queryTypes from "../../utils/common/common.query.interface";
 export const getDepartmentsLogicFactory = (
   getQuery: queryTypes.getQueryFunc,
 ) => (): Promise<DepartmentShowDto[]> =>
-  getQuery(Department, ["university"])
-  .then((departments) =>
+  getQuery(Department, ["university"]).then((departments) =>
     departments.map((department) =>
       plainToClass(DepartmentShowDto, department),
     ),
@@ -16,15 +15,13 @@ export const getDepartmentsLogicFactory = (
 export const getOneDepartmentLogicFactory = (
   getOneQuery: queryTypes.getOneQueryFunc,
 ) => (id: number): Promise<DepartmentShowDto> =>
-  getOneQuery(Department, id, ["university"])
-  .then((department) =>
+  getOneQuery(Department, id, ["university"]).then((department) =>
     plainToClass(DepartmentShowDto, department),
   );
 
 export const createDepartmentLogicFactory = (
   getCreateQuery: queryTypes.createQueryFunc,
 ) => (department: Department) =>
-  getCreateQuery(Department, department)
-  .then((department) =>
+  getCreateQuery(Department, department, ["university"]).then((department) =>
     plainToClass(DepartmentShowDto, department),
   );
