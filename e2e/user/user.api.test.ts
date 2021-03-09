@@ -24,7 +24,7 @@ describe("User actions", () => {
         .get(`/users/${id}`)
         .then((res) => {
           expect(res.status).toEqual(200);
-          expect(res.body.name).toEqual("user2");
+          expect(res.body.name).toEqual("Afak");
           expect(res.body).not.toHaveProperty("password");
         });
     });

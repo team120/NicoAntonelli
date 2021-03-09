@@ -22,16 +22,16 @@ describe("Project actions", () => {
             users: [
               {
                 mail: "user1@example.com",
-                lastName: null,
-                name: "user1",
+                lastName: "Doe",
+                name: "John",
                 university: {
                   name: "UTN",
                 },
               },
               {
                 mail: "user2@example.com",
-                name: "user2",
-                lastName: null,
+                name: "Afak",
+                lastName: "Ename",
                 university: {
                   name: "UTN",
                 },
@@ -55,22 +55,20 @@ describe("Project actions", () => {
             name: "University Project Manager",
             type: "Informal",
             isDown: false,
-            department: {
-              name: "Ingenieria en Sistemas",
-            },
+            department: null,
             users: [
               {
-                mail: "user3@example.com",
-                lastName: null,
-                name: "user3",
+                mail: "user2@example.com",
+                name: "Afak",
+                lastName: "Ename",
                 university: {
                   name: "UTN",
                 },
               },
               {
-                mail: "user2@example.com",
-                name: "user2",
-                lastName: null,
+                mail: "user3@example.com",
+                lastName: "Eaning",
+                name: "Nom",
                 university: {
                   name: "UTN",
                 },
@@ -81,31 +79,29 @@ describe("Project actions", () => {
         });
     });
     it("should get all projects that partially match some of their users", async () => {
-      const fullNamePartial = "User3";
+      const fullNamePartial = "Nom";
       await request(api)
         .get(`/projects?user=${fullNamePartial}`)
         .then((res) => {
           expect(res.status).toBe(200);
           expect(res.body[0]).toEqual({
             name: "University Project Manager",
+            department: null,
             type: "Informal",
             isDown: false,
-            department: {
-              name: "Ingenieria en Sistemas",
-            },
             users: [
               {
-                mail: "user3@example.com",
-                lastName: null,
-                name: "user3",
+                mail: "user2@example.com",
+                name: "Afak",
+                lastName: "Ename",
                 university: {
                   name: "UTN",
                 },
               },
               {
-                mail: "user2@example.com",
-                name: "user2",
-                lastName: null,
+                mail: "user3@example.com",
+                lastName: "Eaning",
+                name: "Nom",
                 university: {
                   name: "UTN",
                 },
@@ -116,33 +112,30 @@ describe("Project actions", () => {
         });
     });
     it("should get all projects that partially match their name and one of their users", async () => {
-      const name = "Manager";
-      const partialFullName = "User2";
+      const name = "VERS";
+      const partialFullName = "FAk";
       await request(api)
         .get(`/projects?name=${name}&user=${partialFullName}`)
         .then((res) => {
           expect(res.status).toBe(200);
           expect(res.body[0]).toEqual({
-            name:
-              "Desarrollo de un sistema para identificar geoposicionamiento en entorno de Internet de la Cosas (IoT)",
-            type: "Formal",
+            name: "University Project Manager",
+            department: null,
+            type: "Informal",
             isDown: false,
-            department: {
-              name: "Ingenieria en Sistemas",
-            },
             users: [
               {
-                mail: "user1@example.com",
-                lastName: null,
-                name: "user1",
+                mail: "user2@example.com",
+                name: "Afak",
+                lastName: "Ename",
                 university: {
                   name: "UTN",
                 },
               },
               {
-                mail: "user2@example.com",
-                name: "user2",
-                lastName: null,
+                mail: "user3@example.com",
+                lastName: "Eaning",
+                name: "Nom",
                 university: {
                   name: "UTN",
                 },

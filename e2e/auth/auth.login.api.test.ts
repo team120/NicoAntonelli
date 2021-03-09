@@ -13,7 +13,7 @@ describe("Auth actions", () => {
         .then((res) => {
           expect(res.status).toEqual(200);
           expect(res.body.mail).toEqual("user1@example.com");
-          expect(res.body.name).toEqual("user1");
+          expect(res.body.name).toEqual("John");
           expect(res.body.password).not.toBeDefined();
           expect(res.body.accessToken).toBeDefined();
         });
