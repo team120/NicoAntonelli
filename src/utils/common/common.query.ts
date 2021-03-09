@@ -6,10 +6,10 @@ export const getFromRepoQuery: queryTypes.getQueryFunc = <T>(
   type: {
     new (...args: any[]): T;
   },
-  include?: string[],
+  relationsToInclude?: string[],
 ): Promise<T[]> =>
   getRepository(type)
-    .find({ relations: include ?? [] })
+    .find({ relations: relationsToInclude ?? [] })
     .catch((err: Error) => {
       throw Er.DbError(err.message, err.stack);
     });
@@ -17,10 +17,10 @@ export const getFromRepoQuery: queryTypes.getQueryFunc = <T>(
 export const getOneFromRepoQuery: queryTypes.getOneQueryFunc = <T>(
   type: { new (...args: any[]): T },
   id: number | string,
-  include?: string[],
+  relationsToInclude?: string[],
 ): Promise<T> =>
   getRepository(type)
-    .findOne(id, { relations: include ?? [] })
+    .findOne(id, { relations: relationsToInclude ?? [] })
     .catch((err: Error) => {
       throw Er.DbError(err.message, err.stack);
     })
@@ -36,7 +36,7 @@ export const createFromRepoQuery: queryTypes.createQueryFunc = async <R, T>(
     new (...args: any[]): T;
   },
   value: R,
-  include?: string[],
+  relationsToInclude?: string[],
 ): Promise<T> => {
   const entity = await getRepository(type)
     .save(getRepository(type).create(value))
@@ -44,7 +44,7 @@ export const createFromRepoQuery: queryTypes.createQueryFunc = async <R, T>(
       throw Er.DbError(err.message, err.stack);
     });
     
-  return getOneFromRepoQuery(type, (entity as any).id, include);
+  return getOneFromRepoQuery(type, (entity as any).id, relationsToInclude);
 };
 
 export const updateFromRepoQuery: queryTypes.updateQueryFunc = <R, T>(
