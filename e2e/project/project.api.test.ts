@@ -22,16 +22,16 @@ describe("Project actions", () => {
             users: [
               {
                 mail: "user1@example.com",
-                lastName: null,
-                name: "user1",
+                lastName: "Doe",
+                name: "John",
                 university: {
                   name: "UTN",
                 },
               },
               {
                 mail: "user2@example.com",
-                name: "user2",
-                lastName: null,
+                name: "Afak",
+                lastName: "Ename",
                 university: {
                   name: "UTN",
                 },
@@ -40,6 +40,109 @@ describe("Project actions", () => {
           });
           expect(res.body[0].users[0].password).not.toBeDefined();
           expect(res.body).toHaveLength(2);
+        });
+    });
+  });
+
+  describe("search projects", () => {
+    it("should get all projects that partially match their name", async () => {
+      const name = "Manager";
+      await request(api)
+        .get(`/projects?name=${name}`)
+        .then((res) => {
+          expect(res.status).toBe(200);
+          expect(res.body[0]).toEqual({
+            name: "University Project Manager",
+            type: "Informal",
+            isDown: false,
+            department: null,
+            users: [
+              {
+                mail: "user2@example.com",
+                name: "Afak",
+                lastName: "Ename",
+                university: {
+                  name: "UTN",
+                },
+              },
+              {
+                mail: "user3@example.com",
+                lastName: "Eaning",
+                name: "Nom",
+                university: {
+                  name: "UTN",
+                },
+              },
+            ],
+          });
+          expect(res.body).toHaveLength(1);
+        });
+    });
+    it("should get all projects that partially match some of their users", async () => {
+      const fullNamePartial = "Nom";
+      await request(api)
+        .get(`/projects?user=${fullNamePartial}`)
+        .then((res) => {
+          expect(res.status).toBe(200);
+          expect(res.body[0]).toEqual({
+            name: "University Project Manager",
+            department: null,
+            type: "Informal",
+            isDown: false,
+            users: [
+              {
+                mail: "user2@example.com",
+                name: "Afak",
+                lastName: "Ename",
+                university: {
+                  name: "UTN",
+                },
+              },
+              {
+                mail: "user3@example.com",
+                lastName: "Eaning",
+                name: "Nom",
+                university: {
+                  name: "UTN",
+                },
+              },
+            ],
+          });
+          expect(res.body).toHaveLength(1);
+        });
+    });
+    it("should get all projects that partially match their name and one of their users", async () => {
+      const name = "VERS";
+      const partialFullName = "FAk";
+      await request(api)
+        .get(`/projects?name=${name}&user=${partialFullName}`)
+        .then((res) => {
+          expect(res.status).toBe(200);
+          expect(res.body[0]).toEqual({
+            name: "University Project Manager",
+            department: null,
+            type: "Informal",
+            isDown: false,
+            users: [
+              {
+                mail: "user2@example.com",
+                name: "Afak",
+                lastName: "Ename",
+                university: {
+                  name: "UTN",
+                },
+              },
+              {
+                mail: "user3@example.com",
+                lastName: "Eaning",
+                name: "Nom",
+                university: {
+                  name: "UTN",
+                },
+              },
+            ],
+          });
+          expect(res.body).toHaveLength(1);
         });
     });
   });

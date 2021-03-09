@@ -122,6 +122,7 @@ describe("University actions", () => {
     });
   });
 
+  /*
   describe("delete one university", () => {
     it("should return status 200 OK and delete message", async () => {
       const id = 2;
@@ -150,5 +151,5 @@ describe("University actions", () => {
           expect(res.status).toEqual(500);
         });
     });
-  });
+  });*/
 });
