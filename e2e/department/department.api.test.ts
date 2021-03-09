@@ -25,7 +25,7 @@ describe("Departments actions", () => {
         .get(`/departments/${id}`)
         .then((res) => {
           expect(res.status).toEqual(200);
-          expect(res.body.name).toEqual("Alumnos");
+          expect(res.body.name).toEqual("Ingenieria Quimica");
           expect(res.body).not.toHaveProperty("id");
           expect(res.body.university).toBeDefined();
           expect(res.body.university.name).toEqual("UTN");

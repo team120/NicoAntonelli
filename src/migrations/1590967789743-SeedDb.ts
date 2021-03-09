@@ -27,15 +27,15 @@ export class SeedDb1590967789743 implements MigrationInterface {
         university: universities[0],
       }),
       departmentRepo.create({
-        name: "Legajo y Actas",
+        name: "Ingenieria Civil",
         university: universities[0],
       }),
       departmentRepo.create({
-        name: "Alumnos",
+        name: "Ingenieria Quimica",
         university: universities[0],
       }),
       departmentRepo.create({
-        name: "Alumnos",
+        name: "Ciencias Basicas",
         university: universities[1],
       }),
       departmentRepo.create({
