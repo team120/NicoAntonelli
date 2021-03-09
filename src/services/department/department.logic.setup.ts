@@ -8,3 +8,7 @@ export const getAllDepartments = departmentsLogicFactory.getDepartmentsLogicFact
 export const getOneDepartment = departmentsLogicFactory.getOneDepartmentLogicFactory(
   queries.getOneFromRepoQuery,
 );
+
+export const createDepartment = departmentsLogicFactory.createDepartmentLogicFactory(
+  queries.createFromRepoQuery
+);

@@ -18,12 +18,28 @@ export const getAllDepartments = (
 
 // Get one
 export const getOneDepartment = (
-    req: Request,
-    res: Response,
-    next: NextFunction,
+  req: Request,
+  res: Response,
+  next: NextFunction,
 ): void => {
-    departmentServices
+  departmentServices
     .getOneDepartment(Number(req.params.id))
-    .then((department) => {res.status(200).json(department)})
+    .then((department) => {
+      res.status(200).json(department);
+    })
+    .catch((err) => next(err));
+};
+
+// Create department
+export const createDepartment = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): void => {
+  departmentServices
+    .createDepartment(req.body)
+    .then((department) => {
+      res.status(201).json(department);
+    })
     .catch((err) => next(err));
 };

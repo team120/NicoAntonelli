@@ -38,7 +38,7 @@ export const createUniversity = (
   universityServices
     .createUniversity(req.body)
     .then((university) => {
-      res.status(200).json(university);
+      res.status(201).json(university);
     })
     .catch((err) => next(err));
 };
