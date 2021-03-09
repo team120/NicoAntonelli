@@ -11,3 +11,10 @@ export const getDepartmentsLogicFactory = (
       plainToClass(DepartmentShowDto, department),
     ),
   );
+
+export const getOneDepartmentLogicFactory = (
+  getOneQuery: queryTypes.getOneQueryFunc,
+) => (id: number): Promise<DepartmentShowDto> =>
+  getOneQuery(Department, id, ["university"]).then((department) =>
+    plainToClass(DepartmentShowDto, department),
+  );
