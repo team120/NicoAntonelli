@@ -1,6 +1,9 @@
 import { MigrationInterface, QueryRunner, getRepository } from "typeorm";
 import { Department } from "../../../src/entities/department/department.model";
-import { Project, ProjectType } from "../../../src/entities/project/project.model";
+import {
+  Project,
+  ProjectType,
+} from "../../../src/entities/project/project.model";
 import { University } from "../../../src/entities/university/university.model";
 import { User } from "../../../src/entities/user/user.model";
 import { UserToProjects } from "../../../src/entities/users_projects/users-projects.model";
@@ -150,9 +153,12 @@ export class SeedDb1590967789743 implements MigrationInterface {
     await projectRepo.remove(projectsToRemove);
 
     const departmentsToRemove = await departmentRepo.find({
-      where: [{ university: universitiesToRemove[0] }, { university: universitiesToRemove[1] }],
+      where: [
+        { university: universitiesToRemove[0] },
+        { university: universitiesToRemove[1] },
+      ],
     });
-  
+
     await departmentRepo.remove(departmentsToRemove);
   }
 }

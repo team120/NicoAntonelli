@@ -150,9 +150,12 @@ export class SeedDb1590967789743 implements MigrationInterface {
     await projectRepo.remove(projectsToRemove);
 
     const departmentsToRemove = await departmentRepo.find({
-      where: [{ university: universitiesToRemove[0] }, { university: universitiesToRemove[1] }],
+      where: [
+        { university: universitiesToRemove[0] },
+        { university: universitiesToRemove[1] },
+      ],
     });
-  
+
     await departmentRepo.remove(departmentsToRemove);
   }
 }

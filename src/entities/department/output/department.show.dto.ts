@@ -7,5 +7,5 @@ export class DepartmentShowDto {
   name: string;
   @Expose()
   @Type(() => UniversityShowDto)
-  university: UniversityShowDto
+  university: UniversityShowDto;
 }

@@ -56,7 +56,7 @@ describe("Departments actions", () => {
         .set("Accept", "application/json")
         .then((res) => {
           expect(res.status).toEqual(201);
-          expect(res.body.name).toEqual("Ciencias Basicas")
+          expect(res.body.name).toEqual("Ciencias Basicas");
           expect(res.body).not.toHaveProperty("id");
           expect(res.body.university.name).toEqual("UTN");
           expect(res.body.university.id).not.toBeDefined();

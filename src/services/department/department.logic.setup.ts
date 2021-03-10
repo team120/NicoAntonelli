@@ -10,5 +10,5 @@ export const getOneDepartment = departmentsLogicFactory.getOneDepartmentLogicFac
 );
 
 export const createDepartment = departmentsLogicFactory.createDepartmentLogicFactory(
-  queries.createFromRepoQuery
+  queries.createFromRepoQuery,
 );
