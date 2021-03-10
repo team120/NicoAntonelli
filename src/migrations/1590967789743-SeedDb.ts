@@ -28,6 +28,18 @@ export class SeedDb1590967789743 implements MigrationInterface {
       }),
       departmentRepo.create({
         name: "Ingenieria Civil",
+        university: universities[0],
+      }),
+      departmentRepo.create({
+        name: "Ingenieria Quimica",
+        university: universities[0],
+      }),
+      departmentRepo.create({
+        name: "Ciencias Basicas",
+        university: universities[1],
+      }),
+      departmentRepo.create({
+        name: "Ingenieria Electronica",
         university: universities[1],
       }),
     ];
@@ -106,6 +118,8 @@ export class SeedDb1590967789743 implements MigrationInterface {
     const usersRepo = getRepository(User);
     const universityRepo = getRepository(University);
     const projectRepo = getRepository(Project);
+    const userToProjectsRepo = getRepository(UserToProjects);
+    const departmentRepo = getRepository(Department);
 
     const usersToRemove = await usersRepo.find({
       where: [
@@ -134,5 +148,11 @@ export class SeedDb1590967789743 implements MigrationInterface {
     });
 
     await projectRepo.remove(projectsToRemove);
+
+    const departmentsToRemove = await departmentRepo.find({
+      where: [{ university: universitiesToRemove[0] }, { university: universitiesToRemove[1] }],
+    });
+  
+    await departmentRepo.remove(departmentsToRemove);
   }
 }
