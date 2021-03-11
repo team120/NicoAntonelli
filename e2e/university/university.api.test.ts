@@ -46,7 +46,7 @@ describe("University actions", () => {
         .send({ name: "UNC" })
         .set("Accept", "application/json")
         .then((res) => {
-          expect(res.status).toEqual(200);
+          expect(res.status).toEqual(201);
           expect(res.body).toEqual({ name: "UNC" });
           expect(res.body).not.toHaveProperty("id");
         });
@@ -57,7 +57,7 @@ describe("University actions", () => {
         .send({ name: "UNC", incorrectProperty: "incorrectValue" })
         .set("Accept", "application/json")
         .then((res) => {
-          expect(res.status).toEqual(200);
+          expect(res.status).toEqual(201);
           expect(res.body).toEqual({ name: "UNC" });
           expect(res.body).not.toHaveProperty("incorrectProperty");
           expect(res.body).not.toHaveProperty("id");

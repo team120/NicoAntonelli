@@ -145,5 +145,40 @@ describe("Project actions", () => {
           expect(res.body).toHaveLength(1);
         });
     });
+    describe("when isDown parameter is provided", () => {
+      describe("and set to false", () => {
+        it("should get every project", async () => {
+          const isDown = false;
+          await request(api)
+            .get(`/projects/?isDown=${isDown}`)
+            .then((res) => {
+              expect(res.status).toBe(200);
+              expect(res.body).toHaveLength(2);
+            });
+        });
+      });
+
+      describe("and set to true", () => {
+        it("should get no projects", async () => {
+          const isDown = true;
+          await request(api)
+            .get(`/projects/?isDown=${isDown}`)
+            .then((res) => {
+              expect(res.status).toBe(200);
+              expect(res.body).toHaveLength(0);
+            });
+        });
+        it("should get no projects as well when another parameter is provided", async () => {
+          const isDown = true;
+          const projectName = "University";
+          await request(api)
+            .get(`/projects/?isDown=${isDown}&name=${projectName}`)
+            .then((res) => {
+              expect(res.status).toBe(200);
+              expect(res.body).toHaveLength(0);
+            });
+        });
+      });
+    });
   });
 });

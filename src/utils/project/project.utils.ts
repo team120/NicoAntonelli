@@ -28,7 +28,10 @@ const getMatchingProjects = (
     });
   }
   if (whereValues.isDown !== undefined) {
-    query.andWhere("project.isDown = :idDown", { isDown: whereValues.isDown });
+    console.log(whereValues.isDown);
+    query.andWhere("project.isDown = :down", {
+      down: whereValues.isDown,
+    });
   }
   if (whereValues.user !== undefined) {
     query.andWhere("user.name like :username", {
