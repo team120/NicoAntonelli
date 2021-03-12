@@ -30,23 +30,29 @@ const getMatchingProjects = (
   }
 
   if (whereValues.universityId !== undefined) {
-    query.andWhere(`university.id = :universityId`, {
+    query.andWhere("university.id = :universityId", {
       universityId: whereValues.universityId,
     });
   }
   if (whereValues.departmentId !== undefined) {
-    query.andWhere(`department.id = :departmentId`, {
+    query.andWhere("department.id = :departmentId", {
       departmentId: whereValues.departmentId,
     });
   }
   if (whereValues.type !== undefined) {
-    query.andWhere(`project.type = :type`, { type: whereValues.type });
+    query.andWhere("project.type = :type", { type: whereValues.type });
   }
   if (whereValues.isDown !== undefined) {
-    query.andWhere(`project.isDown = :isDown`, { isDown: whereValues.isDown });
+    query.andWhere("project.isDown = :isDown", { isDown: whereValues.isDown });
   }
   if (whereValues.userId !== undefined) {
-    query.andWhere(`user.id = :userId`, { userId: whereValues.userId });
+    query.andWhere("user.id = :userId", { userId: whereValues.userId });
+  }
+  if (whereValues.dateFrom !== undefined) {
+    console.log(whereValues.dateFrom);
+    query.andWhere("project.creationDate >= :dateFrom", {
+      dateFrom: whereValues.dateFrom,
+    });
   }
 
   return query.select("project.id").getMany();
