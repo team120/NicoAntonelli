@@ -12,7 +12,6 @@ describe("University actions", () => {
         .then((res) => {
           expect(res.status).toEqual(200);
           expect(res.body).toHaveLength(2);
-          expect(res.body[0]).not.toHaveProperty("id");
         });
     });
   });
@@ -25,7 +24,6 @@ describe("University actions", () => {
         .then((res) => {
           expect(res.status).toEqual(200);
           expect(res.body.name).toEqual("UNR");
-          expect(res.body).not.toHaveProperty("id");
         });
     });
     it("should return ID not found if it does not match any id on DB", async () => {
@@ -47,8 +45,7 @@ describe("University actions", () => {
         .set("Accept", "application/json")
         .then((res) => {
           expect(res.status).toEqual(201);
-          expect(res.body).toEqual({ name: "UNC" });
-          expect(res.body).not.toHaveProperty("id");
+          expect(res.body.name).toEqual("UNC");
         });
     });
     it("should create the new university without the incorrect properties", async () => {
@@ -58,9 +55,8 @@ describe("University actions", () => {
         .set("Accept", "application/json")
         .then((res) => {
           expect(res.status).toEqual(201);
-          expect(res.body).toEqual({ name: "UNC" });
+          expect(res.body.name).toEqual("UNC");
           expect(res.body).not.toHaveProperty("incorrectProperty");
-          expect(res.body).not.toHaveProperty("id");
         });
     });
     it("should return a list of universities with the new one included", async () => {
@@ -73,8 +69,7 @@ describe("University actions", () => {
         .then((res) => {
           expect(res.status).toEqual(200);
           expect(res.body).toHaveLength(3);
-          expect(res.body[2]).toEqual({ name: "UNC" });
-          expect(res.body[2]).not.toHaveProperty("id");
+          expect(res.body[2].name).toEqual("UNC");
         });
     });
   });
@@ -88,8 +83,7 @@ describe("University actions", () => {
         .set("Accept", "application/json")
         .then((res) => {
           expect(res.status).toEqual(200);
-          expect(res.body).toEqual({ name: "UBA" });
-          expect(res.body).not.toHaveProperty("id");
+          expect(res.body).toEqual({ id: id, name: "UBA" });
         });
     });
     it("should update the new university without the incorrect properties", async () => {
@@ -100,9 +94,7 @@ describe("University actions", () => {
         .set("Accept", "application/json")
         .then((res) => {
           expect(res.status).toEqual(200);
-          expect(res.body).toEqual({ name: "UNC" });
-          expect(res.body).not.toHaveProperty("incorrectProperty");
-          expect(res.body).not.toHaveProperty("id");
+          expect(res.body).toEqual({ id: id, name: "UNC" });
         });
     });
     it("should return a list of universities where the updated one is correct", async () => {
@@ -116,8 +108,7 @@ describe("University actions", () => {
         .then((res) => {
           expect(res.status).toEqual(200);
           expect(res.body).toHaveLength(2);
-          expect(res.body[id - 1]).toEqual({ name: "UBA" });
-          expect(res.body[id - 1]).not.toHaveProperty("id");
+          expect(res.body[id - 1].name).toEqual("UBA");
         });
     });
   });

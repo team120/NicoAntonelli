@@ -17,6 +17,7 @@ describe("Project actions", () => {
             type: "Formal",
             isDown: false,
             department: {
+              id: 1,
               name: "Ingenieria en Sistemas",
             },
             users: [
@@ -25,6 +26,7 @@ describe("Project actions", () => {
                 lastName: "Doe",
                 name: "John",
                 university: {
+                  id: 1,
                   name: "UTN",
                 },
               },
@@ -33,6 +35,7 @@ describe("Project actions", () => {
                 name: "Afak",
                 lastName: "Ename",
                 university: {
+                  id: 1,
                   name: "UTN",
                 },
               },
@@ -92,6 +95,7 @@ describe("Project actions", () => {
                 name: "Afak",
                 lastName: "Ename",
                 university: {
+                  id: 1,
                   name: "UTN",
                 },
               },
@@ -100,6 +104,7 @@ describe("Project actions", () => {
                 lastName: "Eaning",
                 name: "Nom",
                 university: {
+                  id: 1,
                   name: "UTN",
                 },
               },
@@ -163,6 +168,7 @@ describe("search projects by a general text search", () => {
                 name: "Afak",
                 lastName: "Ename",
                 university: {
+                  id: 1,
                   name: "UTN",
                 },
               },
@@ -171,6 +177,7 @@ describe("search projects by a general text search", () => {
                 lastName: "Eaning",
                 name: "Nom",
                 university: {
+                  id: 1,
                   name: "UTN",
                 },
               },
@@ -201,6 +208,7 @@ describe("search projects by a general text search", () => {
                     name: "Afak",
                     lastName: "Ename",
                     university: {
+                      id: 1,
                       name: "UTN",
                     },
                   },
@@ -209,6 +217,7 @@ describe("search projects by a general text search", () => {
                     lastName: "Eaning",
                     name: "Nom",
                     university: {
+                      id: 1,
                       name: "UTN",
                     },
                   },

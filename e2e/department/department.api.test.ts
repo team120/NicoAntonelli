@@ -13,7 +13,6 @@ describe("Departments actions", () => {
         .then((res) => {
           expect(res.status).toEqual(200);
           expect(res.body).toHaveLength(5);
-          expect(res.body[0]).not.toHaveProperty("id");
         });
     });
   });
@@ -26,7 +25,6 @@ describe("Departments actions", () => {
         .then((res) => {
           expect(res.status).toEqual(200);
           expect(res.body.name).toEqual("Ingenieria Quimica");
-          expect(res.body).not.toHaveProperty("id");
           expect(res.body.university).toBeDefined();
           expect(res.body.university.name).toEqual("UTN");
         });
@@ -57,9 +55,7 @@ describe("Departments actions", () => {
         .then((res) => {
           expect(res.status).toEqual(201);
           expect(res.body.name).toEqual("Ciencias Basicas");
-          expect(res.body).not.toHaveProperty("id");
           expect(res.body.university.name).toEqual("UTN");
-          expect(res.body.university.id).not.toBeDefined();
         });
     });
   });
