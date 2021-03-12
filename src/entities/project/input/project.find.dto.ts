@@ -4,14 +4,16 @@ import { ProjectType } from "../project.model";
 @Exclude()
 export class ProjectFindDto {
   @Expose()
-  name: string;
+  generalSearch: string;
   @Expose()
   type: ProjectType;
   @Expose()
   @Transform(({ value }) => (value === "true" ? true : false))
   isDown: boolean;
   @Expose()
-  department: string;
+  departmentId: number;
   @Expose()
-  user: string;
+  universityId: number;
+  @Expose()
+  userId: number;
 }
