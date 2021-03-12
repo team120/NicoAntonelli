@@ -2,10 +2,7 @@ import { ProjectFindDto } from "../../entities/project/input/project.find.dto";
 import { Project } from "../../entities/project/project.model";
 import { Brackets, getRepository, ILike, In, WhereExpression } from "typeorm";
 
-export type IFindProjects = (
-  relationsToInclude: string[],
-  whereValues: ProjectFindDto,
-) => Promise<Project[]>;
+export type IFindProjects = (whereValues: ProjectFindDto) => Promise<Project[]>;
 
 const getMatchingProjects = (
   whereValues: ProjectFindDto,
@@ -53,7 +50,6 @@ const getMatchingProjects = (
 };
 
 export const findProjects: IFindProjects = (
-  relationsToInclude: string[],
   whereValues: ProjectFindDto,
 ): Promise<Project[]> =>
   getMatchingProjects(whereValues).then((selectedProjects) => {

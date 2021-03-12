@@ -5,17 +5,7 @@ import { ProjectShowDto } from "../../entities/project/output/project.show.dto";
 
 export const getProjects = (findProjectsQuery: IFindProjects) => async (
   whereValues: ProjectFindDto,
-): Promise<ProjectShowDto[]> => {
-  console.log(whereValues);
-  return findProjectsQuery(
-    [
-      "department",
-      "userToProjects",
-      "userToProjects.user",
-      "userToProjects.user.university",
-    ],
-    whereValues,
-  ).then((projects) =>
+): Promise<ProjectShowDto[]> =>
+  findProjectsQuery(whereValues).then((projects) =>
     projects.map((project) => plainToClass(ProjectShowDto, project)),
   );
-};
