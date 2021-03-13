@@ -4,7 +4,7 @@ import { DepartmentShowDto } from "src/entities/department/output/department.sho
 import * as departmentService from "../../services/department/department.logic.setup";
 
 // Get All
-export const getAllDepartments = (
+export const getDepartments = (
   req: Request,
   res: Response,
   next: NextFunction,
