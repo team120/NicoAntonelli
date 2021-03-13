@@ -148,44 +148,44 @@ describe("Project actions", () => {
       });
     });
   });
-});
-describe("search projects by a general text search", () => {
-  describe("when project name is partially matched", () => {
-    it("should get all projects", async () => {
-      const generalSearchText = "Manager";
-      await request(api)
-        .get(`/projects?generalSearch=${generalSearchText}`)
-        .then((res) => {
-          expect(res.status).toBe(200);
-          expect(res.body[0]).toEqual({
-            name: "University Projects Manager",
-            type: "Informal",
-            isDown: false,
-            department: null,
-            users: [
-              {
-                mail: "user2@example.com",
-                name: "Afak",
-                lastName: "Ename",
-                university: {
-                  id: 1,
-                  name: "UTN",
+
+  describe("search projects by a general text search", () => {
+    describe("when project name is partially matched", () => {
+      it("should get all projects", async () => {
+        const generalSearchText = "Manager";
+        await request(api)
+          .get(`/projects?generalSearch=${generalSearchText}`)
+          .then((res) => {
+            expect(res.status).toBe(200);
+            expect(res.body[0]).toEqual({
+              name: "University Projects Manager",
+              type: "Informal",
+              isDown: false,
+              department: null,
+              users: [
+                {
+                  mail: "user2@example.com",
+                  name: "Afak",
+                  lastName: "Ename",
+                  university: {
+                    id: 1,
+                    name: "UTN",
+                  },
                 },
-              },
-              {
-                mail: "user3@example.com",
-                lastName: "Eaning",
-                name: "Nom",
-                university: {
-                  id: 1,
-                  name: "UTN",
+                {
+                  mail: "user3@example.com",
+                  lastName: "Eaning",
+                  name: "Nom",
+                  university: {
+                    id: 1,
+                    name: "UTN",
+                  },
                 },
-              },
-            ],
+              ],
+            });
+            expect(res.body).toHaveLength(1);
           });
-          expect(res.body).toHaveLength(1);
-        });
-    });
+      });
     describe("and additionally filtered by", () => {
       describe("userId", () => {
         it("should get all projects that partially match their name and exactly one of their users", async () => {
@@ -242,20 +242,20 @@ describe("search projects by a general text search", () => {
         });
       });
     });
-  });
 
-  describe("when exactly match some of their users", () => {
-    it("should get the two existent projects", async () => {
-      const generalSearchText = "fAk";
-      await request(api)
-        .get(`/projects?generalSearch=${generalSearchText}`)
-        .then((res) => {
-          expect(res.status).toBe(200);
-          expect(res.body).toHaveLength(2);
-        });
+    describe("when exactly match some of their users", () => {
+      it("should get the two existent projects", async () => {
+        const generalSearchText = "fAk";
+        await request(api)
+          .get(`/projects?generalSearch=${generalSearchText}`)
+          .then((res) => {
+            expect(res.status).toBe(200);
+            expect(res.body).toHaveLength(2);
+          });
+      });
     });
   });
-  
+ 
   describe("get one project", () => {
     it("should return the project with the specified id", async () => {
       const id = 2;
@@ -314,6 +314,7 @@ describe("search projects by a general text search", () => {
           expect(res.body.users[0].password).not.toBeDefined();
           expect(res.body).toHaveLength(1);
         });
+      });
     });
   });
 });
