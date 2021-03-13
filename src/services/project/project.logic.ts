@@ -15,6 +15,6 @@ export const getProjects = (findProjectsQuery: IFindProjects) => async (
 export const getOneProject = (
   getOneQuery: queryTypes.getOneQueryFunc,
 ) => (id: number): Promise<ProjectShowDto> =>
-  getOneQuery(Project, id, ["department"]).then((project) =>
+  getOneQuery(Project, id, ["department", "department.university", "userToProjects", "userToProjects.user", "userToProjects.user.university"]).then((project) =>
     plainToClass(ProjectShowDto, project),
   );
