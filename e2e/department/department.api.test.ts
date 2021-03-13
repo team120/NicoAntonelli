@@ -24,7 +24,7 @@ describe("Departments actions", () => {
         .get(`/departments/${id}`)
         .then((res) => {
           expect(res.status).toEqual(200);
-          expect(res.body.name).toEqual("Ingenieria Quimica");
+          expect(res.body.name).toEqual("Ingeniería Química");
           expect(res.body.university).toBeDefined();
           expect(res.body.university.name).toEqual("UTN");
         });
@@ -43,7 +43,7 @@ describe("Departments actions", () => {
   describe("Create one department", () => {
     it("should return status 201 OK and the department created", async () => {
       const departmentInput = {
-        name: "Ciencias Basicas",
+        name: "Ciencias Básicas",
         university: {
           id: 1,
         },
@@ -54,7 +54,7 @@ describe("Departments actions", () => {
         .set("Accept", "application/json")
         .then((res) => {
           expect(res.status).toEqual(201);
-          expect(res.body.name).toEqual("Ciencias Basicas");
+          expect(res.body.name).toEqual("Ciencias Básicas");
           expect(res.body.university.name).toEqual("UTN");
         });
     });
