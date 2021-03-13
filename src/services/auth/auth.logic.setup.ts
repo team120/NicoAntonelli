@@ -1,25 +1,25 @@
-import * as authLogicFactories from "./auth.logic";
+import * as authLogic from "./auth.logic";
 import * as queries from "../../utils/common/common.query";
 import * as authUtils from "../../utils/auth/auth.utils";
 
-export const registerLogic = authLogicFactories.registerLogicFactory(
+export const registerLogic = authLogic.registerLogic(
   authUtils.checkIsEmailTaken,
   authUtils.hashPassword,
   queries.createFromRepoQuery,
 );
 
-export const loginLogic = authLogicFactories.loginLogicFactory(
+export const loginLogic = authLogic.loginLogic(
   authUtils.findUser,
   authUtils.checkPassword,
   authUtils.generateJwtToken,
 );
 
-export const isAuthLogic = authLogicFactories.isAuthLogicFactory(
+export const isAuthLogic = authLogic.isAuthLogic(
   authUtils.checkValidJwt,
   authUtils.getUserFromToken,
 );
 
-export const socialLoginLogic = authLogicFactories.socialLoginLogicFactory(
+export const socialLoginLogic = authLogic.socialLoginLogic(
   authUtils.findUserFromProfile,
   authUtils.generateJwtToken,
   queries.createFromRepoQuery,

@@ -1,24 +1,24 @@
-import * as universityLogicFactories from "./university.logic";
+import * as universityLogic from "./university.logic";
 import * as queries from "../../utils/common/common.query";
 
-export const getUniversities = universityLogicFactories.getUniversitiesLogicFactory(
+export const getUniversities = universityLogic.getUniversitiesLogic(
   queries.getFromRepoQuery,
 );
 
-export const getOneUniversity = universityLogicFactories.getOneUniversityLogicFactory(
+export const getOneUniversity = universityLogic.getOneUniversityLogic(
   queries.getOneFromRepoQuery,
 );
 
-export const createUniversity = universityLogicFactories.createUniversityLogicFactory(
+export const createUniversity = universityLogic.createUniversityLogic(
   queries.createFromRepoQuery,
 );
 
-export const updateUniversity = universityLogicFactories.updateUniversityLogicFactory(
+export const updateUniversity = universityLogic.updateUniversityLogic(
   queries.updateFromRepoQuery,
   queries.getOneFromRepoQuery,
 );
 
-export const deleteUniversity = universityLogicFactories.deleteUniversityLogicFactory(
+export const deleteUniversity = universityLogic.deleteUniversityLogic(
   queries.deleteFromRepoQuery,
   queries.getOneFromRepoQuery,
 );
