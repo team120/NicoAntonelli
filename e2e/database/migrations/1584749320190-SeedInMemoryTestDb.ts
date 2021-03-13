@@ -1,6 +1,9 @@
 import { MigrationInterface, QueryRunner, getRepository } from "typeorm";
 import { Department } from "../../../src/entities/department/department.model";
-import { Project, ProjectType } from "../../../src/entities/project/project.model";
+import {
+  Project,
+  ProjectType,
+} from "../../../src/entities/project/project.model";
 import { University } from "../../../src/entities/university/university.model";
 import { User } from "../../../src/entities/user/user.model";
 import { UserToProjects } from "../../../src/entities/users_projects/users-projects.model";
@@ -23,23 +26,23 @@ export class SeedDb1590967789743 implements MigrationInterface {
 
     const departments: Department[] = [
       departmentRepo.create({
-        name: "Ingenieria en Sistemas",
+        name: "Ingeniería en Sistemas",
         university: universities[0],
       }),
       departmentRepo.create({
-        name: "Ingenieria Civil",
+        name: "Ingeniería Civil",
         university: universities[0],
       }),
       departmentRepo.create({
-        name: "Ingenieria Quimica",
+        name: "Ingeniería Química",
         university: universities[0],
       }),
       departmentRepo.create({
-        name: "Ciencias Basicas",
+        name: "Ciencias Básicas",
         university: universities[1],
       }),
       departmentRepo.create({
-        name: "Ingenieria Electronica",
+        name: "Ingeniería Electrónica",
         university: universities[1],
       }),
     ];
@@ -54,7 +57,7 @@ export class SeedDb1590967789743 implements MigrationInterface {
         department: departments[0],
       }),
       projectRepo.create({
-        name: "University Project Manager",
+        name: "University Projects Manager",
         type: ProjectType.Informal,
       }),
     ];
@@ -150,9 +153,12 @@ export class SeedDb1590967789743 implements MigrationInterface {
     await projectRepo.remove(projectsToRemove);
 
     const departmentsToRemove = await departmentRepo.find({
-      where: [{ university: universitiesToRemove[0] }, { university: universitiesToRemove[1] }],
+      where: [
+        { university: universitiesToRemove[0] },
+        { university: universitiesToRemove[1] },
+      ],
     });
-  
+
     await departmentRepo.remove(departmentsToRemove);
   }
 }
