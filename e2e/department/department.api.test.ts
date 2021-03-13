@@ -23,8 +23,8 @@ describe("Departments actions", () => {
       await request(app)
         .get(`/departments/${id}`)
         .then((res) => {
-          expect(res.status).toEqual(200);
-          expect(res.body.name).toEqual("Ingeniería Química");
+          expect(res.status).toBe(200);
+          expect(res.body.name).toBe("Ingeniería Química");
           expect(res.body.university).toBeDefined();
           expect(res.body.university.name).toEqual("UTN");
         });
@@ -53,9 +53,9 @@ describe("Departments actions", () => {
         .send(departmentInput)
         .set("Accept", "application/json")
         .then((res) => {
-          expect(res.status).toEqual(201);
-          expect(res.body.name).toEqual("Ciencias Básicas");
-          expect(res.body.university.name).toEqual("UTN");
+          expect(res.status).toBe(201);
+          expect(res.body.name).toBe("Ciencias Básicas");
+          expect(res.body.university.name).toBe("UTN");
         });
     });
   });
