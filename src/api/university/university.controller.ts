@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import * as universityServices from "../../services/university/university.logic.setup";
 
 // Get All
-export const getUniversities = (
+export const getAllUniversities = (
   req: Request,
   res: Response,
   next: NextFunction,

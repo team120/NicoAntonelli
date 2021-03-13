@@ -4,10 +4,8 @@ import { UniversityShowDto } from "../../../entities/university/output/universit
 @Exclude()
 export class DepartmentShowDto {
   @Expose()
-  id: number;
-  @Expose()
   name: string;
   @Expose()
   @Type(() => UniversityShowDto)
-  university: UniversityShowDto;
+  university: UniversityShowDto
 }

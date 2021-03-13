@@ -3,7 +3,7 @@ import * as departmentActions from "./department.controller";
 
 const departmentRouter = Router();
 
-departmentRouter.get("", departmentActions.getDepartments);
+departmentRouter.get("", departmentActions.getAllDepartments);
 departmentRouter.get("/:id", departmentActions.getOneDepartment);
 departmentRouter.post("", departmentActions.createDepartment);
 /*TODO 

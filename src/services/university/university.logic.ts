@@ -3,7 +3,7 @@ import { UniversityShowDto } from "../../entities/university/output/university.s
 import * as queryTypes from "../../utils/common/common.query.interface";
 import { University } from "../../entities/university/university.model";
 
-export const getUniversitiesLogic = (
+export const getUniversitiesLogicFactory = (
   getQuery: queryTypes.getQueryFunc,
 ) => (): Promise<UniversityShowDto[]> =>
   getQuery(University).then((universities) =>
@@ -12,21 +12,21 @@ export const getUniversitiesLogic = (
     ),
   );
 
-export const getOneUniversityLogic = (
+export const getOneUniversityLogicFactory = (
   getOneQuery: queryTypes.getOneQueryFunc,
 ) => (id: number): Promise<UniversityShowDto> =>
   getOneQuery(University, id).then((university) =>
     plainToClass(UniversityShowDto, university),
   );
 
-export const createUniversityLogic = (
+export const createUniversityLogicFactory = (
   getCreateQuery: queryTypes.createQueryFunc,
 ) => (university: University) =>
   getCreateQuery(University, university).then((university) =>
     plainToClass(UniversityShowDto, university),
   );
 
-export const updateUniversityLogic = (
+export const updateUniversityLogicFactory = (
   getUpdateQuery: queryTypes.updateQueryFunc,
   getOneQuery: queryTypes.getOneQueryFunc,
 ) => (id: number, changes: any) =>
@@ -36,7 +36,7 @@ export const updateUniversityLogic = (
     ),
   );
 
-export const deleteUniversityLogic = (
+export const deleteUniversityLogicFactory = (
   deleteQuery: queryTypes.deleteQueryFunc,
   getOneQuery: queryTypes.getOneQueryFunc,
 ) => (id: number) =>

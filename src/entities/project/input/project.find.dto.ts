@@ -1,19 +1,16 @@
-import { Exclude, Expose, Transform } from "class-transformer";
+import { Exclude, Expose } from "class-transformer";
 import { ProjectType } from "../project.model";
 
 @Exclude()
 export class ProjectFindDto {
   @Expose()
-  generalSearch: string;
+  name: string;
   @Expose()
   type: ProjectType;
   @Expose()
-  @Transform(({ value }) => (value === "true" ? true : false))
   isDown: boolean;
   @Expose()
-  departmentId: number;
+  department: string;
   @Expose()
-  universityId: number;
-  @Expose()
-  userId: number;
+  user: string;
 }

@@ -23,23 +23,23 @@ export class SeedDb1590967789743 implements MigrationInterface {
 
     const departments: Department[] = [
       departmentRepo.create({
-        name: "Ingeniería en Sistemas",
+        name: "Ingenieria en Sistemas",
         university: universities[0],
       }),
       departmentRepo.create({
-        name: "Ingeniería Civil",
+        name: "Ingenieria Civil",
         university: universities[0],
       }),
       departmentRepo.create({
-        name: "Ingeniería Química",
+        name: "Ingenieria Quimica",
         university: universities[0],
       }),
       departmentRepo.create({
-        name: "Ciencias Básicas",
+        name: "Ciencias Basicas",
         university: universities[1],
       }),
       departmentRepo.create({
-        name: "Ingeniería Electrónica",
+        name: "Ingenieria Electronica",
         university: universities[1],
       }),
     ];
@@ -54,7 +54,7 @@ export class SeedDb1590967789743 implements MigrationInterface {
         department: departments[0],
       }),
       projectRepo.create({
-        name: "University Projects Manager",
+        name: "University Project Manager",
         type: ProjectType.Informal,
       }),
     ];
@@ -150,12 +150,9 @@ export class SeedDb1590967789743 implements MigrationInterface {
     await projectRepo.remove(projectsToRemove);
 
     const departmentsToRemove = await departmentRepo.find({
-      where: [
-        { university: universitiesToRemove[0] },
-        { university: universitiesToRemove[1] },
-      ],
+      where: [{ university: universitiesToRemove[0] }, { university: universitiesToRemove[1] }],
     });
-
+  
     await departmentRepo.remove(departmentsToRemove);
   }
 }

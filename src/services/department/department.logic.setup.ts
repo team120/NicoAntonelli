@@ -1,14 +1,14 @@
 import * as queries from "../../utils/common/common.query";
-import * as departmentsLogic from "./department.logic";
+import * as departmentsLogicFactory from "./department.logic";
 
-export const getDepartments = departmentsLogic.getDepartmentsLogic(
+export const getAllDepartments = departmentsLogicFactory.getDepartmentsLogicFactory(
   queries.getFromRepoQuery,
 );
 
-export const getOneDepartment = departmentsLogic.getOneDepartmentLogic(
+export const getOneDepartment = departmentsLogicFactory.getOneDepartmentLogicFactory(
   queries.getOneFromRepoQuery,
 );
 
-export const createDepartment = departmentsLogic.createDepartmentLogic(
-  queries.createFromRepoQuery,
+export const createDepartment = departmentsLogicFactory.createDepartmentLogicFactory(
+  queries.createFromRepoQuery
 );

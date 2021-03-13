@@ -1,16 +1,15 @@
 import { NextFunction, Request, Response } from "express";
 import { Department } from "src/entities/department/department.model";
 import { DepartmentShowDto } from "src/entities/department/output/department.show.dto";
-import * as departmentService from "../../services/department/department.logic.setup";
-
+import * as departmentServices from "../../services/department/department.logic.setup";
 // Get All
-export const getDepartments = (
+export const getAllDepartments = (
   req: Request,
   res: Response,
   next: NextFunction,
 ): void => {
-  departmentService
-    .getDepartments()
+  departmentServices
+    .getAllDepartments()
     .then((departments) => {
       res.status(200).json(departments);
     })
@@ -23,7 +22,7 @@ export const getOneDepartment = (
   res: Response,
   next: NextFunction,
 ): void => {
-  departmentService
+  departmentServices
     .getOneDepartment(Number(req.params.id))
     .then((department) => {
       res.status(200).json(department);
@@ -37,7 +36,7 @@ export const createDepartment = (
   res: Response,
   next: NextFunction,
 ): void => {
-  departmentService
+  departmentServices
     .createDepartment(req.body)
     .then((department) => {
       res.status(201).json(department);

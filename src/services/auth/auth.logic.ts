@@ -9,7 +9,7 @@ import { LoggedUserDto } from "../../entities/auth/output/login.output.dto";
 import { SocialLoginDto } from "../../entities/auth/input/socialLogin.input.dto";
 import { GoogleProfile } from "../../entities/auth/googleProfile.model";
 
-export const registerLogic = (
+export const registerLogicFactory = (
   checkIsEmailTaken: authFuncs.checkIsEmailTakenFunc,
   hashPassword: authFuncs.hashPasswordFunc,
   save: queryFuncs.createQueryFunc,
@@ -21,7 +21,7 @@ export const registerLogic = (
     )
     .then((savedUser) => plainToClass(RegisteredUserDto, savedUser));
 
-export const loginLogic = (
+export const loginLogicFactory = (
   findUser: authFuncs.findUserFunc,
   checkPassword: authFuncs.checkPasswordFunc,
   generateJwt: authFuncs.generateJwtFunc,
@@ -35,7 +35,7 @@ export const loginLogic = (
     ),
   );
 
-export const isAuthLogic = (
+export const isAuthLogicFactory = (
   checkValidJwt: authFuncs.checkValidJwtFunc,
   getUserFromToken: authFuncs.getUserFromTokenFunc,
 ) => (userToken: string | undefined): Promise<User> => {
@@ -43,7 +43,7 @@ export const isAuthLogic = (
   return getUserFromToken(decodedToken);
 };
 
-export const socialLoginLogic = (
+export const socialLoginLogicFactory = (
   findUserFromProfile: authFuncs.findUserFromProfile,
   generateJwt: authFuncs.generateJwtFunc,
   save: queryFuncs.createQueryFunc,

@@ -43,7 +43,7 @@ export const createFromRepoQuery: queryTypes.createQueryFunc = async <R, T>(
     .catch((err: Error) => {
       throw Er.DbError(err.message, err.stack);
     });
-
+    
   return getOneFromRepoQuery(type, (entity as any).id, relationsToInclude);
 };
 

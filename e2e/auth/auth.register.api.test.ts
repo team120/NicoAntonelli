@@ -1,4 +1,4 @@
-import api from "../../src/server";
+import app from "../../src/server";
 import request from "supertest";
 import { setupCreateAndTeardownTestDb } from "../common/setup.util";
 import { RegisterInputDto } from "../../src/entities/auth/input/register.input.dto";
@@ -18,7 +18,7 @@ describe("Auth actions", () => {
           id: 1,
         },
       };
-      await request(api)
+      await request(app)
         .post("/auth/register")
         .send(registerInput)
         .then(async (res) => {
@@ -46,7 +46,7 @@ describe("Auth actions", () => {
             id: 1,
           },
         };
-        await request(api)
+        await request(app)
           .post("/auth/register")
           .send(registerInvalidInput)
           .then(async (res) => {
@@ -76,7 +76,7 @@ describe("Auth actions", () => {
           id: 1,
         },
       };
-      await request(api)
+      await request(app)
         .post("/auth/register")
         .send(registerInput)
         .then(async (res) => {

@@ -3,7 +3,7 @@ import * as universityActions from "./university.controller";
 
 const universityRouter = Router();
 
-universityRouter.get("", universityActions.getUniversities);
+universityRouter.get("", universityActions.getAllUniversities);
 universityRouter.get("/:id", universityActions.getOneUniversity);
 universityRouter.post("", universityActions.createUniversity);
 universityRouter.put("/:id", universityActions.updateUniversity);
