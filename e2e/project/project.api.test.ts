@@ -50,7 +50,7 @@ describe("Project actions", () => {
   describe("search projects by a known property", () => {
     describe("when project type is", () => {
       describe("Informal", () => {
-        const projectName = "University Project Manager";
+        const projectName = "University Projects Manager";
         it(`should get one project which name is ${projectName}`, async () => {
           const type = "Informal";
           await request(api)
@@ -58,7 +58,7 @@ describe("Project actions", () => {
             .then((res) => {
               expect(res.status).toBe(200);
               expect(res.body).toHaveLength(1);
-              expect(res.body[0].name).toEqual(projectName);
+              expect(res.body[0].name).toBe(projectName);
             });
         });
       });
@@ -72,7 +72,7 @@ describe("Project actions", () => {
             .then((res) => {
               expect(res.status).toBe(200);
               expect(res.body).toHaveLength(1);
-              expect(res.body[0].name).toEqual(projectName);
+              expect(res.body[0].name).toBe(projectName);
             });
         });
       });
@@ -158,7 +158,7 @@ describe("search projects by a general text search", () => {
         .then((res) => {
           expect(res.status).toBe(200);
           expect(res.body[0]).toEqual({
-            name: "University Project Manager",
+            name: "University Projects Manager",
             type: "Informal",
             isDown: false,
             department: null,
@@ -198,7 +198,7 @@ describe("search projects by a general text search", () => {
             .then((res) => {
               expect(res.status).toBe(200);
               expect(res.body[0]).toEqual({
-                name: "University Project Manager",
+                name: "University Projects Manager",
                 department: null,
                 type: "Informal",
                 isDown: false,

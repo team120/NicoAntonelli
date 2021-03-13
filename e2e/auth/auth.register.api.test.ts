@@ -22,7 +22,7 @@ describe("Auth actions", () => {
         .post("/auth/register")
         .send(registerInput)
         .then(async (res) => {
-          expect(res.status).toEqual(201);
+          expect(res.status).toBe(201);
           expect(res.body).toEqual({
             name: "newone",
             mail: "newone@example.com",
@@ -50,7 +50,7 @@ describe("Auth actions", () => {
           .post("/auth/register")
           .send(registerInvalidInput)
           .then(async (res) => {
-            expect(res.status).toEqual(400);
+            expect(res.status).toBe(400);
             expect(res.body.error.original).toEqual({
               name: "",
               mail: "newone@example",
@@ -80,7 +80,7 @@ describe("Auth actions", () => {
         .post("/auth/register")
         .send(registerInput)
         .then(async (res) => {
-          expect(res.status).toEqual(400);
+          expect(res.status).toBe(400);
           expect(res.body).toEqual({
             message:
               "user1@example.com is already taken. Please use another one",

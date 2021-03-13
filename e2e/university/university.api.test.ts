@@ -10,7 +10,7 @@ describe("University actions", () => {
       await request(api)
         .get("/universities")
         .then((res) => {
-          expect(res.status).toEqual(200);
+          expect(res.status).toBe(200);
           expect(res.body).toHaveLength(2);
         });
     });
@@ -22,8 +22,8 @@ describe("University actions", () => {
       await request(api)
         .get(`/universities/${id}`)
         .then((res) => {
-          expect(res.status).toEqual(200);
-          expect(res.body.name).toEqual("UNR");
+          expect(res.status).toBe(200);
+          expect(res.body.name).toBe("UNR");
         });
     });
     it("should return ID not found if it does not match any id on DB", async () => {
@@ -31,8 +31,8 @@ describe("University actions", () => {
       await request(api)
         .get(`/universities/${id}`)
         .then((res) => {
-          expect(res.status).toEqual(404);
-          expect(res.body.message).toEqual(`Item ${id} not found`);
+          expect(res.status).toBe(404);
+          expect(res.body.message).toBe(`Item ${id} not found`);
         });
     });
   });
@@ -44,8 +44,8 @@ describe("University actions", () => {
         .send({ name: "UNC" })
         .set("Accept", "application/json")
         .then((res) => {
-          expect(res.status).toEqual(201);
-          expect(res.body.name).toEqual("UNC");
+          expect(res.status).toBe(201);
+          expect(res.body.name).toBe("UNC");
         });
     });
     it("should create the new university without the incorrect properties", async () => {
@@ -54,8 +54,8 @@ describe("University actions", () => {
         .send({ name: "UNC", incorrectProperty: "incorrectValue" })
         .set("Accept", "application/json")
         .then((res) => {
-          expect(res.status).toEqual(201);
-          expect(res.body.name).toEqual("UNC");
+          expect(res.status).toBe(201);
+          expect(res.body.name).toBe("UNC");
           expect(res.body).not.toHaveProperty("incorrectProperty");
         });
     });
@@ -67,9 +67,9 @@ describe("University actions", () => {
       await request(api)
         .get("/universities")
         .then((res) => {
-          expect(res.status).toEqual(200);
+          expect(res.status).toBe(200);
           expect(res.body).toHaveLength(3);
-          expect(res.body[2].name).toEqual("UNC");
+          expect(res.body[2].name).toBe("UNC");
         });
     });
   });
@@ -82,7 +82,7 @@ describe("University actions", () => {
         .send({ name: "UBA" })
         .set("Accept", "application/json")
         .then((res) => {
-          expect(res.status).toEqual(200);
+          expect(res.status).toBe(200);
           expect(res.body).toEqual({ id: id, name: "UBA" });
         });
     });
@@ -93,7 +93,7 @@ describe("University actions", () => {
         .send({ name: "UNC", incorrectProperty: "incorrectValue" })
         .set("Accept", "application/json")
         .then((res) => {
-          expect(res.status).toEqual(200);
+          expect(res.status).toBe(200);
           expect(res.body).toEqual({ id: id, name: "UNC" });
         });
     });
@@ -106,9 +106,9 @@ describe("University actions", () => {
       await request(api)
         .get("/universities")
         .then((res) => {
-          expect(res.status).toEqual(200);
+          expect(res.status).toBe(200);
           expect(res.body).toHaveLength(2);
-          expect(res.body[id - 1].name).toEqual("UBA");
+          expect(res.body[id - 1].name).toBe("UBA");
         });
     });
   });
@@ -121,8 +121,8 @@ describe("University actions", () => {
         .delete(`/universities/${id}`)
         .set("Accept", "application/json")
         .then((res) => {
-          expect(res.status).toEqual(200);
-          expect(res.body.message).toEqual(`Item ${id} deleted successfully`);
+          expect(res.status).toBe(200);
+          expect(res.body.message).toBe(`Item ${id} deleted successfully`);
         });
     });
     it("should return ID not found if it does not match any id on DB", async () => {
@@ -130,8 +130,8 @@ describe("University actions", () => {
       await request(api)
         .delete(`/universities/${id}`)
         .then((res) => {
-          expect(res.status).toEqual(404);
-          expect(res.body.message).toEqual(`Item ${id} not found`);
+          expect(res.status).toBe(404);
+          expect(res.body.message).toBe(`Item ${id} not found`);
         });
     });
     it("should return a DB error if the deletion does not comply with the restriction", async () => {
@@ -139,7 +139,7 @@ describe("University actions", () => {
       await request(api)
         .delete(`/universities/${id}`)
         .then((res) => {
-          expect(res.status).toEqual(500);
+          expect(res.status).toBe(500);
         });
     });
   });*/

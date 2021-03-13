@@ -11,9 +11,9 @@ describe("Auth actions", () => {
         .post("/auth/login")
         .send({ mail: "user1@example.com", password: "password1" })
         .then((res) => {
-          expect(res.status).toEqual(200);
-          expect(res.body.mail).toEqual("user1@example.com");
-          expect(res.body.name).toEqual("John");
+          expect(res.status).toBe(200);
+          expect(res.body.mail).toBe("user1@example.com");
+          expect(res.body.name).toBe("John");
           expect(res.body.password).not.toBeDefined();
           expect(res.body.accessToken).toBeDefined();
         });
@@ -24,8 +24,8 @@ describe("Auth actions", () => {
         .post("/auth/login")
         .send({ mail: "none@example.com", password: "password1" })
         .then((res) => {
-          expect(res.status).toEqual(401);
-          expect(res.body.message).toEqual("Invalid credentials");
+          expect(res.status).toBe(401);
+          expect(res.body.message).toBe("Invalid credentials");
           expect(res.body.token).not.toBeDefined();
         });
     });
@@ -35,8 +35,8 @@ describe("Auth actions", () => {
         .post("/auth/login")
         .send({ mail: "user1@example.com", password: "not_the_password" })
         .then((res) => {
-          expect(res.status).toEqual(401);
-          expect(res.body.message).toEqual("Invalid credentials");
+          expect(res.status).toBe(401);
+          expect(res.body.message).toBe("Invalid credentials");
           expect(res.body.token).not.toBeDefined();
         });
     });

@@ -11,7 +11,7 @@ describe("Departments actions", () => {
       await request(api)
         .get("/departments")
         .then((res) => {
-          expect(res.status).toEqual(200);
+          expect(res.status).toBe(200);
           expect(res.body).toHaveLength(5);
         });
     });
@@ -23,10 +23,10 @@ describe("Departments actions", () => {
       await request(api)
         .get(`/departments/${id}`)
         .then((res) => {
-          expect(res.status).toEqual(200);
-          expect(res.body.name).toEqual("Ingeniería Química");
+          expect(res.status).toBe(200);
+          expect(res.body.name).toBe("Ingeniería Química");
           expect(res.body.university).toBeDefined();
-          expect(res.body.university.name).toEqual("UTN");
+          expect(res.body.university.name).toBe("UTN");
         });
     });
 
@@ -35,8 +35,8 @@ describe("Departments actions", () => {
       await request(api)
         .get(`/departments/${id}`)
         .then((res) => {
-          expect(res.status).toEqual(404);
-          expect(res.body.message).toEqual(`Item ${id} not found`);
+          expect(res.status).toBe(404);
+          expect(res.body.message).toBe(`Item ${id} not found`);
         });
     });
   });
@@ -53,9 +53,9 @@ describe("Departments actions", () => {
         .send(departmentInput)
         .set("Accept", "application/json")
         .then((res) => {
-          expect(res.status).toEqual(201);
-          expect(res.body.name).toEqual("Ciencias Básicas");
-          expect(res.body.university.name).toEqual("UTN");
+          expect(res.status).toBe(201);
+          expect(res.body.name).toBe("Ciencias Básicas");
+          expect(res.body.university.name).toBe("UTN");
         });
     });
   });
