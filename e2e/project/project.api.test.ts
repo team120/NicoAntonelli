@@ -18,7 +18,7 @@ describe("Project actions", () => {
             isDown: false,
             department: {
               id: 1,
-              name: "Ingenieria en Sistemas",
+              name: "Ingeniería en Sistemas",
             },
             users: [
               {
@@ -85,7 +85,7 @@ describe("Project actions", () => {
           expect(res.status).toBe(200);
           expect(res.body).toHaveLength(1);
           expect(res.body[0]).toEqual({
-            name: "University Project Manager",
+            name: "University Projects Manager",
             department: null,
             type: "Informal",
             isDown: false,

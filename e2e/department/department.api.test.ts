@@ -1,4 +1,4 @@
-import app from "../../src/server";
+import api from "../../src/server";
 import request from "supertest";
 import { setupCreateAndTeardownTestDb } from "../common/setup.util";
 import { Department } from "../../src/entities/department/department.model";
@@ -8,7 +8,7 @@ setupCreateAndTeardownTestDb();
 describe("Departments actions", () => {
   describe("Get all departments", () => {
     it("should return all departments", async () => {
-      await request(app)
+      await request(api)
         .get("/departments")
         .then((res) => {
           expect(res.status).toEqual(200);
@@ -20,7 +20,7 @@ describe("Departments actions", () => {
   describe("Get one department", () => {
     it("should return the department with specified id", async () => {
       const id = 3;
-      await request(app)
+      await request(api)
         .get(`/departments/${id}`)
         .then((res) => {
           expect(res.status).toEqual(200);
@@ -32,7 +32,7 @@ describe("Departments actions", () => {
 
     it("should return ID not found if it does not match any id on DB", async () => {
       const id = 500;
-      await request(app)
+      await request(api)
         .get(`/departments/${id}`)
         .then((res) => {
           expect(res.status).toEqual(404);
@@ -48,7 +48,7 @@ describe("Departments actions", () => {
           id: 1,
         },
       };
-      await request(app)
+      await request(api)
         .post("/departments")
         .send(departmentInput)
         .set("Accept", "application/json")
