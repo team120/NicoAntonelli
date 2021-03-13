@@ -186,6 +186,7 @@ describe("Project actions", () => {
             expect(res.body).toHaveLength(1);
           });
       });
+    });
     describe("and additionally filtered by", () => {
       describe("userId", () => {
         it("should get all projects that partially match their name and exactly one of their users", async () => {
@@ -275,7 +276,7 @@ describe("Project actions", () => {
           expect(res.body.message).toEqual(`Item ${id} not found`);
         });
     });
-    it("should get the specified projects and their associated users", async () => {
+    it("should get the specified project with their associated users", async () => {
       const id = 1;
       await request(api)
         .get(`/projects/${id}`)
@@ -289,6 +290,10 @@ describe("Project actions", () => {
             department: {
               id: 1,
               name: "Ingeniería en Sistemas",
+              university: {
+                id: 1,
+                name: "UTN",
+              },
             },
             users: [
               {
@@ -304,17 +309,15 @@ describe("Project actions", () => {
                 mail: "user2@example.com",
                 name: "Afak",
                 lastName: "Ename",
-                university: {
+                 university: {
                   id: 1,
                   name: "UTN",
-                },
+                 },
               },
             ],
           });
           expect(res.body.users[0].password).not.toBeDefined();
-          expect(res.body).toHaveLength(1);
         });
-      });
     });
   });
 });
