@@ -19,6 +19,7 @@ describe("Project actions", () => {
             department: {
               id: 1,
               name: "Ingeniería en Sistemas",
+              university: { id: 1, name: "UTN" },
             },
             users: [
               {
