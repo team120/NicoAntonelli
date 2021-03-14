@@ -61,8 +61,9 @@ export const findProjects: IFindProjects = (
       .createQueryBuilder("project")
       .innerJoinAndSelect("project.userToProjects", "user_projects")
       .innerJoinAndSelect("user_projects.user", "user")
-      .leftJoinAndSelect("project.department", "department")
       .leftJoinAndSelect("user.university", "university")
+      .leftJoinAndSelect("project.department", "department")
+      .leftJoinAndSelect("department.university", "departmentUniversity")
       .where(`project.id IN (${projectsMappedString})`)
       .getMany();
   });

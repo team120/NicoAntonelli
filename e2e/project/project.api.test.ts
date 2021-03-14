@@ -309,10 +309,10 @@ describe("Project actions", () => {
                 mail: "user2@example.com",
                 name: "Afak",
                 lastName: "Ename",
-                 university: {
+                university: {
                   id: 1,
                   name: "UTN",
-                 },
+                },
               },
             ],
           });
