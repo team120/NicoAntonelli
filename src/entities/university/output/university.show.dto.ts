@@ -1,4 +1,5 @@
 import { Exclude, Expose } from "class-transformer";
+import { DepartmentShowDto } from "../../../entities/department/output/department.show.dto";
 
 @Exclude()
 export class UniversityShowDto {
@@ -6,4 +7,6 @@ export class UniversityShowDto {
   id: number;
   @Expose()
   name: string;
+  @Expose()
+  departments: DepartmentShowDto;
 }

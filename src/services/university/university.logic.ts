@@ -6,7 +6,7 @@ import { University } from "../../entities/university/university.model";
 export const getUniversitiesLogic = (
   getQuery: queryTypes.getQueryFunc,
 ) => (): Promise<UniversityShowDto[]> =>
-  getQuery(University).then((universities) =>
+  getQuery(University, ["departments"]).then((universities) =>
     universities.map((university) =>
       plainToClass(UniversityShowDto, university),
     ),
@@ -15,13 +15,13 @@ export const getUniversitiesLogic = (
 export const getOneUniversityLogic = (
   getOneQuery: queryTypes.getOneQueryFunc,
 ) => (id: number): Promise<UniversityShowDto> =>
-  getOneQuery(University, id).then((university) =>
+  getOneQuery(University, id, ["departments"]).then((university) =>
     plainToClass(UniversityShowDto, university),
   );
 
 export const createUniversityLogic = (
   getCreateQuery: queryTypes.createQueryFunc,
-) => (university: University) =>
+) => (university: University): Promise<UniversityShowDto> =>
   getCreateQuery(University, university).then((university) =>
     plainToClass(UniversityShowDto, university),
   );
@@ -29,7 +29,7 @@ export const createUniversityLogic = (
 export const updateUniversityLogic = (
   getUpdateQuery: queryTypes.updateQueryFunc,
   getOneQuery: queryTypes.getOneQueryFunc,
-) => (id: number, changes: any) =>
+) => (id: number, changes: any): Promise<UniversityShowDto> =>
   getOneQuery(University, id).then((university) =>
     getUpdateQuery(University, university, changes).then((university) =>
       plainToClass(UniversityShowDto, university),
