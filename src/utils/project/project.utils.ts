@@ -12,7 +12,7 @@ const getMatchingProjects = (
     .innerJoinAndSelect("project.userToProjects", "user_projects")
     .innerJoinAndSelect("user_projects.user", "user")
     .leftJoinAndSelect("project.department", "department")
-    .leftJoinAndSelect("user.university", "university");
+    .leftJoinAndSelect("user.university", "userUniversity");
 
   if (whereValues.generalSearch !== undefined) {
     query.where(
@@ -27,8 +27,8 @@ const getMatchingProjects = (
   }
 
   if (whereValues.universityId !== undefined) {
-    query.andWhere(`university.id = :universityId`, {
-      universityId: whereValues.universityId,
+    query.andWhere(`userUniversity.id = :userUniversityId`, {
+      userUniversityId: whereValues.universityId,
     });
   }
   if (whereValues.departmentId !== undefined) {
@@ -61,8 +61,9 @@ export const findProjects: IFindProjects = (
       .createQueryBuilder("project")
       .innerJoinAndSelect("project.userToProjects", "user_projects")
       .innerJoinAndSelect("user_projects.user", "user")
-      .leftJoinAndSelect("project.department", "department")
       .leftJoinAndSelect("user.university", "university")
+      .leftJoinAndSelect("project.department", "department")
+      .leftJoinAndSelect("department.university", "departmentUniversity")
       .where(`project.id IN (${projectsMappedString})`)
       .getMany();
   });

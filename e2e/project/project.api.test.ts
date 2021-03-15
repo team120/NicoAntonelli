@@ -19,6 +19,7 @@ describe("Project actions", () => {
             department: {
               id: 1,
               name: "Ingeniería en Sistemas",
+              university: { id: 1, name: "UTN" },
             },
             users: [
               {
@@ -309,10 +310,10 @@ describe("Project actions", () => {
                 mail: "user2@example.com",
                 name: "Afak",
                 lastName: "Ename",
-                 university: {
+                university: {
                   id: 1,
                   name: "UTN",
-                 },
+                },
               },
             ],
           });
