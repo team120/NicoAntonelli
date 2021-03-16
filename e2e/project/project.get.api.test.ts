@@ -16,6 +16,7 @@ describe("Project actions", () => {
               "Desarrollo de un sistema para identificar geoposicionamiento en entorno de Internet de la Cosas (IoT)",
             type: "Formal",
             isDown: false,
+            creationDate: "2020-03-16T17:13:02.000Z",
             department: {
               id: 1,
               name: "Ingeniería en Sistemas",
@@ -90,6 +91,7 @@ describe("Project actions", () => {
             department: null,
             type: "Informal",
             isDown: false,
+            creationDate: "2021-03-16T17:13:02.000Z",
             users: [
               {
                 mail: "user2@example.com",
@@ -162,6 +164,7 @@ describe("Project actions", () => {
               name: "University Projects Manager",
               type: "Informal",
               isDown: false,
+              creationDate: "2021-03-16T17:13:02.000Z",
               department: null,
               users: [
                 {
@@ -203,6 +206,7 @@ describe("Project actions", () => {
                 name: "University Projects Manager",
                 department: null,
                 type: "Informal",
+                creationDate: "2021-03-16T17:13:02.000Z",
                 isDown: false,
                 users: [
                   {
@@ -258,67 +262,31 @@ describe("Project actions", () => {
     });
   });
 
-  describe("get one project", () => {
-    it("should return the project with the specified id", async () => {
-      const id = 2;
-      await request(api)
-        .get(`/projects/${id}`)
-        .then((res) => {
-          expect(res.status).toBe(200);
-          expect(res.body.name).toEqual("University Projects Manager");
-        });
-    });
-    it("should return ID not found if it does not match any id on DB", async () => {
-      const id = 100;
-      await request(api)
-        .get(`/projects/${id}`)
-        .then((res) => {
-          expect(res.status).toBe(404);
-          expect(res.body.message).toEqual(`Item ${id} not found`);
-        });
-    });
-    it("should get the specified project with their associated users", async () => {
-      const id = 1;
-      await request(api)
-        .get(`/projects/${id}`)
-        .then((res) => {
-          expect(res.status).toBe(200);
-          expect(res.body).toEqual({
-            name:
-              "Desarrollo de un sistema para identificar geoposicionamiento en entorno de Internet de la Cosas (IoT)",
-            type: "Formal",
-            isDown: false,
-            department: {
-              id: 1,
-              name: "Ingeniería en Sistemas",
-              university: {
-                id: 1,
-                name: "UTN",
-              },
-            },
-            users: [
-              {
-                mail: "user1@example.com",
-                lastName: "Doe",
-                name: "John",
-                university: {
-                  id: 1,
-                  name: "UTN",
-                },
-              },
-              {
-                mail: "user2@example.com",
-                name: "Afak",
-                lastName: "Ename",
-                university: {
-                  id: 1,
-                  name: "UTN",
-                },
-              },
-            ],
+  describe("When only dateFrom is sent", () => {
+    describe("less than a year", () => {
+      it("should get the UPM project only", async () => {
+        const dateFrom = new Date("2021-03-16");
+        dateFrom.setMonth(dateFrom.getMonth() - 8);
+        await request(api)
+          .get(`/projects?dateFrom=${dateFrom.toISOString()}`)
+          .then((res) => {
+            expect(res.status).toBe(200);
+            expect(res.body).toHaveLength(1);
+            expect(res.body[0].name).toBe("University Projects Manager");
           });
-          expect(res.body.users[0].password).not.toBeDefined();
-        });
+      });
+    });
+    describe("current date plus a month", () => {
+      it("should get no projects", async () => {
+        const dateFrom = new Date();
+        dateFrom.setMonth(dateFrom.getMonth() + 1);
+        await request(api)
+          .get(`/projects?dateFrom=${dateFrom}`)
+          .then((res) => {
+            expect(res.status).toBe(200);
+            expect(res.body).toHaveLength(0);
+          });
+      });
     });
   });
 });

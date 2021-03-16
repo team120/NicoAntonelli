@@ -32,18 +32,23 @@ const getMatchingProjects = (
     });
   }
   if (whereValues.departmentId !== undefined) {
-    query.andWhere(`department.id = :departmentId`, {
+    query.andWhere("department.id = :departmentId", {
       departmentId: whereValues.departmentId,
     });
   }
   if (whereValues.type !== undefined) {
-    query.andWhere(`project.type = :type`, { type: whereValues.type });
+    query.andWhere("project.type = :type", { type: whereValues.type });
   }
   if (whereValues.isDown !== undefined) {
-    query.andWhere(`project.isDown = :isDown`, { isDown: whereValues.isDown });
+    query.andWhere("project.isDown = :isDown", { isDown: whereValues.isDown });
   }
   if (whereValues.userId !== undefined) {
-    query.andWhere(`user.id = :userId`, { userId: whereValues.userId });
+    query.andWhere("user.id = :userId", { userId: whereValues.userId });
+  }
+  if (whereValues.dateFrom !== undefined) {
+    query.andWhere("project.creationDate >= :dateFrom", {
+      dateFrom: whereValues.dateFrom.toISOString().split("T")[0],
+    });
   }
 
   return query.select("project.id").getMany();

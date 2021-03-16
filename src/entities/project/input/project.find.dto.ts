@@ -1,4 +1,4 @@
-import { Exclude, Expose, Transform } from "class-transformer";
+import { Exclude, Expose, Transform, Type } from "class-transformer";
 import { ProjectType } from "../project.model";
 
 @Exclude()
@@ -16,4 +16,7 @@ export class ProjectFindDto {
   universityId: number;
   @Expose()
   userId: number;
+  @Expose()
+  @Type(() => Date)
+  dateFrom: Date;
 }
