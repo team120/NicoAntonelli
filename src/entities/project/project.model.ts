@@ -20,7 +20,7 @@ export class Project {
   id: number;
   @Column()
   name: string;
-  @CreateDateColumn()
+  @CreateDateColumn({ type: "date" })
   creationDate: Date;
   @Column()
   type: ProjectType;
