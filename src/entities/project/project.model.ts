@@ -1,5 +1,6 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   ManyToOne,
   OneToMany,
@@ -19,7 +20,7 @@ export class Project {
   id: number;
   @Column()
   name: string;
-  @Column({ default: Date.now() })
+  @CreateDateColumn()
   creationDate: Date;
   @Column()
   type: ProjectType;

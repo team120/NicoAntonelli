@@ -16,4 +16,6 @@ export class ProjectFindDto {
   universityId: number;
   @Expose()
   userId: number;
+  @Expose()
+  dateFrom: Date;
 }

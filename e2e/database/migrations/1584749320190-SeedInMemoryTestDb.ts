@@ -49,12 +49,16 @@ export class SeedDb1590967789743 implements MigrationInterface {
 
     await departmentRepo.save(departments);
 
+    const date = new Date();
+    date.setFullYear(date.getFullYear() - 1);
+
     const projects: Project[] = [
       projectRepo.create({
         name:
           "Desarrollo de un sistema para identificar geoposicionamiento en entorno de Internet de la Cosas (IoT)",
         type: ProjectType.Formal,
         department: departments[0],
+        creationDate: date,
       }),
       projectRepo.create({
         name: "University Projects Manager",

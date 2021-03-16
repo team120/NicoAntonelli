@@ -258,6 +258,33 @@ describe("Project actions", () => {
     });
   });
 
+  describe("When only dateFrom is sent", () => {
+    describe("less than a year", () => {
+      it("should get the IoT project", async () => {
+        const dateFrom = new Date();
+        dateFrom.setFullYear(dateFrom.getFullYear() - 1);
+        await request(api)
+          .get(`/projects?dateFrom=${dateFrom}`)
+          .then((res) => {
+            expect(res.status).toBe(200);
+            expect(res.body).toHaveLength(1);
+          });
+      });
+    });
+    describe("current date plus a month", () => {
+      it("should get no projects", async () => {
+        const dateFrom = new Date();
+        dateFrom.setMonth(dateFrom.getMonth() + 1);
+        await request(api)
+          .get(`/projects?dateFrom=${dateFrom}`)
+          .then((res) => {
+            expect(res.status).toBe(200);
+            expect(res.body).toHaveLength(0);
+          });
+      });
+    });
+  });
+
   describe("get one project", () => {
     it("should return the project with the specified id", async () => {
       const id = 2;
