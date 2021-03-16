@@ -34,6 +34,7 @@ describe("get one project", () => {
             "Desarrollo de un sistema para identificar geoposicionamiento en entorno de Internet de la Cosas (IoT)",
           type: "Formal",
           isDown: false,
+          creationDate: "2020-03-16T17:13:02.000Z",
           department: {
             id: 1,
             name: "Ingeniería en Sistemas",

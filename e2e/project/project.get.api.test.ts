@@ -16,6 +16,7 @@ describe("Project actions", () => {
               "Desarrollo de un sistema para identificar geoposicionamiento en entorno de Internet de la Cosas (IoT)",
             type: "Formal",
             isDown: false,
+            creationDate: "2020-03-16T17:13:02.000Z",
             department: {
               id: 1,
               name: "Ingeniería en Sistemas",
@@ -90,6 +91,7 @@ describe("Project actions", () => {
             department: null,
             type: "Informal",
             isDown: false,
+            creationDate: "2021-03-16T17:13:02.000Z",
             users: [
               {
                 mail: "user2@example.com",
@@ -162,6 +164,7 @@ describe("Project actions", () => {
               name: "University Projects Manager",
               type: "Informal",
               isDown: false,
+              creationDate: "2021-03-16T17:13:02.000Z",
               department: null,
               users: [
                 {
@@ -203,6 +206,7 @@ describe("Project actions", () => {
                 name: "University Projects Manager",
                 department: null,
                 type: "Informal",
+                creationDate: "2021-03-16T17:13:02.000Z",
                 isDown: false,
                 users: [
                   {
@@ -261,10 +265,10 @@ describe("Project actions", () => {
   describe("When only dateFrom is sent", () => {
     describe("less than a year", () => {
       it("should get the UPM project only", async () => {
-        const dateFrom = new Date();
+        const dateFrom = new Date("2021-03-16");
         dateFrom.setMonth(dateFrom.getMonth() - 8);
         await request(api)
-          .get(`/projects?dateFrom=${dateFrom}`)
+          .get(`/projects?dateFrom=${dateFrom.toISOString()}`)
           .then((res) => {
             expect(res.status).toBe(200);
             expect(res.body).toHaveLength(1);
