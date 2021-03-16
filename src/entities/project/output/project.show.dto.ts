@@ -18,6 +18,9 @@ export class ProjectShowDto {
   @Expose()
   isDown: boolean;
   @Expose()
+  @Type(() => Date)
+  creationDate: Date;
+  @Expose()
   @Type(() => DepartmentShowDto)
   department: DepartmentShowDto;
   @Expose({ name: "userToProjects" })

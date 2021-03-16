@@ -46,7 +46,6 @@ const getMatchingProjects = (
     query.andWhere("user.id = :userId", { userId: whereValues.userId });
   }
   if (whereValues.dateFrom !== undefined) {
-    console.log(whereValues.dateFrom.toISOString().split("T")[0]);
     query.andWhere("project.creationDate >= :dateFrom", {
       dateFrom: whereValues.dateFrom.toISOString().split("T")[0],
     });
