@@ -11,8 +11,9 @@ const getMatchingProjects = (
     .createQueryBuilder("project")
     .innerJoinAndSelect("project.userToProjects", "user_projects")
     .innerJoinAndSelect("user_projects.user", "user")
+    .leftJoinAndSelect("user.university", "userUniversity")
     .leftJoinAndSelect("project.department", "department")
-    .leftJoinAndSelect("user.university", "userUniversity");
+    .leftJoinAndSelect("department.university", "departmentUniversity");
 
   if (whereValues.generalSearch !== undefined) {
     query.where(
@@ -54,6 +55,14 @@ const getMatchingProjects = (
   return query.select("project.id").getMany();
 };
 
+const sortBy = new Map([
+  ["name", "project.name"],
+  ["department", "department.name"],
+  ["university", "departmentUniversity.name"],
+  ["creationDate", "project.creationDate"],
+  ["type", "project.type"],
+]);
+
 export const findProjects: IFindProjects = (
   whereValues: ProjectFindDto,
 ): Promise<Project[]> =>
@@ -62,13 +71,21 @@ export const findProjects: IFindProjects = (
       .map((project) => project.id)
       .join(", ");
 
-    return getRepository(Project)
+    const query = getRepository(Project)
       .createQueryBuilder("project")
       .innerJoinAndSelect("project.userToProjects", "user_projects")
       .innerJoinAndSelect("user_projects.user", "user")
       .leftJoinAndSelect("user.university", "university")
       .leftJoinAndSelect("project.department", "department")
       .leftJoinAndSelect("department.university", "departmentUniversity")
-      .where(`project.id IN (${projectsMappedString})`)
-      .getMany();
+      .where(`project.id IN (${projectsMappedString})`);
+
+    if (whereValues.sortBy !== undefined) {
+      const sortByProperty = sortBy.get(whereValues.sortBy);
+      if (sortByProperty !== undefined) {
+        query.orderBy(sortByProperty, whereValues.descending ? "DESC" : "ASC");
+      }
+    }
+
+    return query.getMany();
   });
