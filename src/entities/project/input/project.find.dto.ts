@@ -19,4 +19,9 @@ export class ProjectFindDto {
   @Expose()
   @Type(() => Date)
   dateFrom: Date;
+  @Expose()
+  sortBy: string;
+  @Expose({ name: "order" })
+  @Transform(({ value }) => value === "descending")
+  descending: boolean;
 }
