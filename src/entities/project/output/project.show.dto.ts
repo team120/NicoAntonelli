@@ -12,6 +12,8 @@ import { ProjectType } from "../project.model";
 @Exclude()
 export class ProjectShowDto {
   @Expose()
+  id: number;
+  @Expose()
   name: string;
   @Expose()
   type: ProjectType;
