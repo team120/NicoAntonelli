@@ -147,7 +147,7 @@ describe("Project actions", () => {
     describe("by project name", () => {
       it("should get all projects sorted by name in ascending order", async () => {
         await request(api)
-          .get("/projects?sortBy=name&order=ascending")
+          .get("/projects?sortBy=name&inAscendingOrder=true")
           .then((res) => {
             expect(res.status).toBe(200);
             expect(res.body).toHaveLength(2);
@@ -200,7 +200,7 @@ describe("Project actions", () => {
     describe("by project creation date", () => {
       it("should get all projects sorted by date in ascending order", async () => {
         await request(api)
-          .get("/projects?sortBy=creationDate&order=ascending")
+          .get("/projects?sortBy=creationDate&inAscendingOrder=true")
           .then((res) => {
             expect(res.status).toBe(200);
             expect(res.body[0].name).toBe(
@@ -211,7 +211,7 @@ describe("Project actions", () => {
       });
       it("should get all projects sorted by date in ascending order", async () => {
         await request(api)
-          .get("/projects?sortBy=creationDate&order=ascending")
+          .get("/projects?sortBy=creationDate&inAscendingOrder=true")
           .then((res) => {
             expect(res.status).toBe(200);
             expect(res.body[0].name).toBe(
