@@ -82,10 +82,17 @@ export const findProjects: IFindProjects = (
 
     if (whereValues.sortBy !== undefined) {
       const sortByProperty = sortBy.get(whereValues.sortBy);
+      console.log(sortByProperty);
+      console.log(whereValues.inAscendingOrder);
       if (sortByProperty !== undefined) {
-        query.orderBy(sortByProperty, whereValues.descending ? "DESC" : "ASC");
+        query.orderBy(
+          sortByProperty,
+          whereValues.inAscendingOrder === true ? "ASC" : "DESC",
+        );
       }
     }
+
+    console.log(query.getSql());
 
     return query.getMany();
   });

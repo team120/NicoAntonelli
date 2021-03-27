@@ -8,7 +8,7 @@ export class ProjectFindDto {
   @Expose()
   type: ProjectType;
   @Expose()
-  @Transform(({ value }) => (value === "true" ? true : false))
+  @Transform(({ value }) => value === "true")
   isDown: boolean;
   @Expose()
   departmentId: number;
@@ -21,7 +21,7 @@ export class ProjectFindDto {
   dateFrom: Date;
   @Expose()
   sortBy: string;
-  @Expose({ name: "order" })
-  @Transform(({ value }) => value === "descending")
-  descending: boolean;
+  @Expose()
+  @Transform(({ value }) => value === "true")
+  inAscendingOrder: boolean;
 }
