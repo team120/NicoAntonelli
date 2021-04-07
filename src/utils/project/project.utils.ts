@@ -92,7 +92,5 @@ export const findProjects: IFindProjects = (
       }
     }
 
-    console.log(query.getSql());
-
     return query.getMany();
   });

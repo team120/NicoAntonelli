@@ -12,6 +12,7 @@ describe("Project actions", () => {
         .then((res) => {
           expect(res.status).toBe(200);
           expect(res.body).toContainEqual({
+            id: 1,
             name:
               "Desarrollo de un sistema para identificar geoposicionamiento en entorno de Internet de la Cosas (IoT)",
             type: "Formal",
@@ -279,6 +280,7 @@ describe("Project actions", () => {
           .then((res) => {
             expect(res.status).toBe(200);
             expect(res.body[0]).toEqual({
+              id: 2,
               name: "University Projects Manager",
               type: "Informal",
               isDown: false,
@@ -321,6 +323,7 @@ describe("Project actions", () => {
             .then((res) => {
               expect(res.status).toBe(200);
               expect(res.body[0]).toEqual({
+                id: 2,
                 name: "University Projects Manager",
                 department: null,
                 type: "Informal",

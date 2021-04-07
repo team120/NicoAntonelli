@@ -30,6 +30,7 @@ describe("get one project", () => {
       .then((res) => {
         expect(res.status).toBe(200);
         expect(res.body).toEqual({
+          id: 1,
           name:
             "Desarrollo de un sistema para identificar geoposicionamiento en entorno de Internet de la Cosas (IoT)",
           type: "Formal",
