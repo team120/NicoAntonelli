@@ -8,6 +8,7 @@ import { University } from "../../../src/entities/university/university.model";
 import { User } from "../../../src/entities/user/user.model";
 import { UserToProjects } from "../../../src/entities/users_projects/users-projects.model";
 import { hashPassword } from "../../../src/utils/auth/auth.utils";
+import { Grant } from "../../../src/entities/grant/grant.model"
 
 export class SeedDb1590967789743 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
@@ -16,6 +17,7 @@ export class SeedDb1590967789743 implements MigrationInterface {
     const projectRepo = getRepository(Project);
     const userToProjectsRepo = getRepository(UserToProjects);
     const departmentRepo = getRepository(Department);
+    const grantRepo = getRepository(Grant)
 
     const universities: University[] = [
       universityRepo.create({ name: "UTN" }),
@@ -48,6 +50,23 @@ export class SeedDb1590967789743 implements MigrationInterface {
     ];
 
     await departmentRepo.save(departments);
+
+    const grants: Grant[] = [
+      grantRepo.create({
+        name: "grant_readonly",
+        description: "User is only allowed to read",
+      }),
+      grantRepo.create({
+        name: "grant_readwrite",
+        description: "User has read and write grants",
+      }),
+      grantRepo.create({
+        name: "grant_all",
+        description: "User has all grants",
+      }),
+    ];
+
+    await grantRepo.save(grants);
 
     const projects: Project[] = [
       projectRepo.create({
@@ -125,6 +144,7 @@ export class SeedDb1590967789743 implements MigrationInterface {
     const projectRepo = getRepository(Project);
     const userToProjectsRepo = getRepository(UserToProjects);
     const departmentRepo = getRepository(Department);
+    const grantsRepo = getRepository(Grant);
 
     const usersToRemove = await usersRepo.find({
       where: [
@@ -162,5 +182,15 @@ export class SeedDb1590967789743 implements MigrationInterface {
     });
 
     await departmentRepo.remove(departmentsToRemove);
+
+    const grantsToRemove = await grantsRepo.find({
+      where: [
+        { name: "grant_readonly"},
+        { name: "grant_readwrite"},
+        { name: "grant_all"},
+      ],
+    });
+
+    await grantsRepo.remove(grantsToRemove);
   }
 }

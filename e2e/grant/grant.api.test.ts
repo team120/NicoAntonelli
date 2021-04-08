@@ -11,7 +11,7 @@ describe("Grant actions", () => {
         .get("/grants")
         .then((res) => {
           expect(res.status).toBe(200);
-          expect(res.body).toHaveLength(5);
+          expect(res.body).toHaveLength(3);
           expect(res.body[0]).not.toHaveProperty("id");
         });
     });
@@ -24,7 +24,7 @@ describe("Grant actions", () => {
         .get(`/grants/${id}`)
         .then((res) => {
           expect(res.status).toBe(200);
-          expect(res.body.name).toBe("grant_read");
+          expect(res.body.name).toBe("grant_readonly");
           expect(res.body.description).toBeDefined();
           expect(res.body).not.toHaveProperty("id");
         });
