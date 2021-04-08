@@ -231,7 +231,7 @@ describe("Project actions", () => {
       .then((res) => {
         expect(res.status).toBe(200);
         expect(res.body).toHaveLength(1);
-        expect(res.body[0]).toEqual({
+        expect(res.body[0]).toMatchObject({
           name: "University Projects Manager",
           department: null,
           type: "Informal",

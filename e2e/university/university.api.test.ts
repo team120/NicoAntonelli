@@ -23,6 +23,7 @@ describe("University actions", () => {
         .get(`/universities/${id}`)
         .then((res) => {
           expect(res.status).toBe(200);
+          expect(res.body.id).toBe(id);
           expect(res.body.name).toBe("UNR");
         });
     });

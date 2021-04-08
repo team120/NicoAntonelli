@@ -1,7 +1,6 @@
 import api from "../../src/server";
 import request from "supertest";
 import { setupCreateAndTeardownTestDb } from "../common/setup.util";
-import { Department } from "../../src/entities/department/department.model";
 
 setupCreateAndTeardownTestDb();
 
@@ -24,6 +23,7 @@ describe("Departments actions", () => {
         .get(`/departments/${id}`)
         .then((res) => {
           expect(res.status).toBe(200);
+          expect(res.body.id).toBe(id);
           expect(res.body.name).toBe("Ingeniería Química");
           expect(res.body.university).toBeDefined();
           expect(res.body.university.name).toBe("UTN");
