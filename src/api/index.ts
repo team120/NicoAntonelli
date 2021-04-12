@@ -5,6 +5,7 @@ import usersRoutes from "./user/user.route";
 import projectRoutes from "./project/project.route";
 import departmentRoutes from "./department/department.route";
 import grantRoutes from "./grant/grant.route"
+import defaultRoleRoutes from "./default_role/default-role.route"
 
 const router = Router();
 
@@ -14,5 +15,6 @@ router.use("/users", usersRoutes);
 router.use("/projects", projectRoutes);
 router.use("/departments", departmentRoutes);
 router.use("/grants", grantRoutes)
+router.use("/default-roles", defaultRoleRoutes)
 
 export default router;

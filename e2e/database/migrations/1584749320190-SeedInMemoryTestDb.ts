@@ -106,11 +106,13 @@ export class SeedDb1590967789743 implements MigrationInterface {
     const defaultRoles: DefaultRole[] = [
       defaultRoleRepo.create({
         name: "Member",
+        description: "Simple member",
         inResearchPack: false,
         grants: grantsForMember,
       }),
       defaultRoleRepo.create({
         name: "Admin",
+        description: "Group Administrator",
         inResearchPack: false,
         grants: grantsForAdmin,
       })

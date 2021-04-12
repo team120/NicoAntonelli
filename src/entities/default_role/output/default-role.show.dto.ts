@@ -8,5 +8,6 @@ export class DefaultRoleDto {
   @Expose()
   description: string;
   @Expose()
-  grants: GrantShowDto[]
+  @Type(() => GrantShowDto)
+  grants: GrantShowDto[];
 }
