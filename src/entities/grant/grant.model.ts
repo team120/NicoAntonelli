@@ -2,8 +2,9 @@ import {
     PrimaryGeneratedColumn,
     Column,
     Entity,
+    ManyToOne,
   } from "typeorm";
-
+import { DefaultRole } from "../default_role/default-role.model"
   
   @Entity()
   export class Grant {
@@ -13,5 +14,7 @@ import {
     name: string;
     @Column()
     description: string;
+    @ManyToOne((type) => DefaultRole, (defaultRole) => defaultRole.grants)
+    defaultRole: DefaultRole
   }
   
