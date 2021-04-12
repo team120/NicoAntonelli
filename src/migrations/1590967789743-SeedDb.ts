@@ -5,6 +5,7 @@ import { User } from "../entities/user/user.model";
 import { hashPassword } from "../utils/auth/auth.utils";
 import { UserToProjects } from "../entities/users_projects/users-projects.model";
 import { Department } from "../entities/department/department.model";
+import { Grant } from "../entities/grant/grant.model";
 
 export class SeedDb1590967789743 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
@@ -13,6 +14,7 @@ export class SeedDb1590967789743 implements MigrationInterface {
     const projectRepo = getRepository(Project);
     const userToProjectsRepo = getRepository(UserToProjects);
     const departmentRepo = getRepository(Department);
+    const grantRepo = getRepository(Grant);
 
     const universities: University[] = [
       universityRepo.create({ name: "UTN" }),
@@ -45,6 +47,47 @@ export class SeedDb1590967789743 implements MigrationInterface {
     ];
 
     await departmentRepo.save(departments);
+
+    const grants: Grant[] = [
+      grantRepo.create({
+        name: "grant_member_add",
+        description: "Add members to the project",
+      }),
+      grantRepo.create({
+        name: "grant_member_delete",
+        description: "Remove members from the project",
+      }),
+      grantRepo.create({
+        name: "grant_member_editRole",
+        description: "Edit roles from users",
+      }),
+      grantRepo.create({
+        name: "grant_customRole_add",
+        description: "Add a custom role to the project",
+      }),
+      grantRepo.create({
+        name: "grant_customRole_edit",
+        description: "Edit a custom role from the project",
+      }),
+      grantRepo.create({
+        name: "grant_customRole_delete",
+        description: "Remove a custom role from the project",
+      }),
+      grantRepo.create({
+        name: "grant_publication_readonly",
+        description: "Readonly access to publications",
+      }),
+      grantRepo.create({
+        name: "grant_publication_readwrite",
+        description: "Read, add and edit publications",
+      }), 
+      grantRepo.create({
+        name: "grant_publication_delete",
+        description: "Remove publications from project",
+      }),
+    ];
+
+    await grantRepo.save(grants);
 
     const projects: Project[] = [
       projectRepo.create({
@@ -122,6 +165,7 @@ export class SeedDb1590967789743 implements MigrationInterface {
     const projectRepo = getRepository(Project);
     const userToProjectsRepo = getRepository(UserToProjects);
     const departmentRepo = getRepository(Department);
+    const grantsRepo = getRepository(Grant);
 
     const usersToRemove = await usersRepo.find({
       where: [
@@ -159,5 +203,13 @@ export class SeedDb1590967789743 implements MigrationInterface {
     });
 
     await departmentRepo.remove(departmentsToRemove);
+
+    const grantsToRemove = await grantsRepo.find({
+      where: [
+        { name: "grant_" },
+      ],
+    });
+
+    await grantsRepo.remove(grantsToRemove);
   }
 }

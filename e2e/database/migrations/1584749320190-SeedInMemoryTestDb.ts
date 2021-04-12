@@ -53,16 +53,40 @@ export class SeedDb1590967789743 implements MigrationInterface {
 
     const grants: Grant[] = [
       grantRepo.create({
-        name: "grant_readonly",
-        description: "User is only allowed to read",
+        name: "grant_member_add",
+        description: "Add members to the project",
       }),
       grantRepo.create({
-        name: "grant_readwrite",
-        description: "User has read and write grants",
+        name: "grant_member_delete",
+        description: "Remove members from the project",
       }),
       grantRepo.create({
-        name: "grant_all",
-        description: "User has all grants",
+        name: "grant_member_editRole",
+        description: "Edit roles from users",
+      }),
+      grantRepo.create({
+        name: "grant_customRole_add",
+        description: "Add a custom role to the project",
+      }),
+      grantRepo.create({
+        name: "grant_customRole_edit",
+        description: "Edit a custom role from the project",
+      }),
+      grantRepo.create({
+        name: "grant_customRole_delete",
+        description: "Remove a custom role from the project",
+      }),
+      grantRepo.create({
+        name: "grant_publication_readonly",
+        description: "Readonly access to publications",
+      }),
+      grantRepo.create({
+        name: "grant_publication_readwrite",
+        description: "Read, add and edit publications",
+      }), 
+      grantRepo.create({
+        name: "grant_publication_delete",
+        description: "Remove publications from project",
       }),
     ];
 
@@ -185,9 +209,7 @@ export class SeedDb1590967789743 implements MigrationInterface {
 
     const grantsToRemove = await grantsRepo.find({
       where: [
-        { name: "grant_readonly"},
-        { name: "grant_readwrite"},
-        { name: "grant_all"},
+        { name: "grant_" },
       ],
     });
 
