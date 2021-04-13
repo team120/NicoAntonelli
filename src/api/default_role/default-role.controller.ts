@@ -1,4 +1,6 @@
+import { plainToClass } from "class-transformer";
 import { NextFunction, Request, Response } from "express";
+import { DefaultRoleFindDto } from "../../entities/default-role/input/default-role.find.dto";
 
 import * as defaultRoleService from "../../services/default-role/default-role.logic.setup";
 
@@ -9,7 +11,7 @@ export const getDefaultRoles = (
   next: NextFunction,
 ): void => {
     defaultRoleService
-    .getDefaultRoles()
+    .getDefaultRoles(plainToClass(DefaultRoleFindDto, req.query))
     .then((defaultRoles) => {
       res.status(200).json(defaultRoles);
     })

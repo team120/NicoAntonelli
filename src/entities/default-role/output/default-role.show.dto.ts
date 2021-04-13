@@ -1,4 +1,4 @@
-import { Exclude, Expose, Type } from "class-transformer";
+import { Exclude, Expose, Type , Transform, plainToClass} from "class-transformer";
 import { GrantShowDto } from "../../grant/output/grant.show.dto";
 
 @Exclude()
@@ -7,7 +7,10 @@ export class DefaultRoleDto {
   name: string;
   @Expose()
   description: string;
-  @Expose()
-  @Type(() => GrantShowDto)
+
+  @Expose({ name: "grantsToDefaultRoles" })
+  @Transform(({ value }) =>
+    value.map((e: any) => plainToClass(GrantShowDto, e.grant)),
+  )
   grants: GrantShowDto[];
 }
