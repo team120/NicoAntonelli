@@ -53,7 +53,7 @@ export class SeedDb1590967789743 implements MigrationInterface {
 
     await departmentRepo.save(departments);
 
-    const grants: Grant[] = [
+    const grantList: Grant[] = [
       grantRepo.create({
         name: "grant_member_add",
         description: "Add members to the project",
@@ -92,7 +92,7 @@ export class SeedDb1590967789743 implements MigrationInterface {
       }),
     ];
 
-    await grantRepo.save(grants);
+    await grantRepo.save(grantList);
 
     const grantsForMember: Grant[] = await grantRepo.find({
       where: [
@@ -101,14 +101,14 @@ export class SeedDb1590967789743 implements MigrationInterface {
       ],
     });
 
-    const grantsForAdmin: Grant[] = grants;
+    const grantsForAdmin: Grant[] = grantList;
 
     const defaultRoles: DefaultRole[] = [
       defaultRoleRepo.create({
         name: "Member",
         description: "Simple member",
         inResearchPack: false,
-        grants: grantsForMember,
+        grants: [grantList[0], grantList[1], grantList[6]],
       }),
       defaultRoleRepo.create({
         name: "Admin",
