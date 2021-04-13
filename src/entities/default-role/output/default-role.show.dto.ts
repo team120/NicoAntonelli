@@ -11,8 +11,6 @@ export class DefaultRoleDto {
   @Transform(({ value }) => value === "true")
   inResearchPack: boolean;
   @Expose()
-  @Transform(({ value }) =>
-    value.map((e: any) => plainToClass(GrantShowDto, e.grant)),
-  )
+  @Type(() => GrantShowDto)
   grants: GrantShowDto[];
 }
