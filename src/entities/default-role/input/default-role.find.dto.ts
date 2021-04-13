@@ -1,11 +1,15 @@
 import { Exclude, Expose, Transform } from "class-transformer";
+import { Type, TypeOfExpression } from "typescript";
+
+const type = new Map([
+  ["undefined", undefined],
+  ["true", true],
+  ["false", false],
+]);
 
 @Exclude()
 export class DefaultRoleFindDto {
   @Expose()
-  @Transform(({ value }) => value === "true")
-  inResearchPack: boolean;
-  @Expose()
-  @Transform(({ value }) => value === "true")
-  inAscendingOrder: boolean;
+  @Transform(({ value }) => { type.get(value) })
+  inResearchPack: typeof type;
 }
