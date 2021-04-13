@@ -13,12 +13,11 @@ export const findDefaultRoles: IFindDefaultRoles = (
     const query = getRepository(DefaultRole)
     .createQueryBuilder("defaultRole")
     .innerJoinAndSelect("defaultRole.grants", "grant");
-    console.log(whereValues);
     
     if(whereValues.inResearchPack !== undefined){
       console.log(whereValues);
       query.where("defaultRole.inResearchPack = :inResearchPack", {
-        inResearchPack: whereValues.inResearchPack.get
+        inResearchPack: whereValues.inResearchPack
       });
     }
   

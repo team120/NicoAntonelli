@@ -10,6 +10,6 @@ const type = new Map([
 @Exclude()
 export class DefaultRoleFindDto {
   @Expose()
-  @Transform(({ value }) => { type.get(value) })
-  inResearchPack: typeof type;
+  @Transform(({ value }) => value = type.get(value))
+  inResearchPack: boolean;
 }
