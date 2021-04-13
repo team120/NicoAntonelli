@@ -7,8 +7,10 @@ export class DefaultRoleDto {
   name: string;
   @Expose()
   description: string;
-
-  @Expose({ name: "grantsToDefaultRoles" })
+  @Expose()
+  @Transform(({ value }) => value === "true")
+  inResearchPack: boolean;
+  @Expose()
   @Transform(({ value }) =>
     value.map((e: any) => plainToClass(GrantShowDto, e.grant)),
   )

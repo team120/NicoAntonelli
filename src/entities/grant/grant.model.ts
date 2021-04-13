@@ -3,8 +3,9 @@ import {
     Column,
     Entity,
     OneToMany,
+    ManyToMany,
   } from "typeorm";
-import { GrantsToDefaultRoles } from "../grants_default-roles/grants-default-roles.model";
+import { DefaultRole } from "../default-role/default-role.model";
   
   @Entity()
   export class Grant {
@@ -14,7 +15,7 @@ import { GrantsToDefaultRoles } from "../grants_default-roles/grants-default-rol
     name: string;
     @Column()
     description: string;
-    @OneToMany((type) => GrantsToDefaultRoles, (grantToDefaultRole) => grantToDefaultRole.grant)
-    grantsToDefaultRoles: GrantsToDefaultRoles[];
+    @ManyToMany(type => DefaultRole, defaultRole => defaultRole.grants)
+    defaultRoles: DefaultRole[]
   }
   

@@ -7,6 +7,15 @@ import * as queryTypes from "../../utils/common/common.query.interface";
 import { DefaultRoleFindDto } from "../../entities/default-role/input/default-role.find.dto";
 
 export const getDefaultRolesLogic = (
+  getRolesQuery: IFindDefaultRoles,
+) => async (whereValues: DefaultRoleFindDto): Promise<DefaultRoleDto[]> =>
+  getRolesQuery(whereValues).then((defaultRoles) =>
+    defaultRoles.map((defaultRole) =>
+      plainToClass(DefaultRoleDto, defaultRole),
+    ),
+  );
+
+/*export const getDefaultRolesLogic = (
   findDefaultRolesQuery: IFindDefaultRoles,
 ) => async (whereValues: DefaultRoleFindDto): Promise<DefaultRoleDto[]> =>
   findDefaultRolesQuery(whereValues).then((defaultRoles) =>
@@ -14,3 +23,4 @@ export const getDefaultRolesLogic = (
       plainToClass(DefaultRoleDto, defaultRole),
     ),
   );
+*/
