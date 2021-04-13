@@ -7,7 +7,6 @@ import { UserToProjects } from "../entities/users_projects/users-projects.model"
 import { Department } from "../entities/department/department.model";
 import { Grant } from "../entities/grant/grant.model";
 import { DefaultRole } from "../entities/default-role/default-role.model";
-import { GrantsToDefaultRoles } from "../entities/grants_default-roles/grants-default-roles.model";
 
 export class SeedDb1590967789743 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
@@ -18,7 +17,6 @@ export class SeedDb1590967789743 implements MigrationInterface {
     const departmentRepo = getRepository(Department);
     const grantRepo = getRepository(Grant);
     const defaultRoleRepo = getRepository(DefaultRole);
-    const grantToDefaultRoleRepo = getRepository(GrantsToDefaultRoles);
 
     const universities: University[] = [
       universityRepo.create({ name: "UTN" }),
@@ -106,7 +104,7 @@ export class SeedDb1590967789743 implements MigrationInterface {
         { name: "grant_member_delete" },
         { name: "grant_member_editRole" },
         { name: "grant_publication_readonly" },
-        { name: "grant_publication_readwrite" }
+        { name: "grant_publication_readwrite" },
       ],
     });
 
@@ -117,49 +115,24 @@ export class SeedDb1590967789743 implements MigrationInterface {
         name: "Member",
         description: "Simple member",
         inResearchPack: false,
+        grants: [grantList[0], grantList[1]],
       }),
       defaultRoleRepo.create({
         name: "Admin",
         description: "Group Administrator",
         inResearchPack: false,
+        grants: grantsForAdmin,
       }),
       defaultRoleRepo.create({
         name: "Director",
         description: "Project Director nigga",
         inResearchPack: true,
+        grants: grantsForDirector,
       }),
     ];
 
     await defaultRoleRepo.save(defaultRoles);
-
-    const grantsToDefaultRoles: GrantsToDefaultRoles[] = [];
-    grantsForMember.map((gr) => {
-      grantsToDefaultRoles.push(
-        grantToDefaultRoleRepo.create({
-          grant: gr,
-          defaultRole: defaultRoles[0],
-        }),
-      );
-    });
-    grantsForAdmin.map((gr) => {
-      grantsToDefaultRoles.push(
-        grantToDefaultRoleRepo.create({
-          grant: gr,
-          defaultRole: defaultRoles[1],
-        }),
-      );
-    });
-    grantsForDirector.map((gr) => {
-      grantsToDefaultRoles.push(
-        grantToDefaultRoleRepo.create({
-          grant: gr,
-          defaultRole: defaultRoles[2],
-        }),
-      );
-    });
-
-    await grantToDefaultRoleRepo.save(grantsToDefaultRoles);
-
+    
     const projects: Project[] = [
       projectRepo.create({
         name:
@@ -228,7 +201,6 @@ export class SeedDb1590967789743 implements MigrationInterface {
     ];
 
     await userToProjectsRepo.save(usersToProjects);
-
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {
