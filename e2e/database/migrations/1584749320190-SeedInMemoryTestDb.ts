@@ -8,10 +8,11 @@ import { University } from "../../../src/entities/university/university.model";
 import { User } from "../../../src/entities/user/user.model";
 import { UserToProjects } from "../../../src/entities/users_projects/users-projects.model";
 import { hashPassword } from "../../../src/utils/auth/auth.utils";
-import { Grant } from "../../../src/entities/grant/grant.model"
-import { DefaultRole } from "../../../src/entities/default_role/default-role.model";
+import { Grant } from "../../../src/entities/grant/grant.model";
+import { DefaultRole } from "../../../src/entities/default-role/default-role.model";
+import { GrantsToDefaultRoles } from "../../../src/entities/grants_default-roles/grants-default-roles.model";
 
-export class SeedDb1590967789743 implements MigrationInterface {
+export class SeedDb1590954544555 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
     const usersRepo = getRepository(User);
     const universityRepo = getRepository(University);
@@ -20,6 +21,7 @@ export class SeedDb1590967789743 implements MigrationInterface {
     const departmentRepo = getRepository(Department);
     const grantRepo = getRepository(Grant);
     const defaultRoleRepo = getRepository(DefaultRole);
+    const grantToDefaultRoleRepo = getRepository(GrantsToDefaultRoles);
 
     const universities: University[] = [
       universityRepo.create({ name: "UTN" }),
@@ -85,7 +87,7 @@ export class SeedDb1590967789743 implements MigrationInterface {
       grantRepo.create({
         name: "grant_publication_readwrite",
         description: "Read, add and edit publications",
-      }), 
+      }),
       grantRepo.create({
         name: "grant_publication_delete",
         description: "Remove publications from project",
@@ -101,24 +103,65 @@ export class SeedDb1590967789743 implements MigrationInterface {
       ],
     });
 
-    const grantsForAdmin: Grant[] = grantList;
+    const grantsForAdmin: Grant[] = await grantRepo.find({
+      where: [
+        { name: "grant_member_add" },
+        { name: "grant_member_delete" },
+        { name: "grant_member_editRole" },
+        { name: "grant_publication_readonly" },
+        { name: "grant_publication_readwrite" },
+      ],
+    });
+
+    const grantsForDirector: Grant[] = grantList;
 
     const defaultRoles: DefaultRole[] = [
       defaultRoleRepo.create({
         name: "Member",
         description: "Simple member",
         inResearchPack: false,
-        grants: [grantList[0], grantList[1], grantList[6]],
       }),
       defaultRoleRepo.create({
         name: "Admin",
         description: "Group Administrator",
         inResearchPack: false,
-        grants: grantsForAdmin,
-      })
+      }),
+      defaultRoleRepo.create({
+        name: "Director",
+        description: "Project Director nigga",
+        inResearchPack: true,
+      }),
     ];
 
     await defaultRoleRepo.save(defaultRoles);
+
+    const grantsToDefaultRoles: GrantsToDefaultRoles[] = [];
+    grantsForMember.map((gr) => {
+      grantsToDefaultRoles.push(
+        grantToDefaultRoleRepo.create({
+          grant: gr,
+          defaultRole: defaultRoles[0],
+        }),
+      );
+    });
+    grantsForAdmin.map((gr) => {
+      grantsToDefaultRoles.push(
+        grantToDefaultRoleRepo.create({
+          grant: gr,
+          defaultRole: defaultRoles[1],
+        }),
+      );
+    });
+    grantsForDirector.map((gr) => {
+      grantsToDefaultRoles.push(
+        grantToDefaultRoleRepo.create({
+          grant: gr,
+          defaultRole: defaultRoles[2],
+        }),
+      );
+    });
+
+    await grantToDefaultRoleRepo.save(grantsToDefaultRoles);
 
     const projects: Project[] = [
       projectRepo.create({
@@ -237,19 +280,14 @@ export class SeedDb1590967789743 implements MigrationInterface {
     await departmentRepo.remove(departmentsToRemove);
 
     const defaultRolesToRemove = await defaultRoleRepo.find({
-      where: [
-        {name: "Member"},
-        {name: "Admin"},
-      ]
+      where: [{ name: "Member" }, { name: "Admin" }, { name: "Director" }],
     });
     await defaultRoleRepo.remove(defaultRolesToRemove);
 
     const grantsToRemove = await grantsRepo.find({
-      where: [
-        { name: "grant_" },
-      ],
+      where: [{ name: "grant_" }],
     });
-    
+
     await grantsRepo.remove(grantsToRemove);
   }
 }
