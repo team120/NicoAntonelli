@@ -2,9 +2,9 @@ import {
     PrimaryGeneratedColumn,
     Column,
     Entity,
-    ManyToOne,
+    OneToMany,
   } from "typeorm";
-import { DefaultRole } from "../default_role/default-role.model"
+import { GrantsToDefaultRoles } from "../grants_default-roles/grants-default-roles.model";
   
   @Entity()
   export class Grant {
@@ -14,7 +14,7 @@ import { DefaultRole } from "../default_role/default-role.model"
     name: string;
     @Column()
     description: string;
-    @ManyToOne((type) => DefaultRole, (defaultRole) => defaultRole.grants)
-    defaultRole: DefaultRole
+    @OneToMany((type) => GrantsToDefaultRoles, (grantToDefaultRole) => grantToDefaultRole.grant)
+    grantsToDefaultRoles: GrantsToDefaultRoles[];
   }
   

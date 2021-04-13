@@ -6,6 +6,7 @@ import {
     OneToMany,
   } from "typeorm";
 import { Grant } from "../grant/grant.model";
+import { GrantsToDefaultRoles } from "../grants_default-roles/grants-default-roles.model";
   
   @Entity()
   export class DefaultRole {
@@ -18,8 +19,8 @@ import { Grant } from "../grant/grant.model";
     @Column()
     // TODO Redefine variable name
     inResearchPack: boolean;
-    @OneToMany((type) => Grant, (grant) => grant.defaultRole)
-    grants: Grant[]
+    @OneToMany((type) => GrantsToDefaultRoles, (grantToDefaultRole) => grantToDefaultRole.defaultRole)
+    grantsToDefaultRoles: GrantsToDefaultRoles[];
 
   }
   
