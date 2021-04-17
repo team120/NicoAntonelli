@@ -15,12 +15,9 @@ export const getDefaultRolesLogic = (
     ),
   );
 
-/*export const getDefaultRolesLogic = (
-  findDefaultRolesQuery: IFindDefaultRoles,
-) => async (whereValues: DefaultRoleFindDto): Promise<DefaultRoleDto[]> =>
-  findDefaultRolesQuery(whereValues).then((defaultRoles) =>
-    defaultRoles.map((defaultRole) =>
-      plainToClass(DefaultRoleDto, defaultRole),
-    ),
+export const getOneDefaultRoleLogic = (
+  getOneQuery: queryTypes.getOneQueryFunc,
+) => (id: number): Promise<DefaultRoleDto> =>
+  getOneQuery(DefaultRole, id, ["grants"]).then((defaultRole) =>
+    plainToClass(DefaultRoleDto, defaultRole),
   );
-*/

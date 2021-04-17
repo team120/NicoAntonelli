@@ -10,10 +10,24 @@ export const getDefaultRoles = (
   res: Response,
   next: NextFunction,
 ): void => {
-    defaultRoleService
+  defaultRoleService
     .getDefaultRoles(plainToClass(DefaultRoleFindDto, req.query))
     .then((defaultRoles) => {
       res.status(200).json(defaultRoles);
+    })
+    .catch((err) => next(err));
+};
+
+// Get one
+export const getOneDefaultRole = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): void => {
+  defaultRoleService
+    .getOneDefaultRole(Number(req.params.id))
+    .then((defaultRole) => {
+      res.status(200).json(defaultRole);
     })
     .catch((err) => next(err));
 };

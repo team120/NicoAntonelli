@@ -8,7 +8,7 @@ export class DefaultRoleDto {
   @Expose()
   description: string;
   @Expose()
-  @Transform(({ value }) => value === "true")
+  @Transform(({ value }) => value === true)
   inResearchPack: boolean;
   @Expose()
   @Type(() => GrantShowDto)
