@@ -1,18 +1,14 @@
-import {
-    PrimaryGeneratedColumn,
-    Column,
-    Entity,
-  } from "typeorm";
-  
-  @Entity()
-  export class Role {
-    @PrimaryGeneratedColumn()
-    id: number;
-    @Column()
-    name: string;
-    @Column()
-    description: string;
-    @Column()
-    projectId: number;
-  }
-  
+import { PrimaryGeneratedColumn, Column, Entity, ManyToOne } from "typeorm";
+import { Project } from "../project/project.model";
+
+@Entity()
+export class Role {
+  @PrimaryGeneratedColumn()
+  id: number;
+  @Column()
+  name: string;
+  @Column()
+  description: string;
+  @ManyToOne((type) => Project, (project) => project.roles)
+  project: Project;
+}

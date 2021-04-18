@@ -7,6 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Department } from "../department/department.model";
+import { Role } from "../role/role.model";
 import { UserToProjects } from "../users_projects/users-projects.model";
 
 export enum ProjectType {
@@ -37,4 +38,6 @@ export class Project {
     { nullable: false, cascade: ["insert", "update"], onUpdate: "CASCADE" },
   )
   userToProjects: UserToProjects[];
+  @OneToMany(() => Role, (role) => role.project)
+  roles: Role[];
 }

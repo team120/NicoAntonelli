@@ -6,8 +6,11 @@ export type IFindRolesByProjectId = (id: number) => Promise<Role[]>;
 export const findRolesByProjectId: IFindRolesByProjectId = (
   id: number,
 ): Promise<Role[]> => {
-  return getRepository(Role)
+  const query = getRepository(Role)
     .createQueryBuilder("role")
-    .where(`role.projectId = ${id}`)
-    .getMany();
+    .innerJoin("role.project", "project")
+    .where("project.id = :prid", {
+      prid: id,
+    });
+  return query.getMany();
 };

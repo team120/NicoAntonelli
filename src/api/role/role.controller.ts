@@ -11,7 +11,7 @@ export const getRolesByProjectId = (
   next: NextFunction,
 ): void => {
   roleService
-    .getRolesByProjectId(Number(req.params.id))
+    .getRolesByProjectId(Number(req.params.projectId))
     .then((defaultRoles) => {
       res.status(200).json(defaultRoles);
     })
