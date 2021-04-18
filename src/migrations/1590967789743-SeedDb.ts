@@ -1,5 +1,5 @@
 import { Project, ProjectType } from "../entities/project/project.model";
-import { MigrationInterface, QueryRunner, getRepository } from "typeorm";
+import { MigrationInterface, QueryRunner, getRepository, Like } from "typeorm";
 import { University } from "../entities/university/university.model";
 import { User } from "../entities/user/user.model";
 import { hashPassword } from "../utils/auth/auth.utils";
@@ -7,6 +7,7 @@ import { UserToProjects } from "../entities/users_projects/users-projects.model"
 import { Department } from "../entities/department/department.model";
 import { Grant } from "../entities/grant/grant.model";
 import { DefaultRole } from "../entities/default-role/default-role.model";
+import { Role } from "../entities/role/role.model";
 
 export class SeedDb1590967789743 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
@@ -17,6 +18,7 @@ export class SeedDb1590967789743 implements MigrationInterface {
     const departmentRepo = getRepository(Department);
     const grantRepo = getRepository(Grant);
     const defaultRoleRepo = getRepository(DefaultRole);
+    const roleRepo = getRepository(Role);
 
     const universities: University[] = [
       universityRepo.create({ name: "UTN" }),
@@ -113,26 +115,38 @@ export class SeedDb1590967789743 implements MigrationInterface {
     const defaultRoles: DefaultRole[] = [
       defaultRoleRepo.create({
         name: "Member",
-        description: "Simple member",
+        description: "Miembro del grupo",
         inResearchPack: false,
         grants: [grantList[0], grantList[1]],
       }),
       defaultRoleRepo.create({
         name: "Admin",
-        description: "Group Administrator",
+        description: "Administrador del grupo",
         inResearchPack: false,
         grants: grantsForAdmin,
       }),
       defaultRoleRepo.create({
+        name: "Creator",
+        description: "Creador del grupo",
+        inResearchPack: false,
+        grants: grantList,
+      }),
+      defaultRoleRepo.create({
         name: "Director",
-        description: "Project Director nigga",
+        description: "Director del proyecto",
         inResearchPack: true,
         grants: grantsForDirector,
+      }),
+      defaultRoleRepo.create({
+        name: "Investigador formado",
+        description: "Descripcion de investigador formado",
+        inResearchPack: true,
+        grants: grantsForAdmin,
       }),
     ];
 
     await defaultRoleRepo.save(defaultRoles);
-    
+
     const projects: Project[] = [
       projectRepo.create({
         name:
@@ -201,6 +215,26 @@ export class SeedDb1590967789743 implements MigrationInterface {
     ];
 
     await userToProjectsRepo.save(usersToProjects);
+
+    const roles: Role[] = [
+      roleRepo.create({
+        name: "CustomRole1 for Project 1",
+        description: "Descripcion de Rol Custom 1",
+        project: projects[0],
+      }),
+      roleRepo.create({
+        name: "CustomRole2 for Project 1",
+        description: "Descripcion de Rol Custom 2",
+        project: projects[0],
+      }),
+      roleRepo.create({
+        name: "CustomRole1 for Project 2",
+        description: "Descripcion de Rol Custom 1",
+        project: projects[1],
+      }),
+    ];
+
+    await roleRepo.save(roles);
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {
@@ -255,7 +289,7 @@ export class SeedDb1590967789743 implements MigrationInterface {
     await defaultRoleRepo.remove(defaultRolesToRemove);
 
     const grantsToRemove = await grantsRepo.find({
-      where: [{ name: "grant_" }],
+      where: [{ name: Like("grant_%") }],
     });
 
     await grantsRepo.remove(grantsToRemove);
