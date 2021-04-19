@@ -8,9 +8,8 @@ export const findRolesByProjectId: IFindRolesByProjectId = (
 ): Promise<Role[]> => {
   const query = getRepository(Role)
     .createQueryBuilder("role")
-    .innerJoin("role.project", "project")
-    .where("project.id = :prid", {
-      prid: id,
+    .where("role.project.id = :projectId", {
+      projectId: id,
     });
   return query.getMany();
 };
