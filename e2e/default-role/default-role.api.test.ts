@@ -11,8 +11,7 @@ describe("Default Roles actions", () => {
         .get("/default-roles")
         .then((res) => {
           expect(res.status).toBe(200);
-          expect(res.body).toHaveLength(3);
-          expect(res.body).not.toHaveProperty("id");
+          expect(res.body).toHaveLength(5);
         });
     });
   });
@@ -23,8 +22,7 @@ describe("Default Roles actions", () => {
         .get(`/default-roles?inResearchPack=${inResearchPack}`)
         .then((res) => {
           expect(res.status).toBe(200);
-          expect(res.body).toHaveLength(2);
-          expect(res.body).not.toHaveProperty("id");
+          expect(res.body).toHaveLength(3);
           expect(res.body[0].name).toBe("Member");
         });
     });
@@ -36,7 +34,7 @@ describe("Default Roles actions", () => {
         .get(`/default-roles?inResearchPack=${inResearchPack}`)
         .then((res) => {
           expect(res.status).toBe(200);
-          expect(res.body).toHaveLength(1);
+          expect(res.body).toHaveLength(2);
           expect(res.body[0].name).toBe("Director");
         });
     });

@@ -4,6 +4,8 @@ import { GrantShowDto } from "../../grant/output/grant.show.dto";
 @Exclude()
 export class DefaultRoleDto {
   @Expose()
+  id: number;
+  @Expose()
   name: string;
   @Expose()
   description: string;
